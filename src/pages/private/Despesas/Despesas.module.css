@@ -1,0 +1,84 @@
+.botoesLancarDespesa{
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.botoesLancarDespesa button{width: 49%;}
+
+.botaoLancarDespesa{
+  width: 500px;
+  margin: 20px 0;
+}
+
+.despesa{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: var(--card);
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+  border-radius: 10px;
+}
+
+.selecionado{
+  background-color: rgb(141, 60, 248, 0.15);
+  border: 4px solid rgba(140, 43, 251, 0.18);
+}
+
+.margemDespesa{
+  width: 90%;
+  margin: 20px 0;
+  display: flex;
+  position: relative;
+}
+
+.botaoFechar{
+  right: -10px;
+  top: -10px;
+  position: absolute;
+  cursor: pointer;
+  width: 17.5px;
+  height: 20px;
+}
+
+.margemDespesa div{
+  width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.molduraDia{
+  width: 60px;
+  height: 60px;
+  background-color: rgb(141, 60, 248, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.molduraDia p{
+  margin: 0;
+}
+
+.margemDespesa div p{
+  margin: 0;
+}
+
+.margemDespesa div:nth-child(4) p{
+  font-weight: 400;
+  color: rgb(23, 190, 90);
+}
+
+.despesa div:nth-child(4) button{
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .botoesLancarDespesa, .botaoLancarDespesa{
+    width: 100%;
+  }
+}

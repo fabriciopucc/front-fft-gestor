@@ -1,0 +1,84 @@
+.definirPeriodo{
+  text-align: center;
+}
+
+.containerCompras{
+  width: 500px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  background-color: var(--card);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+.margemContainerCompras{
+  width: 90%;
+  margin: 25px 0;
+}
+
+.compra{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.compra:nth-child(1) p{
+  font-weight: 400;
+}
+
+.compra:nth-child(1) p:nth-child(4), .compra:nth-child(1) p:nth-child(5){
+  width: 20%;
+  text-align: center;
+}
+
+.compra div{
+  display: flex;
+  align-items: center;
+  margin: 10px 0 0 0;
+}
+
+.compra div:nth-child(1), .compra:nth-child(1) p:nth-child(1){
+  width: 12.5%;
+}
+
+.compra div:nth-child(2), .compra:nth-child(1) p:nth-child(2){
+  width: 30%;
+}
+
+.compra div:nth-child(3), .compra:nth-child(1) p:nth-child(3){
+  width: 17.5%;
+}
+
+.compra div p{
+  margin: 0;
+}
+
+.quitado, .acoes{
+  justify-content: center;
+  width: 20%;
+}
+
+.statusQuitado{
+  width: 20px;
+  height: 20px;
+  background-color: var(--erro);
+  border-radius: 5px;
+  margin: 0;
+}
+
+.foiQuitado{
+  background-color: var(--sucesso);
+}
+
+.acoes button{
+  height: 30px;
+}
+
+@media screen and (max-width: 500px){
+  .containerCompras, .definirPeriodo{
+    width: 100%;
+  }
+}

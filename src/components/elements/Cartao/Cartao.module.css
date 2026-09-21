@@ -1,0 +1,139 @@
+.botaoCriarCartao{
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+.cartao {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.cartaoVisual {
+  width: 100%;
+  min-height: 228px;
+  padding: 25px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+.chipCard{
+  margin-left: -20px;
+  margin-bottom: -20px;
+  width: 100px;
+  filter: brightness(100%);
+}
+
+.apelidoCartao {
+  margin-top: auto;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.numeroCartao {
+  margin-top: 14px;
+  letter-spacing: 3px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.informacaoCartao {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.informacaoCartao{
+  margin-top: 15px;
+  width: fit-content;
+}
+
+.informacaoCartao:nth-child(3){margin: 15px 10% 0 10%;}
+
+.tituloInformacao {
+  color: #666;
+  font-size: .95rem;
+}
+
+.valorPrincipal {
+  width: fit-content;
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+}
+
+.valorDisponivel {
+  width: fit-content;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sucesso);
+}
+
+.barraProgresso {
+  margin-top: 5px;
+  width: 100%;
+  height: 12px;
+  background-color: rgb(23, 190, 90, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgb(202, 202, 202);
+}
+
+.barraPreenchida {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.porcentagemUso {
+  margin-top: 8px;
+  color: #777;
+}
+
+.botoesCartao{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.botaoFatura, .botaoAlterarLimite{
+  width: 49%;
+}
+
+.botaoFatura{
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.botaoFatura:hover{
+  filter: brightness(80%);
+}
+
+@media screen and (max-width: 600px) {
+  .containerCartoes, .cartao{width: 100%;}
+
+  .informacaoCartao{
+    width: 100%;
+  }
+
+  .informacaoCartao:nth-child(3){
+    margin: 15px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .cartaoVisual{
+    min-height: 180px;
+  }
+}

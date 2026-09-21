@@ -1,0 +1,26 @@
+.containerMeuPerfil{
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dadosUsuario{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 7.5px;
+  margin-bottom: 20px;
+  border: 1px solid var(--borda);
+  background-color: #fff;
+}
+
+.dadosUsuario p{
+  font-size: 14px;
+  margin: 0 0 0 20px;
+  color: silver;
+}
+
+@media screen and (max-width: 600px) {
+  .containerMeuPerfil{width: 100%;}
+}

@@ -1,0 +1,28 @@
+.containerListaDeEntidade{
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.horizontal{
+  flex-direction: row;
+}
+
+.semMargemSuperior{
+  margin-top: 0;
+}
+
+.comMargem{
+  width: 450px;
+  margin: 30px 0;
+}
+
+@media screen and (max-width: 600px){
+  .containerListaDeEntidade{
+    width: 100%;
+  }
+
+  .horizontal{justify-content: space-between;}
+}

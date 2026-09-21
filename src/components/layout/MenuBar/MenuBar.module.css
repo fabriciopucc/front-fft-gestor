@@ -1,0 +1,89 @@
+.sobreporMenuBar{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.33);
+  left: -100%;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.menuBar{
+  width: 25%;
+  height: 100vh;
+  top: 0;
+  left: -100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  background-color: var(--primaria);
+  transition: 0.5s;
+  z-index: 1;
+}
+
+.menuBar:checked~.sobreporMenuBar, .menuBar:checked~.menuBar{
+  left: 0;
+}
+
+.margemMenuBar{
+  width: 90%;
+  margin: 30px 0;
+  height: 95vh;
+}
+
+.sessao{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.sessao p, .linkLogin{
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.linkLogin{
+  text-decoration: none;
+}
+
+.opcoes{
+  display: flex;
+  flex-direction: column;
+}
+
+.opcao{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.opcao:hover{
+  background-color: blueviolet;
+}
+
+.iconMenu{
+  width: 25px;
+  height: 25px;
+  filter: brightness(100%);
+  margin: 0 15px;
+  filter: brightness(0) invert(1);
+}
+
+.opcao p{
+  color: #fff;
+}
+
+@media screen and (max-width: 1000px){
+  .menuBar{width: 50%;}
+}
+
+@media screen and (max-width: 500px){
+  .menuBar{width: 75%;}
+}

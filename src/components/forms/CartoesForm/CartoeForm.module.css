@@ -1,0 +1,57 @@
+.iconFechar{
+  width: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.coresCartao{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.coresCartao p{
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+.coresCartao div{
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  margin: 10px 10px 20px 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+.coresCartao div:hover{
+  filter: brightness(80%);
+}
+
+/*Cores*/
+.roxo{
+  background-color: var(--primaria);
+}
+
+.preto{
+  background: rgb(71, 71, 72);
+}
+
+.azul{
+  background: rgb(3, 108, 228);
+}
+
+.vermelho{
+  background: rgb(170, 34, 34);
+}
+
+.verde{
+  background: rgb(11, 148, 73);
+}
+
+.selecionado{
+  transform: scale(1.3);
+}

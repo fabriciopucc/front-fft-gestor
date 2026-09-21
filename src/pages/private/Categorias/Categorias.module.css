@@ -1,0 +1,65 @@
+.categoria{
+  width: 31%;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 0 0 15px 3%;
+  background-color: var(--card);
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+.categoria:nth-child(3n + 1){
+  margin-left: 0;
+}
+
+.margemCategoria{
+  width: 80%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.botaoFechar{
+  right: -5px;
+  top: -5px;
+  position: absolute;
+  cursor: pointer;
+  width: 17.5px;
+  height: 20px;
+}
+
+.molduraIcone{
+  width: 55px;
+  height: 55px;
+  background-color: rgb(141, 60, 248, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.molduraIcone img{
+  width: 35px;
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+}
+
+.margemCategoria p{
+  font-weight: 400;
+  margin: 10px 0 0 0;
+}
+
+@media screen and (max-width: 600px) {
+  .categoria, .categoria:nth-child(3n + 1){
+    width: 48%;
+    margin: 0 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .categoria, .categoria:nth-child(3n + 1){
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+}

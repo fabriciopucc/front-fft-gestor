@@ -1,0 +1,27 @@
+.seletorConteudo{
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 40px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seletorConteudo span{
+  cursor: pointer;
+  margin: 10px 15px;
+}
+
+.selecionado{
+  padding: 7.5px;
+  background-color: var(--sucesso);
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+@media screen and (max-width: 600px) {
+  .seletorConteudo{
+    width: 100%;
+  }
+}

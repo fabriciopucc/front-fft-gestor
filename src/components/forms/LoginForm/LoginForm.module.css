@@ -1,0 +1,22 @@
+.links{
+  width: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.links p{
+  margin: 0;
+  margin-right: 5px;
+}
+
+.txtLink{
+  text-decoration: none;
+  color: var(--primaria);
+  font-weight: 500;
+}
+
+@media screen and (max-width: 600px) {
+  .links{
+    width: 100%;
+  }
+}

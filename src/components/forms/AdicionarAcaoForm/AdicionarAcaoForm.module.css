@@ -1,0 +1,70 @@
+.containerCartoes{
+  margin-bottom: 10px;
+}
+
+.cartao{
+  width: 100%;
+  margin:  0 0 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.selecionarCartao{
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selecionarCartao div{
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primaria);
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.selecionado{
+  background-color: var(--primaria);
+}
+
+.informacoesCartao{
+  width: calc(100% - 50px);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cartao:nth-child(1) .informacoesCartao p{
+  font-weight: 400;
+}
+
+.informacoesCartao p{
+  width: 23%;
+  margin: 0 0 0 1%;
+
+}
+
+.linhaTipoTransacao{
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.linhaTipoTransacao div{
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primaria);
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.linhaTipoTransacao p{
+  margin: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .informacoesCartao p{
+    width: 46%;
+  }
+}

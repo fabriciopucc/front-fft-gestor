@@ -1,0 +1,170 @@
+.escolherExibirConteudo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.escolherExibirConteudo p{
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.selecionado{
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 7.5px;
+  background-color: var(--primaria);
+}
+
+.acao{
+  width: 100%;
+  height: 40px;
+}
+
+.linhaAcao{
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.linhaAcao div{
+  width: 27.5%;
+  display: flex;
+  justify-content: center;
+}
+
+.linhaAcao div:nth-child(1){
+  width: 17.5%;
+}
+
+.acaoNegativa{
+  background-color: rgba(255, 0, 0, 0.075);
+}
+
+.acaoPositiva{
+  background-color: rgba(9, 201, 137, 0.075);
+}
+
+.acaoDeDespesa{
+  background-color: rgb(141, 60, 248, 0.1);
+}
+
+.acaoSelecionada{
+  background-color: rgb(141, 60, 248, 0.2);
+  border: 2px solid rgba(140, 43, 251, 0.18);
+}
+
+.linhaAcao img{
+  width: 25px;
+  height: 25px;
+}
+
+.linhaAcao p{
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.metricas{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.valorBalanco{
+  font-size: 25px;
+  margin: 0;
+}
+
+.balancoPositivo{
+  color: var(--sucesso);
+}
+
+.balancoNegativo{
+  color: var(--erro);
+}
+
+.linhaMetricas{
+  display: flex;
+  margin-top: 10px;
+}
+
+.linhaMetricas p{
+  margin: 0;
+}
+
+.linhaMetricas img, .linhaMetricasCartao img{
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+
+.aviso{
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+}
+
+.containerMetricasCartao{
+  margin-top: 5px;
+  height: auto;
+}
+
+.linhaMetricasCartao{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.apelidoCartao{
+  font-weight: 400;
+  margin: 0;
+}
+
+.metricasCartao{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.comparacaoLimites{
+  display: flex;
+}
+
+.limiteInicial, .limiteAtual{
+  width: 50%;
+  margin: 0;
+  text-align: right;
+}
+
+.limiteAtual{
+  text-align: left;
+}
+
+.valorBalancoCartao{
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.botoesAcoes{
+  margin-top: 20px;
+  margin-bottom: -20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.botoesAcoes button:nth-child(2){
+  margin-left: 10px;
+}
+
+.botoesAcoes button{
+  width: 100%;
+}

@@ -1,0 +1,87 @@
+.iconFechar{
+  width: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.labelTitulo{
+  width: 100%;
+  font-weight: 350;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.containerIcons{
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.centralizarICons{
+  width: 443px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.molduraIcone{
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+  background-color: var(--card);
+  cursor: pointer;
+  margin: 0 2% 20px 2%;
+}
+
+.molduraIcone:hover{
+  filter: brightness(90%);
+}
+
+.molduraIcone img{
+  width: 27.5px;
+}
+
+
+.selecionado, .selecionado:hover{
+  background-color: rgb(141, 60, 248, 0.15);
+}
+
+.selecionado img{
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+}
+
+@media screen and (max-width: 600px) {
+  .containerIcons{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 495px) {
+  .centralizarICons{
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 393px) {
+  .centralizarICons{
+    width: 270px;
+  }
+}
+
+@media screen and (max-width: 301px) {
+  .centralizarICons{
+    width: 192px;
+  }
+}
+
+@media screen and (max-width: 216px) {
+  .centralizarICons{
+    width: 100%;
+    justify-content: space-evenly;
+  }
+}
