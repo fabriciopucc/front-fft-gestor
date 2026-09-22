@@ -24,43 +24,26 @@
 
 .margemSaldo{
   display: flex;
+  position: relative;
   margin: 25px 0;
   width: 90%;
 }
 
-.molduraIcone, .molduraIconeSaldoEmConta{
-  width: 70px;
-  height: 70px;
-  margin: 0 20px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: rgb(141, 60, 248, 0.15);
-}
-
-.molduraIcone img{
-  width: 40px;
+.iconCartao, .iconCarteira{
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 0;
+  top: 0;
   filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
 }
 
 /*Saldo positivo*/
-.molduraIconeSaldoEmConta{
-  background-color: rgb(23, 190, 90, 0.15);
-}
-
-.molduraIconeSaldoEmConta img{
-  width: 40px;
+.iconCarteira{
   filter: invert(65%) sepia(87%) saturate(1200%) hue-rotate(90deg) brightness(88%) contrast(88%);
 }
 
-
-/*Saldo negativo*/
-.molduraIconeNegativa{
-  background-color: rgb(234, 2, 2, 0.15);
-}
-
-.molduraIconeNegativa img{
+.carteiraNegativa{
   filter: invert(47%) sepia(92%) saturate(1200%) hue-rotate(320deg) brightness(105%) contrast(92%);
 }
 
@@ -83,23 +66,25 @@
 .valoresCredito h1{
   color: var(--primaria);
   font-weight: 500;
-  font-size: 32.5px;
+  font-size: 27.5px;
 }
 
 .valoresCredito p{
-  font-size: 15px;
+  font-size: 13px;
   color: rgb(113, 113, 113);
 }
 
 .valoresCredito{
+  width: fit-content;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .valorSaldoEmConta{
   color: rgb(23, 190, 90);
   font-weight: 500;
-  font-size: 30px;
+  font-size: 27.5px;
 }
 
 /*Barra*/

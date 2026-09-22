@@ -22,9 +22,9 @@
 }
 
 .chipCard{
-  margin-left: -20px;
-  margin-bottom: -20px;
-  width: 100px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  width: 55px;
   filter: brightness(100%);
 }
 

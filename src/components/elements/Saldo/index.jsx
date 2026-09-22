@@ -21,9 +21,11 @@ export default function Saldo() {
     <div className={styles.containerSaldo}>
       <div className={styles.saldo}>
         <div className={styles.margemSaldo}>
-          <div className={styles.molduraIcone}>
-            <img src={iconCartao} alt="Icone cartão" />
-          </div>
+          <img 
+            src={iconCartao} 
+            alt="Icone cartão" 
+            className={styles.iconCartao}  
+          />
 
           <div className={styles.divisorDados}>
             <p className={styles.tituloSaldo}>Limites cartões</p>
@@ -63,9 +65,11 @@ export default function Saldo() {
 
     <div className={styles.saldo+" "+styles[(saldo.saldoAtual < 0) ? "cardNegativo" : "cardPositivo"]}>
         <div className={styles.margemSaldo}>
-          <div className={styles.molduraIconeSaldoEmConta+" "+styles[(saldo.saldoAtual < 0) ? "molduraIconeNegativa" : ""]}>
-            <img src={iconCarteira} alt="Icone cartão" />
-          </div>
+           <img 
+            src={iconCarteira} 
+            alt="Icone dinheiro" 
+            className={styles.iconCarteira+" "+styles[(saldo.saldoAtual < 0) ? "carteiraNegativa" : ""]}  
+          />
 
           <div className={styles.divisorDados}>
             <p className={styles.tituloSaldo}>Saldo disponível</p>

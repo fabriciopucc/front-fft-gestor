@@ -21,6 +21,10 @@ export default function Despesas(){
   const [escolherDespesa, setEscolherDespesa] = useState(false);
   const {visibilidadeForm, exibirForm, esconderForm} = useForm();
 
+  const totalDespesas = despesas.reduce((soma, objeto) => {
+    return soma + objeto.valor;
+  }, 0);
+
   return(
     <Container centralizar={true}>
       {
@@ -93,10 +97,13 @@ export default function Despesas(){
         ) : (<></>)
       }
 
+
       <ListaDeEntidade
         lista={despesas}
         textoAlternativo={"Ainda não foram cadastradas as despesas!"}
       >
+        <span className={styles.totalDespesas}>Total: R$ {totalDespesas.toFixed(2)}</span>
+
         {
           despesas.map((despesaDaLista) => (
             <div
