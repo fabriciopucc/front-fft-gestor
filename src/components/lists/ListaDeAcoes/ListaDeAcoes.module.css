@@ -49,10 +49,6 @@
   background-color: rgba(9, 201, 137, 0.075);
 }
 
-.acaoDeDespesa{
-  background-color: rgb(141, 60, 248, 0.1);
-}
-
 .acaoSelecionada{
   background-color: rgb(141, 60, 248, 0.2);
   border: 2px solid rgba(140, 43, 251, 0.18);

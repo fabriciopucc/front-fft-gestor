@@ -1,4 +1,4 @@
-import { useContext,} from "react";
+import { useContext, useState,} from "react";
 import useLoader from "./useLoader";
 import useMessageBox from "./useMessageBox";
 
@@ -15,6 +15,11 @@ const useSaldo = () => {
   const {exibirMessageBox} = useMessageBox();
   const {tratarErro} = useTratarErro();
   const {codigo} = useSessao();
+  const [saldoInicial, setSaldoInicial] = useState(0.0);
+
+  const preecherSaldoInicial = (e) => {
+    setSaldoInicial(e.target.value);
+  }
 
   const definirSaldoInicial = (e) => {
     exibirCardLoader();
@@ -45,7 +50,7 @@ const useSaldo = () => {
     })
   }
 
-  return{saldo, atualizarSaldo, definirSaldoInicial, reiniciarGestao};
+  return{saldoInicial, preecherSaldoInicial, saldo, atualizarSaldo, definirSaldoInicial, reiniciarGestao};
 }
 
 export default useSaldo;

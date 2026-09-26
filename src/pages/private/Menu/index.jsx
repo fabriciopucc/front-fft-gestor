@@ -41,17 +41,35 @@ export default function Menu(){
         Olá, &nbsp; 
         {(sessao.nome.split(" ").length > 1) ? sessao.nome.split(" ")[0] : sessao.nome}
       </h1>
+
+      {
+        sessao.saldoInicial <= 0 && (
+          <span className={styles.avisoInicial}>
+            Inicie sua gestão na aba configuração!! 
+          </span>
+        ) 
+      }
+
       <Saldo/>
 
       <br />
 
       <div className={styles.containerOpcoes}>
         <OpcaoMenu
+          evitarBloqueio={true}
           destino={"/configuracao"}
           srcIcon={iconEngrenagem}
           altIcon={"Icon engrenagem"}
           titulo={"Configuração"}
           txtAlternativo={"Configure sua conta"}
+        />
+
+        <OpcaoMenu
+          destino={"estatisticas"}
+          srcIcon={iconGestao}
+          altIcon={"Icon estatisticas"}
+          titulo={"Estatisticas"}
+          txtAlternativo={"Veja suas estatisticas"}
         />
 
         <OpcaoMenu
@@ -87,6 +105,7 @@ export default function Menu(){
         />
 
         <OpcaoMenu
+          evitarBloqueio={true}
           destino={"/meuPerfil"}
           srcIcon={iconUser}
           altIcon={"Icon user"}

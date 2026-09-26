@@ -7,7 +7,7 @@ import CategoriasForm from '@/components/forms/CategoriasForm';
 
 import useCategorias from '@/hooks/useCategorias.js';
 
-import iconFechar from '@/assets/icons/close.png'
+import iconExcluir from '@/assets/icons/iconExcluir.png'
 import categoriasIcons from '@/constants/categoriasIcons';
 import QuantidadeEntidades from '@/components/utils/QuantidadeEntidades';
 import useForm from '@/hooks/useForm';
@@ -25,6 +25,14 @@ export default function Categorias(){
         tituloPagina={"Categorias"}
       />
 
+      <QuantidadeEntidades
+        lista={categorias}
+        limite={20}
+        nomeEntidade={"categorias"}
+        visibilidadeForm={visibilidadeForm}
+        exibirForm={exibirForm}
+      />
+
       {
         visibilidadeForm && (
           <CategoriasForm
@@ -36,14 +44,6 @@ export default function Categorias(){
           />
         )
       }
-
-      <QuantidadeEntidades
-        lista={categorias}
-        limite={20}
-        nomeEntidade={"categorias"}
-        visibilidadeForm={visibilidadeForm}
-        exibirForm={exibirForm}
-      />
 
       <ListaDeEntidade
         classe={"horizontal"}
@@ -60,11 +60,13 @@ export default function Categorias(){
                 className={styles.margemCategoria}
               >
                 <img 
-                  src={iconFechar} 
-                  alt="Icone fechar" 
-                  className={styles.botaoFechar}
+                  src={iconExcluir} 
+                  alt="Icone excluir" 
+                  className={styles.botaoExcluir}
                   onClick={() => excluirCategoria(categoria.codigo)}  
                 />
+
+                 <p>{categoria.nome}</p>
 
                 <div
                   className={styles.molduraIcone}
@@ -74,7 +76,7 @@ export default function Categorias(){
                   />
                 </div>
 
-                <p>{categoria.nome}</p>
+               
               </div>
             </div>
           ))

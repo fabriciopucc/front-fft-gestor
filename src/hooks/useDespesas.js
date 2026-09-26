@@ -23,9 +23,9 @@ const useDespesas = () => {
   const {exibirMessageBox} = useMessageBox();
   const {codigo} = useSessao();
   const {exibirCardLoader, esconderCardLoader, setCarregando} = useLoader();
-  //const {atualizarSaldoDoUsuario} = useSaldo();
   const {tratarErro} = useTratarErro();
   const {validarCadastroDespesa} = useValidacoes();
+  const {atualizarSaldo} = useSaldo();
 
   const listarDespesasDeUmUsuario = () => {
     setCarregando(true);
@@ -71,6 +71,36 @@ const useDespesas = () => {
     });
   }
 
+  const alterarStatusLancamentoDespesa = (codigo) => {
+    exibirCardLoader();
+    api.put("/despesa/alterarStatusLancamentoDespesa/".concat(codigo))
+    .then(() => {
+      setDespesas((despesasAtuais) =>
+        despesasAtuais.map((despesa) =>
+          despesa.codigo === codigo
+            ? { ...despesa, jaFoiLancadaEsseMes: !despesa.jaFoiLancadaEsseMes }
+            : despesa
+        )
+      );
+      esconderCardLoader();
+    })
+    .catch((error) => {
+       tratarErro(error);
+    });
+  };
+
+   const tornarTodasDespesasPendentes = () => {
+    exibirCardLoader();
+    api.put("/despesa/tornarTodasDespesasPendentes/".concat(codigo))
+    .then((resp) => {
+      setDespesas(resp.data);
+      esconderCardLoader();
+    })
+    .catch((error) => {
+       tratarErro(error);
+    });
+  };
+
   const excluirDespesa = (codigo) => {
     exibirCardLoader();
     api.delete("/despesa/".concat(codigo))
@@ -90,6 +120,7 @@ const useDespesas = () => {
     .then((resp) => {
       esconderCardLoader();
       exibirMessageBox("/gestao", true, resp.data, "Prosseguir");
+      atualizarSaldo();
     })
     .catch((error) => {
       tratarErro(error);
@@ -101,7 +132,7 @@ const useDespesas = () => {
     if(validarCadastroDespesa(despesa)) salvarDespesa();
   }
 
-  return{despesas, despesa, setDespesa, preencherDespesa, enviarFormularioSalvarDespesa, excluirDespesa, lancarDespesaNoDiaAtual}
+  return{despesas, despesa, setDespesa, preencherDespesa, enviarFormularioSalvarDespesa, alterarStatusLancamentoDespesa, tornarTodasDespesasPendentes, excluirDespesa, lancarDespesaNoDiaAtual}
 }
 
 export default useDespesas;

@@ -5,7 +5,7 @@ import { createContext, useEffect, useState } from "react";
 export const SaldoContext = createContext();
 
 export const SaldoProvider = ({ children }) => {
-  const {sessao, codigo} = useSessao();
+  const {sessao, codigo, setSessao} = useSessao();
 
   const [saldo, setSaldo] = useState(() => {
     const saldoSalvo = localStorage.getItem("meuSaldo");
@@ -18,6 +18,10 @@ export const SaldoProvider = ({ children }) => {
     api.get("/saldo/".concat(codigo))
     .then((resp) => {
       setSaldo(resp.data);
+      setSessao((sessaoAtual) => ({
+        ...sessaoAtual,
+          saldoInicial: resp.data.saldoInicial
+      }));
     })
     .catch((error) => {
       tratarErro(error);
@@ -30,7 +34,7 @@ export const SaldoProvider = ({ children }) => {
 
   useEffect(() => {
     if (sessao) atualizarSaldo();
-  }, [sessao]);
+  }, [sessao.codigo]);
 
   return (
     <SaldoContext.Provider value={{ saldo, atualizarSaldo }}>

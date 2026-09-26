@@ -21,6 +21,14 @@ export default function Cartoes(){
         tituloPagina={"Cartões"}
       />
 
+      <QuantidadeEntidades
+        lista={cartoes}
+        limite={5}
+        nomeEntidade={"cartões"}
+        visibilidadeForm={visibilidadeForm}
+        exibirForm={exibirForm}
+      />
+
       {
         visibilidadeForm && (
           <CartoesForm
@@ -32,14 +40,6 @@ export default function Cartoes(){
           />
         )
       }
-
-      <QuantidadeEntidades
-        lista={cartoes}
-        limite={5}
-        nomeEntidade={"cartões"}
-        visibilidadeForm={visibilidadeForm}
-        exibirForm={exibirForm}
-      />
 
       <ListaDeEntidade
         lista={cartoes}

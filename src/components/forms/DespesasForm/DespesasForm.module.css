@@ -3,4 +3,9 @@
   position: absolute;
   top: -25px;
   right: 0;
+  cursor: pointer;
+}
+
+.iconFechar:hover{
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
 }

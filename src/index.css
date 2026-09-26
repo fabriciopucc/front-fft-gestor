@@ -67,6 +67,7 @@ form input, form button, form select, select{
   border-radius: 7.5px;
   margin-bottom: 20px;
   border: 1px solid var(--borda);
+  cursor: pointer;
 }
 
 form button{
@@ -75,7 +76,7 @@ form button{
 
 select{
   width: 500px;
-   padding-left: 20px;
+  padding-left: 20px;
 }
 
 form input{

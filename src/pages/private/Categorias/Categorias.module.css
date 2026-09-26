@@ -21,13 +21,16 @@
   position: relative;
 }
 
-.botaoFechar{
+.botaoExcluir{
   right: -5px;
-  top: -5px;
+  bottom: -5px;
   position: absolute;
   cursor: pointer;
   width: 17.5px;
-  height: 20px;
+}
+
+.botaoExcluir:hover{
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
 }
 
 .molduraIcone{
@@ -41,13 +44,13 @@
 }
 
 .molduraIcone img{
-  width: 35px;
+  width: 30px;
   filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
 }
 
 .margemCategoria p{
   font-weight: 400;
-  margin: 10px 0 0 0;
+  margin: 0 0 5px 0;
 }
 
 @media screen and (max-width: 600px) {

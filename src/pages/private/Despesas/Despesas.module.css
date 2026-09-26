@@ -7,20 +7,37 @@
 
 .botoesLancarDespesa button{width: 49%;}
 
-.botaoLancarDespesa{
+.botaoLancarDespesa, .botaoTornarDespesasPendentes{
   width: 500px;
   margin: 20px 0 0 0;
+}
+
+.botaoTornarDespesasPendentes{
+  margin-top: 10px;
+}
+
+.infoDespesas{
+  width: 500px;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
 }
 
 .totalDespesas{
   font-size: 17.5px;
   width: fit-content;
+  height: fit-content;
   padding: 5px 12.5px;
   background-color: rgb(140, 43, 251, 0.15);
   border-radius: 10px;
   color: var(--primaria);
   font-weight: 350;
-  margin: 0 auto 10px auto;
+}
+
+.infoDespesas select{
+  width: fit-content;
+  margin: 0;
+  padding: 0 15px;
 }
 
 .despesa{
@@ -30,6 +47,11 @@
   background-color: var(--card);
   box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
   border-radius: 10px;
+}
+
+.escolherDespesa:hover{
+  cursor: pointer;
+  filter: brightness(95%);
 }
 
 .selecionado{
@@ -44,30 +66,50 @@
   position: relative;
 }
 
-.botaoFechar{
+.botaoExcluir{
   right: -10px;
-  top: -10px;
+  bottom: -5px;
   position: absolute;
   cursor: pointer;
   width: 17.5px;
-  height: 20px;
+}
+
+.botaoExcluir:hover{
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
 }
 
 .margemDespesa div{
-  width: 33%;
+  width: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.margemDespesa div:nth-child(3){
+  width: 40%;
+}
+
 .molduraDia{
+  cursor: pointer;
   width: 60px;
   height: 60px;
-  background-color: rgb(141, 60, 248, 0.15);
+  background-color: rgb(255, 239, 239);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.molduraDia:hover{
+  filter: brightness(95%);
+}
+
+.lancada{
+  background-color: rgb(226, 248, 237);
+}
+
+.neutra{
+  background-color: rgb(141, 60, 248, 0.15);
 }
 
 .molduraDia p{
@@ -80,7 +122,6 @@
 
 .margemDespesa div:nth-child(4) p{
   font-weight: 400;
-  color: rgb(23, 190, 90);
 }
 
 .despesa div:nth-child(4) button{
@@ -89,7 +130,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .botoesLancarDespesa, .botaoLancarDespesa{
+  .botoesLancarDespesa, .botaoLancarDespesa, .botaoTornarDespesasPendentes, .infoDespesas{
     width: 100%;
   }
 }

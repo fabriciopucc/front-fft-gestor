@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import iconChipCard from '@/assets/icons/iconChip.png';
+import iconChipCard from '@/assets/icons/iconChipCard.png';
 
 import { Link } from 'react-router-dom';
 

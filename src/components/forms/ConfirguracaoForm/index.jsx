@@ -2,13 +2,14 @@ import useSaldo from "@/hooks/useSaldo";
 
 export default function ConfiguracaoForm(){
 
-  const {saldo, definirSaldoInicial, reiniciarGestao} = useSaldo();
+  const {saldoInicial, preecherSaldoInicial, saldo, definirSaldoInicial, reiniciarGestao} = useSaldo();
 
   return(
     <form>
       <input 
         type="number" 
         placeholder="Digite o valor"
+        onChange={(e) => preecherSaldoInicial(e)}
         id='saldoInicial'
         readOnly={(saldo.saldoInicial > 0)}
       />
@@ -16,8 +17,8 @@ export default function ConfiguracaoForm(){
       <button
         type="button"
         onClick={definirSaldoInicial}
-        disabled={(saldo.saldoInicial > 0)}
-        className={[(saldo.saldoInicial > 0) && "desativado"]}
+        disabled={(saldo.saldoInicial > 0 || !saldoInicial)}
+        className={[(saldo.saldoInicial > 0 || !saldoInicial) && "desativado"]}
       >
         Iniciar gestão
       </button>
