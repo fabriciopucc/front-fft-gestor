@@ -34,7 +34,7 @@ export const SaldoProvider = ({ children }) => {
 
   useEffect(() => {
     if (sessao) atualizarSaldo();
-  }, [sessao.codigo]);
+  }, [sessao?.codigo]);
 
   return (
     <SaldoContext.Provider value={{ saldo, atualizarSaldo }}>
