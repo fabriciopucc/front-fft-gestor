@@ -1,4 +1,4 @@
-.botoesLancarDespesa{
+.botoesLancarDespesa, .botoesAcoesDespesa{
   width: 500px;
   display: flex;
   justify-content: space-between;
@@ -7,13 +7,9 @@
 
 .botoesLancarDespesa button{width: 49%;}
 
-.botaoLancarDespesa, .botaoTornarDespesasPendentes{
-  width: 500px;
-  margin: 20px 0 0 0;
-}
-
-.botaoTornarDespesasPendentes{
-  margin-top: 10px;
+.botaoLancarDespesa, .botaoPendenciarDespesas{
+  width: 48.5%;
+  margin: 0;
 }
 
 .infoDespesas{
@@ -68,10 +64,11 @@
 
 .botaoExcluir{
   right: -10px;
-  bottom: -5px;
+  top: -5px;
   position: absolute;
   cursor: pointer;
   width: 17.5px;
+  filter: invert(50%);
 }
 
 .botaoExcluir:hover{

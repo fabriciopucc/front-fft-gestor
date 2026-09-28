@@ -46,7 +46,7 @@ export default function Cartao({cartao, preencherCartao}){
 
           <div className={styles.barraProgresso}>
             <div
-              className={styles.barraPreenchida+" "+[cartao.cor]}
+              className={styles.barraPreenchida+" btn"+[cartao.cor]}
               style={{ width: `${(cartao.limiteUtilizado/cartao.limiteTotal)*100}%` }}
             />
           </div>
@@ -87,7 +87,7 @@ export default function Cartao({cartao, preencherCartao}){
         !visibilidadeAlterarLimite && (
           <div className={styles.botoesCartao}>
             <Link
-              className={styles.botaoFatura+" "+[cartao.cor]}
+              className={styles.botaoFatura+" btn"+[cartao.cor]}
               to={"/fatura/".concat(cartao.codigo)}
             >
               Ver fatura
@@ -95,7 +95,7 @@ export default function Cartao({cartao, preencherCartao}){
 
             <button
               type='button'
-              className={styles.botaoAlterarLimite+" "+[cartao.cor]}
+              className={styles.botaoAlterarLimite+" btn"+[cartao.cor]}
               onClick={() => setVisibilidadeAlterarLimite(true)}
             >
               Alterar limite

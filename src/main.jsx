@@ -7,10 +7,12 @@ import App from './App.jsx'
 import Cadastro from './pages/public/Cadastro/index.jsx'
 import Login from './pages/public/Login/index.jsx';
 import RecuperarSenha from './pages/public/RecuperarSenha';
+import ErrorPage from './pages/custom/ErrorPage';
 
 //Private pages
 import Menu from './pages/private/Menu/index.jsx';
 import Configuracao from './pages/private/Configuracao/index.jsx';
+import Estatisticas from './pages/private/Estatisticas';
 import Gestao from './pages/private/Gestao/index.jsx';
 import AdiconarAcao from './pages/private/AdicionarAcao/index.jsx';
 import Categorias from './pages/private/Categorias/index.jsx';
@@ -22,8 +24,6 @@ import AlterarSenha from './pages/private/AlterarSenha';
 
 //Providers
 import AppProviders from './components/elements/AppProviders';
-import Metricas from './pages/private/Metricas';
-import ErrorPage from './pages/custom/ErrorPage';
 
 
 const router =  createBrowserRouter([
@@ -53,13 +53,14 @@ const router =  createBrowserRouter([
         element: <Menu/>
       },
       {
+        path: "/estatisticas",
+        element: <Estatisticas/>
+      },
+      {
         path: "/configuracao",
         element: <Configuracao/>
       },
-      {
-        path: "/metricas",
-        element: <Metricas/>
-      },
+      
       {
         path: "/gestao",
         element: <Gestao/>

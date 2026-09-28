@@ -3,7 +3,6 @@ import styles from './AdicionarAcaoForm.module.css'
 import useCategorias from '@/hooks/useCategorias';
 import useLoader from '@/hooks/useLoader';
 import useAcao from '@/hooks/useAcao';
-import { Loader } from '@/components/utils';
 import Input from '@/components/itensForm/Input';
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 
@@ -55,7 +54,6 @@ export default function AdicionarAcaoForm(){
                     >
                       <p>Apelido</p>
                       <p>Digitos</p>
-                      <p>Utilizado</p>
                       <p>Limite</p>
                     </div>
                   </div>
@@ -77,8 +75,7 @@ export default function AdicionarAcaoForm(){
                         >
                           <p>{cartao.apelido}</p>
                           <p>{cartao.ultimosDigitos}</p>
-                          <p>R$ {cartao.limiteUtilizado.toFixed(2)}</p>
-                          <p>R$ {cartao.limiteTotal.toFixed(2)}</p>
+                          <p>R$ {cartao.limiteUtilizado.toFixed(2)}/{cartao.limiteTotal}</p>
                         </div>
                       </div>
                     ))

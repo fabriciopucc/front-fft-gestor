@@ -43,10 +43,15 @@
 }
 
 .tituloDia{
-  width: 100%;
-  font-size: 25px;
-  margin: 0;
   text-align: center;
+  width: fit-content;
+  padding: 5px 10px;
+  background-color: rgb(140, 43, 251, 0.15);
+  border-radius: 10px;
+  color: var(--primaria);
+  font-weight: 400;
+  font-size: 22px;
+  margin: 0 0 10px 0;
 }
 
 @media screen and (max-width: 600px) {

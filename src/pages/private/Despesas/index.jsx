@@ -99,7 +99,7 @@ export default function Despesas(){
             </button>
           </div>
         ) : (despesas.length && !visibilidadeForm) ? (
-          <>
+          <div className={styles.botoesAcoesDespesa}>
             <button
               disabled={!despesas.length}
               className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
@@ -112,12 +112,12 @@ export default function Despesas(){
             <button
               type='button'
               disabled={quantidadeDespesasPagas === 0}
-              className={styles.botaoTornarDespesasPendentes+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
+              className={styles.botaoPendenciarDespesas+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
               onClick={tornarTodasDespesasPendentes}
             >
-              Tornar todas pendentes
+              Pendenciar todas
             </button>
-          </>
+          </div>
         ) : (<></>)
       }
 

@@ -115,6 +115,26 @@ form h1{
   background: linear-gradient(135deg, rgb(11, 148, 73), rgb(4, 95, 45));
 }
 
+.btnroxo{
+  background-color: var(--primaria);
+}
+
+.btnpreto{
+  background-color: rgb(71, 71, 72);
+}
+
+.btnazul{
+  background-color: rgb(3, 108, 228);
+}
+
+.btnvermelho{
+  background-color: rgb(170, 34, 34);
+}
+
+.btnverde{
+  background-color: rgb(11, 148, 73);
+}
+
 .botaoPositivo{
   background-color: rgb(23, 190, 132);
 }

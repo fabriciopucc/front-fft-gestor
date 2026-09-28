@@ -40,9 +40,8 @@
 }
 
 .informacoesCartao p{
-  width: 23%;
+  width: 31%;
   margin: 0 0 0 1%;
-
 }
 
 .linhaTipoTransacao{
@@ -63,8 +62,8 @@
   margin: 0;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 350px) {
   .informacoesCartao p{
-    width: 46%;
+    width: 100%;
   }
 }

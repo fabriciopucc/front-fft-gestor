@@ -20,7 +20,7 @@ export default function AlterarLimiteForm({cartao, setVisibilidadeAlterarLimite,
         className={styles.botoesAlterarLimite}
       >
         <button
-          className={[cartao.cor]}
+          className={'btn'+[cartao.cor]}
           type='button'
           onClick={() => setVisibilidadeAlterarLimite(false)}
         >

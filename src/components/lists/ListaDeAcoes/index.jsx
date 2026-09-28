@@ -226,7 +226,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                         <p
                           className={styles.limiteInicial}
                         >
-                          R$ {metricasCartao.limiteUsadoInicial.toFixed(2)}/{metricasCartao.limiteTotal.toFixed(2)}
+                          R$ {metricasCartao.limiteUsadoInicial.toFixed(2)}/{metricasCartao.limiteTotal}
                         </p>
                         
                         <img 
@@ -237,7 +237,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                         <p
                           className={styles.limiteAtual}
                         >
-                          R$ {metricasCartao.limiteUsadoAtual.toFixed(2)}/{metricasCartao.limiteTotal.toFixed(2)}
+                          R$ {metricasCartao.limiteUsadoAtual.toFixed(2)}/{metricasCartao.limiteTotal}
                         </p>
                       </div>
 

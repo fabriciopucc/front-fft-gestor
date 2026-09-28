@@ -27,6 +27,7 @@
   position: absolute;
   cursor: pointer;
   width: 17.5px;
+  filter: invert(50%);
 }
 
 .botaoExcluir:hover{

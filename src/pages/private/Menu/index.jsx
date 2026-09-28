@@ -4,6 +4,7 @@ import Container from "@/components/layout/Container";
 
 import iconEngrenagem from '@/assets/icons/iconEngrenagem.png';
 import iconDespesas from '@/assets/icons/iconDespesas.png';
+import iconEstatisticas from '@/assets/icons/iconEstatisticas.png';
 import iconGestao from '@/assets/icons/iconGestao.png';
 import iconCategorias from '@/assets/icons/iconCategorias.png';
 import iconCartao from '@/assets/icons/iconCartao.png';
@@ -23,12 +24,12 @@ export default function Menu(){
   const preCarregarImagens = (imagens) => {
     if (imagensPreCarregadas) return;
 
-    imagensPreCarregadas = true;
-
     imagens.forEach((imagem) => {
       const img = new Image();
       img.src = imagem.src;
     });
+
+    imagensPreCarregadas = true;
   }
 
   useEffect(() => {
@@ -65,8 +66,8 @@ export default function Menu(){
         />
 
         <OpcaoMenu
-          destino={"estatisticas"}
-          srcIcon={iconGestao}
+          destino={"/estatisticas"}
+          srcIcon={iconEstatisticas}
           altIcon={"Icon estatisticas"}
           titulo={"Estatisticas"}
           txtAlternativo={"Veja suas estatisticas"}
