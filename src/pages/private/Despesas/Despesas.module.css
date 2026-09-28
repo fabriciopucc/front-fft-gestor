@@ -127,7 +127,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .botoesLancarDespesa, .botaoLancarDespesa, .botaoTornarDespesasPendentes, .infoDespesas{
+  .botoesLancarDespesa, .botoesAcoesDespesa, .infoDespesas{
     width: 100%;
   }
 }
