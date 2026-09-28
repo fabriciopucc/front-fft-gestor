@@ -106,7 +106,7 @@
 }
 
 @media screen and (max-width: 500px){
-  .containerCompras, .definirPeriodo, .botaoSelecionarQuitacoes, .botoesQuitacao{
+  .containerCompras, .definirPeriodo, .botaoSelecionarQuitacoes, .botoesQuitacao, .botoesAcoes{
     width: 100%;
   }
 }
