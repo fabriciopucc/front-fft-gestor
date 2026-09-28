@@ -11,7 +11,15 @@ import useFatura from "@/hooks/useFatura";
 export default function Fatura(){
 
   const {cartao} = useCartoes();
-  const {definirCodigoPeriodoDaFatura, compras, quitarCompra} = useFatura();
+  const {filtroFatura, setFiltroFatura, exibirSelecione, setExibirSelecione, listaCodigos, adicionarCodigo, setListaCodigos, definirCodigoPeriodoDaFatura, compras, quitarCompras} = useFatura();
+
+  const comprasFiltradas = compras.filter((compra) => {
+    return filtroFatura == "todas"
+      ? true
+      : filtroFatura == "pendentes"
+        ? !compra.quitado
+        : compra.quitado
+  });
 
   return(
     <Container>
@@ -42,10 +50,60 @@ export default function Fatura(){
           }
         </select>
       </ListaDeEntidade>
-      
-      {
-        compras.length ? (
-          <div
+
+      <ListaDeEntidade
+        lista={comprasFiltradas}
+        textoAlternativo={"Selecione uma fatura"}
+      >
+        {
+          exibirSelecione ? (
+            <div className={styles.botoesQuitacao}>
+              <button
+                type='button'
+                onClick={() => {
+                    setExibirSelecione(!exibirSelecione);
+                    setFiltroFatura("todas");
+                    setListaCodigos([]);
+                  }
+                }
+              >
+                Cancelar
+              </button>
+
+              <button
+                type='button'
+                disabled={!listaCodigos.length}
+                className={(listaCodigos.length) ? "botaoPositivo" : "desativado"}
+                onClick={quitarCompras}
+              >
+                {(listaCodigos.length) ? "Confirmar" : "Selecione (*)"}
+              </button>
+            </div>
+          ) : (
+            <div className={styles.botoesAcoes}>
+              <button
+                type='button'
+                disabled={!compras.filter((compra) => !compra.quitado).length}
+                className={styles.botaoSelecionarQuitacoes+" "+[compras.filter((compra) => !compra.quitado).length ? "" : "desativado"]}
+                onClick={() => {
+                    setExibirSelecione(!exibirSelecione);
+                    setFiltroFatura("pendentes");
+                  }
+                }
+              >
+                Selecionar para quitar
+              </button>
+
+              <select onChange={(e) => setFiltroFatura(e.target.value)}>
+                <option value="todas">Todas</option>
+                <option value="pendentes">Pendentes</option>
+                <option value="pagas">Pagas</option>
+              </select>
+            </div>
+          )
+        }
+
+        <div
             className={styles.containerCompras}
           >
             <div
@@ -58,13 +116,20 @@ export default function Fatura(){
                 <p>Descrição</p>
                 <p>Valor</p>
                 <p>Quitado</p>
-                <p>Ações</p>
               </div>
               {
-                compras.map((compra) => (
+                comprasFiltradas.map((compra) => (
                   <div
                     key={compra.codigo}
-                    className={styles.compra}
+                    className={
+                      styles.compra+" "+
+                      styles[(exibirSelecione) && "selecione"]+" "+
+                      styles[(listaCodigos.includes(compra.codigo) && exibirSelecione) && "selecionado"]
+                    }
+                    onClick={() => {
+                        if(exibirSelecione && !compra.quitado) adicionarCodigo(compra.codigo);
+                      }
+                    }
                   >
                     <div>
                       <p>{compra.dia}</p>
@@ -83,28 +148,12 @@ export default function Fatura(){
                     >
                       <span className={styles.statusQuitado+" "+styles[(compra.quitado) && "foiQuitado"]}></span>
                     </div>
-
-                    <div
-                      className={styles.acoes}
-                    >
-                      <button
-                        type="button"
-                        disabled={compra.quitado}
-                        className={(compra.quitado) ? "desativado" : ""}
-                        onClick={() => quitarCompra(compra.codigo)}
-                      >
-                        Quitar
-                      </button>
-                    </div>
                   </div>
                 )) 
               }
             </div>
           </div>
-        ) : cartao.periodos.length ? (
-          <p>Selecione um periodo para ver as compras</p>
-        ) : (<></>)
-      }
+      </ListaDeEntidade>
     </Container>
   )
 }

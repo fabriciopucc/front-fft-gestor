@@ -17,6 +17,22 @@ const useFatura = () => {
   const {atualizarSaldo} = useSaldo();
   const {setCarregando} = useLoader();
 
+
+  const [exibirSelecione, setExibirSelecione] = useState(false);
+  const [listaCodigos, setListaCodigos] = useState([]);
+
+  const [filtroFatura, setFiltroFatura] = useState("todas");
+
+  const adicionarCodigo = (codigo) => {
+      setListaCodigos((listaAtual) => {
+        if (listaAtual.includes(codigo)) {
+            return listaAtual.filter((item) => item !== codigo);
+        }
+
+        return [...listaAtual, codigo];
+      });
+  };
+
   const definirCodigoPeriodoDaFatura = (codigoPeriodo) => {
     setCodigoPeriodo(codigoPeriodo);
   };
@@ -35,13 +51,17 @@ const useFatura = () => {
     })
   }
 
-  const quitarCompra = (codigoCompra) => {
+  const quitarCompras = () => {
+
+    console.log(listaCodigos)
     exibirCardLoader();
-    api.put("/compra/quitar/".concat(codigoCompra))
+    api.put("/compra/quitarCompras", listaCodigos)
     .then((resp) => {
+      setFiltroFatura("/todas");
+      setExibirSelecione(!setExibirSelecione);
       esconderCardLoader();
       atualizarSaldo();
-      exibirMessageBox('', true, "Compra quitada com sucesso!", "Prosseguir");
+      exibirMessageBox('', true, "Compras quitadas com sucesso!", "Prosseguir");
       setCompras(resp.data);
     })
     .catch((error) => {
@@ -53,7 +73,12 @@ const useFatura = () => {
     if(codigoPeriodo) buscarComprasDeUmPeriodo();
   }, [codigoPeriodo])
 
-  return{definirCodigoPeriodoDaFatura, compras, quitarCompra};
+  return{
+    filtroFatura, setFiltroFatura,
+    exibirSelecione, setExibirSelecione,
+    listaCodigos, adicionarCodigo, setListaCodigos,
+    definirCodigoPeriodoDaFatura, compras, quitarCompras
+  };
 }
 
 export default useFatura;

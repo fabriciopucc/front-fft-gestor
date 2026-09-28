@@ -74,8 +74,6 @@ export default function Despesas(){
         )
       }
 
-      
-
       {
         (escolherDespesa && !visibilidadeForm) ? (
           <div
@@ -95,7 +93,7 @@ export default function Despesas(){
               className={(despesa.codigo) ? "botaoPositivo" : "desativado"}
               onClick={() => setExibirFormularioLancarDespesa(true)}
             >
-              {despesa.codigo ? "Confirmar" : "Selecione"}
+              {despesa.codigo ? "Confirmar" : "Selecione (1)"}
             </button>
           </div>
         ) : (despesas.length && !visibilidadeForm) ? (
@@ -131,8 +129,8 @@ export default function Despesas(){
               onChange={(e) => setFiltro(e.target.value)}  
             >
               <option value="todas">Todas</option>
-              <option value="lancadasEsseMes">Pagas</option>
               <option value="naoLancadasEsseMes">Pendentes</option>
+              <option value="lancadasEsseMes">Pagas</option>
             </select>
           </div>
         ) : (<></>)

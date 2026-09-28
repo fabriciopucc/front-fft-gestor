@@ -1,12 +1,34 @@
 .definirPeriodo{
   text-align: center;
+  margin: 0;
+}
+
+.botoesQuitacao, .botoesAcoes{
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.botoesQuitacao button{
+  width: 48.5%;
+  margin: 0;
+}
+
+.botoesAcoes button{
+  width: 61%;
+  margin: 0;
+}
+
+.botoesAcoes select{
+  width: 35%;
+  margin: 0;
 }
 
 .containerCompras{
   width: 500px;
   height: auto;
   border-radius: 10px;
-  margin-bottom: 30px;
   background-color: var(--card);
   display: flex;
   flex-direction: column;
@@ -22,7 +44,17 @@
 
 .compra{
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+}
+
+.selecione{
+  cursor: pointer;
+}
+
+.selecionado{
+  border-radius: 5px;
+  background-color: rgb(140, 43, 251, 0.15);
 }
 
 .compra:nth-child(1) p{
@@ -37,11 +69,11 @@
 .compra div{
   display: flex;
   align-items: center;
-  margin: 10px 0 0 0;
+  margin: 10px 0;
 }
 
 .compra div:nth-child(1), .compra:nth-child(1) p:nth-child(1){
-  width: 12.5%;
+  width: 20%;
 }
 
 .compra div:nth-child(2), .compra:nth-child(1) p:nth-child(2){
@@ -49,14 +81,14 @@
 }
 
 .compra div:nth-child(3), .compra:nth-child(1) p:nth-child(3){
-  width: 17.5%;
+  width: 25%;
 }
 
 .compra div p{
   margin: 0;
 }
 
-.quitado, .acoes{
+.quitado{
   justify-content: center;
   width: 20%;
 }
@@ -73,12 +105,8 @@
   background-color: var(--sucesso);
 }
 
-.acoes button{
-  height: 30px;
-}
-
 @media screen and (max-width: 500px){
-  .containerCompras, .definirPeriodo{
+  .containerCompras, .definirPeriodo, .botaoSelecionarQuitacoes, .botoesQuitacao{
     width: 100%;
   }
 }
