@@ -1,6 +1,6 @@
 const privateRoutes = [
   "/menu",
-  "/estatisticas",
+  "/resumo",
   "/gestao",
   "/adicionarAcao",
   "/categorias",

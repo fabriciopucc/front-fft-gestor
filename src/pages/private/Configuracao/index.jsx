@@ -12,8 +12,6 @@ export default function Configuracao(){
         tituloPagina={"Configuração"}
       />
       
-      <Saldo/>
-
       <ConfiguracaoForm/>
     </Container>
   )

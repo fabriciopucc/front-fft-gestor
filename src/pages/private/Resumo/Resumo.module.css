@@ -1,0 +1,121 @@
+.usoCategorias, .cartoes{
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+  margin: 0 0 30px 0;
+}
+
+.margemUsoCategorias, .margemCartoes{
+  width: 90%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.margemUsoCategorias h1, .margemCartoes h1{
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  color: #000;
+  font-weight: 400;
+}
+
+.infosCategorias, .infosCartoes{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.infosCategorias select{
+  width: fit-content;
+  padding: 0 15px;
+}
+
+.categoria{
+  width: 100%;
+  display: flex;
+  margin: 10px 0;
+}
+
+.iconeCategoria{
+  width: 50px;
+  height: 50px;
+  background-color: rgb(140, 43, 251, 0.15);
+  border-radius: 50%;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconeCategoria p{
+  font-weight: 400;
+  margin: 0;
+  color: var(--primaria);
+}
+
+.dadosCategoria, .dadosCartao{
+  display: flex;
+  align-items: center;
+  width: calc(100% - 70px);
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dadosCategoria p{
+  margin: 0;
+}
+
+.dadosCartao p{margin: 0;}
+
+.dadosCartao p:nth-child(1){
+  font-weight: 500;
+  font-size: 17.5px;
+  color: #000000;
+}
+
+.dadosCartao p:nth-child(3){
+  width: 100%;
+  margin: 0;
+  font-size: 15px;
+}
+
+.dadosCategoria p:nth-child(1){
+  color: black;
+}
+
+.positivo{
+  color: rgb(20, 212, 97);
+}
+
+.negativo{
+  color: rgb(227, 48, 48);
+}
+
+.barraProgresso {
+  margin-top: 5px;
+  width: 100%;
+  height: 12px;
+  background-color: rgba(104, 23, 190, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgb(202, 202, 202);
+}
+
+.barraPreenchida {
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--primaria);
+}
+
+.porcentagemUso {
+  margin-top: 8px;
+  color: #777;
+}
+
+@media screen and (max-width: 550px) {
+  .usoCategorias, .cartoes{
+    width: 100%;
+  }
+}

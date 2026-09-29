@@ -12,7 +12,6 @@ import ErrorPage from './pages/custom/ErrorPage';
 //Private pages
 import Menu from './pages/private/Menu/index.jsx';
 import Configuracao from './pages/private/Configuracao/index.jsx';
-import Estatisticas from './pages/private/Estatisticas';
 import Gestao from './pages/private/Gestao/index.jsx';
 import AdiconarAcao from './pages/private/AdicionarAcao/index.jsx';
 import Categorias from './pages/private/Categorias/index.jsx';
@@ -24,6 +23,7 @@ import AlterarSenha from './pages/private/AlterarSenha';
 
 //Providers
 import AppProviders from './components/elements/AppProviders';
+import Resumo from './pages/private/Resumo';
 
 
 const router =  createBrowserRouter([
@@ -53,8 +53,8 @@ const router =  createBrowserRouter([
         element: <Menu/>
       },
       {
-        path: "/estatisticas",
-        element: <Estatisticas/>
+        path: "/resumo",
+        element: <Resumo/>
       },
       {
         path: "/configuracao",

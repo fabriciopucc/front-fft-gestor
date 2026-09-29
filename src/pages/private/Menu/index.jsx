@@ -66,11 +66,11 @@ export default function Menu(){
         />
 
         <OpcaoMenu
-          destino={"/estatisticas"}
+          destino={"/resumo"}
           srcIcon={iconEstatisticas}
-          altIcon={"Icon estatisticas"}
-          titulo={"Estatisticas"}
-          txtAlternativo={"Veja suas estatisticas"}
+          altIcon={"Icon resumo"}
+          titulo={"Resumo"}
+          txtAlternativo={"Veja seu resumo"}
         />
 
         <OpcaoMenu
