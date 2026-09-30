@@ -72,7 +72,10 @@ export default function Resumo(){
                         className={styles.categoria}
                       >
                         <div className={styles.iconeCategoria}>
-                          <img src={categoriasIcons[categoria.indiceIcon - 1].src} alt="icon categoria"/>
+                         <img
+                            src={(categoriasIcons[categoria.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                            alt="icon categoria"
+                          />
                         </div>
 
                         <div className={styles.dadosCategoria}>
