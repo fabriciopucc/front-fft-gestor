@@ -17,11 +17,9 @@ export default function Cartao({cartao, preencherCartao}){
       className={styles.cartao}
     >
       <div className={styles.cartaoVisual+" "+[cartao.cor]}>
-        <img 
-          className={styles.chipCard}
-          src={iconChipCard} 
-          alt="Icone chip card" 
-        />
+        <div className={styles.chipCard}>
+
+        </div>
 
         <div className={styles.apelidoCartao}>
           {cartao.apelido}

@@ -2,18 +2,37 @@ import styles from './Resumo.module.css';
 
 import Container from "@/components/layout/Container";
 import HeaderVoltar from "@/components/layout/HeaderVoltar";
-import useSaldo from '@/hooks/useSaldo';
+
 import Saldo from '@/components/elements/Saldo';
 import useResumo from '@/hooks/useResumo';
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import { Loader } from '@/components/utils';
 
+import icon from '@/assets/icons/categorias/iconEngrenagem.png';
+import categoriasIcons from '@/constants/categoriasIcons';
+
 export default function Resumo(){
 
   const {resumo, filtroTipoDeUsoCategoria, setFiltroTipoDeUsoCategoria} = useResumo();
 
-  const listaCategorias = resumo?.gastosPorCategorias ?? [];
+  //Filtrando apenas gastos diferentes de 0 de acordo com o filtro e em ordem decrescente de valor (usando valor absoluto).
+  const listaCategorias = [...resumo?.gastosPorCategorias ?? []]
+  .sort(
+    (filtroTipoDeUsoCategoria == "saldo") ?
+      (a, b) => Math.abs(b.valorGastoComSaldo) - Math.abs(a.valorGastoComSaldo)
+    : 
+      (a, b) => Math.abs(b.valorGastoComCartao) - Math.abs(a.valorGastoComCartao)
+  )
+  .filter((categoria) => 
+    (filtroTipoDeUsoCategoria == "saldo") ? 
+      categoria.valorGastoComSaldo !== 0
+    :
+      categoria.valorGastoComCartao !== 0
+  );
+
   const listaCartoes = resumo?.cartoesSimplificados ?? [];
+
+  console.log(listaCategorias)
 
   return(
     <Container centralizar={true}>
@@ -28,12 +47,15 @@ export default function Resumo(){
 
             <ListaDeEntidade
               lista={listaCategorias}
-              textoAlternativo={"Erro"}
+              textoAlternativo={"Você ainda não possui nenhum gasto por categoria"}
             >
               <div className={styles.usoCategorias}>
                 <div className={styles.margemUsoCategorias}>
                   <div className={styles.infosCategorias}>
-                    <h1>Categorias</h1>
+                    <span>
+                      <h1>Gastos</h1>
+                      <p>últimos 30 dias</p>
+                    </span>
 
                     <select
                       onChange={(e) => setFiltroTipoDeUsoCategoria(e.target.value)}
@@ -50,7 +72,7 @@ export default function Resumo(){
                         className={styles.categoria}
                       >
                         <div className={styles.iconeCategoria}>
-                          <p>{categoria.nomeCategoria.charAt(0)}</p>
+                          <img src={categoriasIcons[categoria.indiceIcon - 1].src} alt="icon categoria"/>
                         </div>
 
                         <div className={styles.dadosCategoria}>
@@ -61,13 +83,21 @@ export default function Resumo(){
                           <p className={styles[
                             (filtroTipoDeUsoCategoria == "saldo") ? 
                               (categoria.valorGastoComSaldo < 0) ? "negativo" : "positivo"
-                            : (filtroTipoDeUsoCategoria == "cartao") &&
+                            :
                               (categoria.valorGastoComCartao < 0) ? "negativo" : "positivo"
                           ]}>
+                            {
+                              (filtroTipoDeUsoCategoria == "saldo") ? 
+                                (categoria.valorGastoComSaldo < 0) ? "- " : "+ "
+                              : 
+                                (categoria.valorGastoComCartao < 0) ? "- " : "+ "
+                            }
                             R$ 
                             {
-                              filtroTipoDeUsoCategoria == "saldo" ? categoria.valorGastoComSaldo.toFixed(2) 
-                              :  categoria.valorGastoComCartao.toFixed(2)
+                              (filtroTipoDeUsoCategoria == "saldo") ? 
+                                Math.abs(categoria.valorGastoComSaldo).toFixed(2) 
+                              :  
+                                Math.abs(categoria.valorGastoComCartao).toFixed(2)
                             }
                           </p>
                         </div>
@@ -80,7 +110,7 @@ export default function Resumo(){
 
             <ListaDeEntidade
               lista={listaCartoes}
-              textoAlternativo={"Erro"}
+              textoAlternativo={"Você ainda não possui cartões cadastrados"}
             >
               <div className={styles.cartoes}>
                 <div className={styles.margemCartoes}>
