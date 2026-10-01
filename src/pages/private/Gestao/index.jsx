@@ -22,6 +22,8 @@ export default function Gestao(){
   const {saldo} = useSaldo();
   const {desfazerAcao} = useAcao();
 
+  const meses =  ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+
   return(
     <Container centralizar={true}>
       <HeaderVoltar
@@ -44,7 +46,7 @@ export default function Gestao(){
         className={styles.botaoCriarDia+" "+[(saldo.saldoInicial == 0 || !data) && "desativado"]}
         disabled={(saldo.saldoInicial == 0 || !data)}        
       >
-        Criar dia
+        {data ? "Criar dia" : "Selecione o dia"}
       </button>
 
       <ListaDeEntidade
@@ -61,7 +63,13 @@ export default function Gestao(){
                 <h1
                   className={styles.tituloDia}
                 >
-                  {converterDataAmericanaEmBrasileira(dia.data)}
+                  {
+                    dia.data.split("-")[2] 
+                    +"  "+
+                    meses[parseInt(dia.data.split("-")[1])-1] 
+                    +"  "+
+                    dia.data.split("-")[0]
+                  }
                 </h1>
                 
                 <ListaDeAcoes
@@ -70,11 +78,6 @@ export default function Gestao(){
                   setCodigoAcao={setCodigoAcao}
                   desfazerAcao={desfazerAcao}
                   setDias={setDias}
-                />
-
-                <BotaoLink
-                  destino={"/adicionarAcao/".concat(dia.codigo)}
-                  texto={"Adicionar ação"}
                 />
               </div>
             </div>

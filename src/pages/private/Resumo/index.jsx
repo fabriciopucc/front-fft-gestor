@@ -8,31 +8,21 @@ import useResumo from '@/hooks/useResumo';
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import { Loader } from '@/components/utils';
 
-import icon from '@/assets/icons/categorias/iconEngrenagem.png';
 import categoriasIcons from '@/constants/categoriasIcons';
 
 export default function Resumo(){
 
-  const {resumo, filtroTipoDeUsoCategoria, setFiltroTipoDeUsoCategoria} = useResumo();
+  const {resumo} = useResumo();
 
-  //Filtrando apenas gastos diferentes de 0 de acordo com o filtro e em ordem decrescente de valor (usando valor absoluto).
-  const listaCategorias = [...resumo?.gastosPorCategorias ?? []]
-  .sort(
-    (filtroTipoDeUsoCategoria == "saldo") ?
-      (a, b) => Math.abs(b.valorGastoComSaldo) - Math.abs(a.valorGastoComSaldo)
-    : 
-      (a, b) => Math.abs(b.valorGastoComCartao) - Math.abs(a.valorGastoComCartao)
-  )
-  .filter((categoria) => 
-    (filtroTipoDeUsoCategoria == "saldo") ? 
-      categoria.valorGastoComSaldo !== 0
-    :
-      categoria.valorGastoComCartao !== 0
-  );
+  const listaGastosPorCategoriaNoSaldo = [...resumo?.gastosPorCategoriasNoSaldo ?? []]
+    .sort((a, b) => Math.abs(b.valorGasto) - Math.abs(a.valorGasto))
+    .filter((categoria) => categoria.valorGasto !== 0);
+  
+  const listaGastosPorCategoriaNoCartao = [...resumo?.gastosPorCategoriasNoCartao ?? []]
+    .sort((a, b) => Math.abs(b.valorGasto) - Math.abs(a.valorGasto))
+    .filter((categoria) => categoria.valorGasto !== 0);
 
   const listaCartoes = resumo?.cartoesSimplificados ?? [];
-
-  console.log(listaCategorias)
 
   return(
     <Container centralizar={true}>
@@ -46,27 +36,19 @@ export default function Resumo(){
             <Saldo/>
 
             <ListaDeEntidade
-              lista={listaCategorias}
-              textoAlternativo={"Você ainda não possui nenhum gasto por categoria"}
+              lista={listaGastosPorCategoriaNoSaldo}
             >
               <div className={styles.usoCategorias}>
                 <div className={styles.margemUsoCategorias}>
                   <div className={styles.infosCategorias}>
                     <span>
-                      <h1>Gastos</h1>
+                      <h1>Receitas/Gastos com saldo</h1>
                       <p>últimos 30 dias</p>
                     </span>
-
-                    <select
-                      onChange={(e) => setFiltroTipoDeUsoCategoria(e.target.value)}
-                    >
-                      <option value="saldo">Saldo</option>
-                      <option value="cartao">Cartão</option>
-                    </select>
                   </div>
                   
                   {
-                    listaCategorias.map((categoria, index) => (
+                    listaGastosPorCategoriaNoSaldo.map((categoria, index) => (
                       <div
                         key={index}
                         className={styles.categoria}
@@ -83,24 +65,58 @@ export default function Resumo(){
                             {categoria.nomeCategoria}
                           </p>
                           
-                          <p className={styles[
-                            (filtroTipoDeUsoCategoria == "saldo") ? 
-                              (categoria.valorGastoComSaldo < 0) ? "negativo" : "positivo"
-                            :
-                              (categoria.valorGastoComCartao < 0) ? "negativo" : "positivo"
-                          ]}>
+                          <p className={styles[(categoria.valorGasto < 0) ? "negativo" : "positivo"]}>
                             {
-                              (filtroTipoDeUsoCategoria == "saldo") ? 
-                                (categoria.valorGastoComSaldo < 0) ? "- " : "+ "
-                              : 
-                                (categoria.valorGastoComCartao < 0) ? "- " : "+ "
+                              (categoria.valorGasto < 0) ? "- " : "+ "
                             }
                             R$ 
                             {
-                              (filtroTipoDeUsoCategoria == "saldo") ? 
-                                Math.abs(categoria.valorGastoComSaldo).toFixed(2) 
-                              :  
-                                Math.abs(categoria.valorGastoComCartao).toFixed(2)
+                              Math.abs(categoria.valorGasto).toFixed(2) 
+                            }
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </ListaDeEntidade>
+
+            <ListaDeEntidade
+              lista={listaGastosPorCategoriaNoCartao}
+              textoAlternativo={"Você ainda não possui nenhum gasto por categoria usando saldo"}
+            >
+              <div className={styles.usoCategorias}>
+                <div className={styles.margemUsoCategorias}>
+                  <div className={styles.infosCategorias}>
+                    <span>
+                      <h1>Gastos no cartão</h1>
+                      <p>últimos 30 dias</p>
+                    </span>
+                  </div>
+                  
+                  {
+                    listaGastosPorCategoriaNoCartao.map((categoria, index) => (
+                      <div
+                        key={index}
+                        className={styles.categoria}
+                      >
+                        <div className={styles.iconeCategoria}>
+                         <img
+                            src={(categoriasIcons[categoria.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                            alt="icon categoria"
+                          />
+                        </div>
+
+                        <div className={styles.dadosCategoria}>
+                          <p>
+                            {categoria.nomeCategoria}
+                          </p>
+                          
+                          <p>
+                            R$ 
+                            {
+                              Math.abs(categoria.valorGasto).toFixed(2) 
                             }
                           </p>
                         </div>

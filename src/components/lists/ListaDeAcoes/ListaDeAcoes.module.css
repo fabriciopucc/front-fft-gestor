@@ -1,80 +1,50 @@
 .escolherExibirConteudo{
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-}
-
-.escolherExibirConteudo p{
-  margin: 0 15px;
-  cursor: pointer;
-}
-
-.selecionado{
-  padding: 5px 10px;
-  color: #fff;
-  border-radius: 7.5px;
-  background-color: var(--primaria);
-}
-
-.acao{
+  justify-content: space-between;
+  margin:  0;
   width: 100%;
+}
+
+.seletorConteudo{
+  width: 48.6%;
   height: 40px;
-}
-
-.linhaAcao{
-  width: 100%;
-  min-height: 40px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  cursor: pointer;
-}
-
-.linhaAcao div{
-  width: 27.5%;
-  display: flex;
   justify-content: center;
-}
-
-.linhaAcao div:nth-child(1){
-  width: 17.5%;
-}
-
-.acaoNegativa{
-  background-color: rgba(255, 0, 0, 0.075);
-}
-
-.acaoPositiva{
-  background-color: rgba(9, 201, 137, 0.075);
-}
-
-.acaoSelecionada{
-  background-color: rgb(141, 60, 248, 0.2);
-  border: 2px solid rgba(140, 43, 251, 0.18);
-}
-
-.linhaAcao img{
-  width: 25px;
-  height: 25px;
-}
-
-.linhaAcao p{
   margin: 0;
-  text-transform: capitalize;
+  cursor: pointer;
+  border-radius: 7.5px;
+  background-color: rgba(209, 177, 247, 0.15);
+}
+
+.seletorConteudo:hover{
+  filter: brightness(70%);
+}
+
+.opcaoSelecionada, .opcaoSelecionada:hover{
+  color: var(--primaria);
+  background-color: rgb(140, 43, 251, 0.2);
+  font-weight: 500;
+  filter: brightness(100%);
 }
 
 .metricas{
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: -15px 0 15px 0;
+}
+
+.metricas p{
+  margin: 0 0 10px 0;
 }
 
 .valorBalanco{
+  font-weight: 400;
   font-size: 25px;
-  margin: 0;
+  margin: -5px 0;
 }
 
 .balancoPositivo{
@@ -87,6 +57,7 @@
 
 .linhaMetricas{
   display: flex;
+  align-items: center;
   margin-top: 10px;
 }
 
@@ -95,72 +66,120 @@
 }
 
 .linhaMetricas img, .linhaMetricasCartao img{
-  width: 20px;
-  height: 20px;
-  margin: 0 10px;
+  width: 15px;
+  height: 15px;
+  margin: 0 12.5px;
 }
 
-.aviso{
+.quantidadeMovimentacoes{
   width: 100%;
-  text-align: center;
-  font-size: 25px;
+  font-weight: 400;
+  margin: 10px 0 5px 0;
 }
 
-.containerMetricasCartao{
-  margin-top: 5px;
-  height: auto;
-}
-
-.linhaMetricasCartao{
+.acao{
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 15px;
+  align-items: center;;
 }
 
-.apelidoCartao{
+.acaoSelecionada{
+  background-color: rgb(141, 60, 248, 0.2);
+  border-radius: 10px;
+}
+
+.molduraIcone{
+  width: 50px;
+  height: 50px;
+  background-color: rgb(140, 43, 251, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 5px 10px 0 0;
+}
+
+.molduraIcone img{
+  width: 30px;
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+}
+
+.dadosAcao{
+  width: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dadosAcao p{
+  font-size: 15px;
   font-weight: 400;
   margin: 0;
 }
+
+.dadosAcao span p{
+  margin: 0;
+}
+
+.dadosAcao span p:nth-child(1){
+  color: #000;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.dadosAcao span p:nth-child(2){
+  font-size: 13px;
+}
+
+.positivo{
+  color: rgb(7, 168, 109);
+}
+
+.negativo{
+  color: rgb(243, 62, 30);
+}
+
+.botaoDesfazer{margin-right: 10px;}
 
 .metricasCartao{
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
-.comparacaoLimites{
+.dadosMetricas{
   display: flex;
+  justify-content: space-between;
 }
 
-.limiteInicial, .limiteAtual{
-  width: 50%;
+.dadosMetricas p{
   margin: 0;
-  text-align: right;
+  font-size: 15px;
 }
 
-.limiteAtual{
-  text-align: left;
+.dadosMetricas:nth-child(1) p:nth-child(1){
+  font-weight: 450;
+  color: #000;
 }
 
-.valorBalancoCartao{
-  width: 100%;
-  margin: 0;
-  text-align: center;
+.dadosMetricas:nth-child(1) p:nth-child(2){
+  color: rgb(231, 88, 88);
+  font-weight: 400;
 }
+
+.dadosMetricas:nth-child(3) p{
+  font-size: 13px;
+}
+
 
 .botoesAcoes{
-  margin-top: 20px;
-  margin-bottom: -20px;
   width: 100%;
   display: flex;
-  justify-content: center;
-}
-
-.botoesAcoes button:nth-child(2){
-  margin-left: 10px;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 .botoesAcoes button{
-  width: 100%;
+  width: 48.5%;
 }

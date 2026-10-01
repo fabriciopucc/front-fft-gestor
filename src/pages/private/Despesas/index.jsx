@@ -11,6 +11,7 @@ import { useState } from 'react';
 import LancarDespesaForm from '@/components/forms/LancarDespesaForm';
 import QuantidadeEntidades from '@/components/utils/QuantidadeEntidades';
 import useForm from '@/hooks/useForm';
+import BarraProgresso from '@/components/utils/BarraProgresso';
 
 
 export default function Despesas(){
@@ -30,9 +31,14 @@ export default function Despesas(){
           : !despesa.jaFoiLancadaEsseMes
   });
 
-  const totalDespesas = despesasFiltradas.reduce((soma, objeto) => {
+  const totalDespesas = despesas.reduce((soma, objeto) => {
     return soma + objeto.valor;
   }, 0);
+
+  const totalDespesasPagas = despesas
+    .filter(despesa => despesa.jaFoiLancadaEsseMes)
+    .reduce((soma, despesa) => soma + despesa.valor, 0);
+    
 
   let quantidadeDespesasPagas = despesas.filter((despesa) => despesa.jaFoiLancadaEsseMes).length;
 
@@ -119,23 +125,6 @@ export default function Despesas(){
         ) : (<></>)
       }
 
-      {
-        despesas.length ? (
-          <div className={styles.infoDespesas}>
-            <span className={styles.totalDespesas}>Total: R$ {totalDespesas.toFixed(2)}</span>
-
-            <select 
-              value={filtro || "todas"}
-              onChange={(e) => setFiltro(e.target.value)}  
-            >
-              <option value="todas">Todas</option>
-              <option value="naoLancadasEsseMes">Pendentes</option>
-              <option value="lancadasEsseMes">Pagas</option>
-            </select>
-          </div>
-        ) : (<></>)
-      }
-
       <ListaDeEntidade
         lista={despesasFiltradas}
         textoAlternativo={
@@ -144,39 +133,56 @@ export default function Despesas(){
           "Sem despesas pendentes no momento!"
         }
       >
-        {
-          despesasFiltradas.map((despesaDaLista) => (
-            <div
-              key={despesaDaLista.codigo}
-              className={
-                styles.despesa+" "+
-                styles[(escolherDespesa) && "escolherDespesa"]+" "+
-                styles[(despesaDaLista.codigo == despesa.codigo) && "selecionado"]
-              }
-              onClick={() => {
-                if(escolherDespesa){
-                  setDespesa({
-                    formaPagamento: 'escolha',
-                    codigo: despesaDaLista.codigo
-                  });
-                }
-              }}
-            >
-              <div
-                className={styles.margemDespesa}
-              >
-                {
-                  (!escolherDespesa) && (
-                     <img 
-                      src={iconExcluir} 
-                      alt="Icone excluir" 
-                      className={styles.botaoExcluir}
-                      onClick={() => excluirDespesa(despesaDaLista.codigo)}
-                    />
-                  )
-                }
+        <div className={styles.containerDespesas}>
+          <div className={styles.margemContainerDespesas}>
+            <div className={styles.metricasDespesas}>
+              <div className={styles.cabecalhoMetricas}>
+                <h1 className={styles.valorTotal}>R$ {totalDespesas.toFixed(2)}</h1>
 
-                <div>
+                <select onChange={(e) => setFiltro(e.target.value)}>
+                  <option value="todas">Todas</option>
+                  <option value="lancadasEsseMes">Pendentes</option>
+                  <option value="naoLancadasEsseMes">Lançadas</option>
+                </select>
+              </div>
+              
+
+              <BarraProgresso
+                maximo={totalDespesas}
+                inicial={totalDespesasPagas}
+                compararValores={true}
+              />
+              <div className={styles.totais}>
+                <span>
+                  <div className={styles.indicador}></div>
+                  R$ {totalDespesasPagas.toFixed(2)}
+                </span>
+
+                <span>
+                  <div className={styles.indicador2}></div>
+                  R$ {(totalDespesas - totalDespesasPagas).toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            {
+              despesasFiltradas.map((despesaDaLista) => (
+                <div
+                  key={despesaDaLista.codigo}
+                  className={
+                    styles.despesa+" "+
+                    styles[(escolherDespesa) && "escolherDespesa"]+" "+
+                    styles[(despesaDaLista.codigo == despesa.codigo) && "selecionado"]
+                  }
+                  onClick={() => {
+                    if(escolherDespesa){
+                      setDespesa({
+                        formaPagamento: 'escolha',
+                        codigo: despesaDaLista.codigo
+                      });
+                    }
+                  }}
+                > 
                   <span
                     className={
                       styles.molduraDia+" "+
@@ -191,27 +197,46 @@ export default function Despesas(){
                     }
                   >
                     <p>
+                      dia
+                    </p>
+
+                    <p>
                       {(despesaDaLista.diaVencimento < 10) && "0"}
                       {despesaDaLista.diaVencimento}
                     </p>
                   </span>
-                </div>
 
-                <div>
-                  <p>
-                    {despesaDaLista.descricao}
-                  </p>
-                </div>
+                  <div className={styles.dadosDespesa}>
+                    <div>
+                      <p>
+                        {despesaDaLista.descricao}
+                      </p>
 
-                <div>
-                  <p>
-                    R$ {parseFloat(despesaDaLista.valor).toFixed(2)}
-                  </p>
+                      <p className={styles.statusDespesa+" "+styles[(despesaDaLista.jaFoiLancadaEsseMes) ? "statusLancada" : "statusPendente"]}>
+                        {(despesaDaLista.jaFoiLancadaEsseMes) ? "Paga" : "Pendente"}
+                      </p>
+                    </div>
+
+                    <p className={styles.valorDespesa}>
+                      R$ {parseFloat(despesaDaLista.valor).toFixed(2)}
+                    </p>
+                  </div>
+
+                  {
+                    (!escolherDespesa) && (
+                      <img 
+                        src={iconExcluir} 
+                        alt="Icone excluir" 
+                        className={styles.botaoExcluir}
+                        onClick={() => excluirDespesa(despesaDaLista.codigo)}
+                      />
+                    )
+                  }
                 </div>
-              </div>
-            </div>
-          ))
-        }
+              ))
+            }
+          </div>
+        </div>
       </ListaDeEntidade>
     </Container>
   )

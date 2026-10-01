@@ -1,3 +1,73 @@
+.metricasDespesas{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.metricasDespesas p{margin: 0;}
+
+.cabecalhoMetricas{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cabecalhoMetricas select{
+  width: 30%;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.valorTotal{
+  font-weight: 400;
+  color: #5a5a5a;
+  margin: 0;
+}
+
+.metricasDespesas span{
+  display: flex;
+}
+
+.totais{
+  display: flex;
+  justify-content: space-between;
+}
+
+.indicador, .indicador2{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: rgb(65, 208, 146);
+  margin-right: 7.5px;
+}
+
+.indicador2{
+  background-color: rgb(251, 111, 111);
+}
+
+.seletorFiltro{
+  width: 500px;
+  margin: 20px 0 0 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.opcao{
+  padding: 5px 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 7.5px;
+  background-color: rgba(209, 177, 247, 0.15);
+}
+
+.opcaoSelecionada, .opcaoSelecionada:hover{
+  color: var(--primaria);
+  background-color: rgb(140, 43, 251, 0.2);
+  filter: brightness(100%);
+  font-weight: 500;
+}
+
+
 .botoesLancarDespesa, .botoesAcoesDespesa{
   width: 500px;
   display: flex;
@@ -30,20 +100,29 @@
   font-weight: 350;
 }
 
-.infoDespesas select{
-  width: fit-content;
-  margin: 0;
-  padding: 0 15px;
-}
-
-.despesa{
+.containerDespesas{
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
   background-color: var(--card);
   box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
   border-radius: 10px;
 }
+
+.margemContainerDespesas{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 30px 0;
+}
+
+.despesa{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.despesa:nth-child(1){margin-top: 0;}
 
 .escolherDespesa:hover{
   cursor: pointer;
@@ -55,46 +134,29 @@
   border: 4px solid rgba(140, 43, 251, 0.18);
 }
 
-.margemDespesa{
-  width: 90%;
-  margin: 20px 0;
-  display: flex;
-  position: relative;
-}
-
-.botaoExcluir{
-  right: -10px;
-  top: -5px;
-  position: absolute;
-  cursor: pointer;
-  width: 17.5px;
-  filter: invert(50%);
-}
-
-.botaoExcluir:hover{
-  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
-}
-
-.margemDespesa div{
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.margemDespesa div:nth-child(3){
-  width: 40%;
-}
-
 .molduraDia{
   cursor: pointer;
   width: 60px;
   height: 60px;
-  background-color: rgb(255, 239, 239);
-  border-radius: 50%;
+  background-color: rgb(250, 166, 166);
+  border-radius: 15%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+.molduraDia p{
+  color: rgb(157, 43, 43);
+  font-weight: 500;
+  margin: 0;
+}
+
+.molduraDia p:nth-child(2){
+  margin-top: -7.5px;
+  font-weight: 700;
 }
 
 .molduraDia:hover{
@@ -105,29 +167,51 @@
   background-color: rgb(226, 248, 237);
 }
 
-.neutra{
-  background-color: rgb(141, 60, 248, 0.15);
+.lancada p{
+  color: green;
 }
 
-.molduraDia p{
+.dadosDespesa{
+  width: calc(100% - 120px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dadosDespesa p{
   margin: 0;
 }
 
-.margemDespesa div p{
-  margin: 0;
+.statusDespesa{
+  margin-top: -10px;
 }
 
-.margemDespesa div:nth-child(4) p{
+.statusLancada{
+  color: green;
+}
+
+.statusPendente{
+  color: red;
+}
+
+.valorDespesa{
+  color: #000;
   font-weight: 400;
 }
 
-.despesa div:nth-child(4) button{
-  width: 80%;
-  margin-bottom: 10px;
+.botaoExcluir{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  filter: invert(40%);
+}
+
+.botaoExcluir:hover{
+  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
 }
 
 @media screen and (max-width: 600px) {
-  .botoesLancarDespesa, .botoesAcoesDespesa, .infoDespesas{
+  .seletorFiltro, .botoesLancarDespesa, .botoesAcoesDespesa, .infoDespesas{
     width: 100%;
   }
 }

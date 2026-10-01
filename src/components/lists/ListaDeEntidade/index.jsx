@@ -20,9 +20,9 @@ export default function ListaDeEntidade({children, lista, textoAlternativo, clas
           <>
             {children}
           </>
-        ) : (
+        ) : textoAlternativo ? (
           <p className={'aviso'}>{textoAlternativo}</p>
-        )
+        ) : (<></>)
       }
     </div>
   );

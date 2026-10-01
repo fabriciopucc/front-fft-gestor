@@ -66,8 +66,6 @@ export default function Categorias(){
                   onClick={() => excluirCategoria(categoria.codigo)}  
                 />
 
-                 <p>{categoria.nome}</p>
-
                 <div
                   className={styles.molduraIcone}
                 >
@@ -75,6 +73,8 @@ export default function Categorias(){
                     src={categoriasIcons[categoria.indiceIcon - 1].src}
                   />
                 </div>
+
+                <p>{categoria.nome}</p>
               </div>
             </div>
           ))

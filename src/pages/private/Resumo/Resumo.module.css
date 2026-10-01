@@ -35,12 +35,6 @@
   font-size: 12.5px;
 }
 
-.infosCategorias select{
-  width: fit-content;
-  padding: 0 15px;
-  margin: 0 0 0 10px;
-}
-
 .categoria{
   width: 100%;
   display: flex;
@@ -82,12 +76,15 @@
   margin: 0;
 }
 
+.dadosCategoria p:nth-child(2){
+  font-weight: 400;
+}
+
 .dadosCartao p{margin: 0;}
 
 .dadosCartao p:nth-child(1){
   font-weight: 500;
   font-size: 17.5px;
-  color: #000000;
 }
 
 .dadosCartao p:nth-child(3){

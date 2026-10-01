@@ -11,6 +11,11 @@
   text-decoration: none;
 }
 
+.reduzido{
+  width: 48.5%;
+  margin: 0;
+}
+
 .botaoLink:hover{
   filter: brightness(90%);
 }

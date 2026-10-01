@@ -4,6 +4,8 @@ import styles from './ListaDeAcoes.module.css';
 import { useState } from 'react';
 import ListaDeEntidade from '../ListaDeEntidade';
 import categoriasIcons from '@/constants/categoriasIcons';
+import BotaoLink from '@/components/utils/BotaoLink';
+import BarraProgresso from '@/components/utils/BarraProgresso';
 
 export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerAcao, setDias}){
 
@@ -17,19 +19,19 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
   return(
     <>
       <div className={styles.escolherExibirConteudo}>
-        <p 
+        <div
           onClick={() => setExibirConteudo("saldoEmConta")}
-          className={styles[(exibirConteudo == "saldoEmConta") && "selecionado"]}
-        >
+          className={styles.seletorConteudo+" "+[exibirConteudo === "saldoEmConta" && styles.opcaoSelecionada]}        
+          >
           Saldo
-        </p>
+        </div>
 
-        <p 
+        <div
           onClick={() => setExibirConteudo("cartaoCredito")}
-          className={styles[(exibirConteudo == "cartaoCredito") && "selecionado"]}
+          className={styles.seletorConteudo+" "+[exibirConteudo === "cartaoCredito" && styles.opcaoSelecionada]}        
         >
           Cartão
-        </p>
+        </div>
       </div>
 
       {
@@ -39,54 +41,8 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
             lista={acoesDeSaldo}
             textoAlternativo={"Ainda não há ações de saldo em conta neste dia!"}
           >
-            {
-              acoesDeSaldo.map((acao) => (
-                <div
-                  className={styles.acao}
-                  key={acao.codigo}
-                >
-                  <div className={styles.linhaAcao+" "+styles
-                    [
-                      (["saida", "despesa"].includes(acao.tipoTransacao)) ? "acaoNegativa" : 
-                      (acao.tipoTransacao == "entrada") &&  "acaoPositiva"
-                    ]+" "+styles
-                    [
-                      (codigoAcao == acao.codigo) && "acaoSelecionada" 
-                    ]}
-                    onClick={() => {
-                      if(exibirDesfazerAcao) setCodigoAcao(acao.codigo)
-                    }}
-                  >
-                    <div>
-                      <img 
-                        src={categoriasIcons[acao.indiceIcon - 1]?.src} 
-                        alt="Icon" 
-                      />
-                    </div>
-
-                    <div>
-                      <p>
-                        {acao.categoria}
-                      </p>
-                    </div>
-
-                    <div>
-                      <strong>
-                        R$ {parseFloat(acao.valor).toFixed(2)}
-                      </strong>
-                    </div>
-
-                    <div>
-                      <p>
-                        {acao.horario}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            }
-
             <div className={styles.metricas}>
+              <p>Variação do dia</p>
               <h1  
                 className={styles.valorBalanco+" "+styles[((dia.saldoAtual - dia.saldoInicial) > 0) ? "balancoPositivo" : ((dia.saldoAtual - dia.saldoInicial) < 0) && "balancoNegativo"]}
               >
@@ -106,41 +62,41 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
               </div>
             </div>
 
-            <div
-              className={styles.botoesAcoes}
-            >
-              {
-                exibirDesfazerAcao ? (
-                  <>
-                    <button
-                      type='button'
-                      onClick={() => {
-                        setExibirDesfazerAcao(false);
-                        setCodigoAcao("");
-                      }}
-                    >
-                      Cancelar
-                    </button>
-                    
-                    <button
-                      type='button'
-                      onClick={() => desfazerAcao(codigoAcao, setDias)}
-                      disabled={!codigoAcao}
-                      className={(codigoAcao) ? "botaoPositivo" : "desativado"}
-                    >
-                      {(codigoAcao) ? "Confirmar" : "Selecione"}
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    type='button'
-                    onClick={() => setExibirDesfazerAcao(true)}
-                  >
-                    Desfazer ação
-                  </button>
-                )
-              }
-            </div>
+            <p className={styles.quantidadeMovimentacoes}>
+              {acoesDeSaldo.length} {(acoesDeSaldo.length) > 1 ? "movimentações" : "movimentação"}
+            </p>
+
+            {
+              acoesDeSaldo.map((acao) => (
+                <div
+                  key={acao.codigo}
+                  className={styles.acao+" "+styles[(codigoAcao == acao.codigo) && "acaoSelecionada"]}
+                  onClick={() => {
+                      if(exibirDesfazerAcao) setCodigoAcao(acao.codigo)
+                    }
+                  }
+                >
+                  <div className={styles.molduraIcone}>
+                    <img 
+                      src={(categoriasIcons[acao.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                      alt="Icon" 
+                    />
+                  </div>
+
+                  <div className={styles.dadosAcao}>
+                    <span>
+                      <p>{acao.categoria}</p>
+                      <p>{acao.horario}</p>
+                    </span>
+
+                    <p className={styles[(acao.tipoTransacao == "saida") ? "negativo" : "positivo"]}>
+                      {(acao.tipoTransacao == "saida") ? "- " :  "+ "}
+                      R$ {Math.abs((acao.valor)).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
           </ListaDeEntidade>
         ) : (
           <ListaDeEntidade
@@ -149,148 +105,128 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
             textoAlternativo={"Ainda não há ações de cartão neste dia!"}
           >
             {
-              acoesDeCartao.map((acao) => (
+              dia.historicoUsoCartoes.map((metricasCartao) => (
                 <div
-                  className={styles.acao}
-                  key={acao.codigo}
+                  key={metricasCartao.codigo}
+                  className={styles.metricasCartao}
                 >
-                  <div 
-                    className={styles.linhaAcao+" "+styles
-                    [
-                      (acao.tipoTransacao == "cartaoCredito") ? "acaoNegativa" :
-                      (acao.tipoTransacao == "quitacaoCartao") && "acaoPositiva"
-                    ]+" "+styles
-                    [
-                      (codigoAcao == acao.codigo) && "acaoSelecionada" 
-                    ]}
-                    onClick={() => {
-                      if(exibirDesfazerAcao) setCodigoAcao(acao.codigo)
-                    }}
-                  >
-                    <div>
-                      <strong>
-                        {acao.apelidoCartao}
-                      </strong>
-                    </div>
+                  <div className={styles.dadosMetricas}>
+                    <p>
+                      {metricasCartao.apelidoCartao}
+                    </p>
+                    
+                    <p>
+                      {(metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual).toFixed(2)} hoje
+                    </p>
+                  </div>
 
-                    <div>
-                      <img 
-                        src={categoriasIcons[acao.indiceIcon - 1]?.src} 
-                        alt="Icon" 
-                      />
-                    </div>
+                  <BarraProgresso
+                    inicial={metricasCartao.limiteUsadoInicial}
+                    atual={metricasCartao.limiteUsadoAtual}
+                    maximo={metricasCartao.limiteTotal}
+                  />
 
-                    <div>
-                      <p>
-                        {acao.categoria}
-                      </p>
-                    </div>
-
-                    <div>
-                      <strong>
-                        R$ {parseFloat(acao.valor).toFixed(2)}
-                      </strong>
-                    </div>
-
-                    <div>
-                      <p>
-                        {acao.horario}
-                      </p>
-                    </div>
+                  <div className={styles.dadosMetricas}>
+                    <p>
+                      R$ {metricasCartao.limiteUsadoInicial.toFixed(2)}
+                    </p>
+                    
+                    <p>
+                      R$ {metricasCartao.limiteUsadoAtual.toFixed(2)} de {metricasCartao.limiteTotal}
+                    </p>
                   </div>
                 </div>
               ))
             }
 
-            <div
-              className={styles.containerMetricasCartao}
-            >
-              {
-                dia.historicoUsoCartoes.map((metricasCartao) => (
-                  <div 
-                    key={metricasCartao.codigo}
-                    className={styles.linhaMetricasCartao}
-                  >
-                    <p
-                      className={styles.apelidoCartao}
-                    >
-                      {metricasCartao.apelidoCartao}
-                    </p>
-                    
-                    <div
-                      className={styles.metricasCartao}
-                    >
-                      <div
-                        className={styles.comparacaoLimites}
-                      >
-                        <p
-                          className={styles.limiteInicial}
-                        >
-                          R$ {metricasCartao.limiteUsadoInicial.toFixed(2)}/{metricasCartao.limiteTotal}
-                        </p>
-                        
-                        <img 
-                          src={iconSeta} 
-                          alt="iconSeta" 
-                        />
+            <p className={styles.quantidadeMovimentacoes}>
+              {acoesDeCartao.length} {(acoesDeCartao.length) > 1 ? "movimentações" : "movimentação"}
+            </p>
 
-                        <p
-                          className={styles.limiteAtual}
-                        >
-                          R$ {metricasCartao.limiteUsadoAtual.toFixed(2)}/{metricasCartao.limiteTotal}
-                        </p>
-                      </div>
-
-                      <p  
-                        className={styles.valorBalancoCartao+" "+styles[((metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual) > 0) ? "balancoPositivo" : ((metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual) < 0) && "balancoNegativo"]}
-                      >
-                        {((metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual) > 0) ? "+ " : ((metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual) < 0) && "- "}
-                        R$ {parseFloat(Math.abs(metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual)).toFixed(2)}
-                      </p>
-                    </div>
+            {
+              acoesDeCartao.map((acao) => (
+                <div
+                  key={acao.codigo}
+                  className={styles.acao+" "+styles[(codigoAcao == acao.codigo) && "acaoSelecionada"]}
+                  onClick={() => {
+                    if(exibirDesfazerAcao) setCodigoAcao(acao.codigo)
+                    }
+                  }
+                >
+                  <div className={styles.molduraIcone}>
+                    <img 
+                      src={(categoriasIcons[acao.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                      alt="Icon" 
+                    />
                   </div>
-                ))
-              }
-            </div>
 
-            <div
-              className={styles.botoesAcoes}
-            >
-              {
-                exibirDesfazerAcao ? (
-                  <>
-                    <button
-                      type='button'
-                      onClick={() => {
-                        setExibirDesfazerAcao(false);
-                        setCodigoAcao("");
-                      }}
-                    >
-                      Cancelar
-                    </button>
-                    
-                    <button
-                      type='button'
-                      onClick={() => desfazerAcao(codigoAcao, setDias)}
-                      disabled={!codigoAcao}
-                      className={(codigoAcao) ? "botaoPositivo" : "desativado"}
-                    >
-                      {(codigoAcao) ? "Confirmar" : "Selecione"}
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    type='button'
-                    onClick={() => setExibirDesfazerAcao(true)}
-                  >
-                    Desfazer ação
-                  </button>
-                )
-              }
-            </div>
+                  <div className={styles.dadosAcao}>
+                    <span>
+                      <p>{acao.categoria}</p>
+                      <p>{acao.horario} - {acao.apelidoCartao}</p>
+                    </span>
+
+                    <p>
+                      R$ {acao.valor.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
           </ListaDeEntidade>
-        )
+        )  
       }
+
+       <div
+          className={styles.botoesAcoes}
+        >
+          {
+            exibirDesfazerAcao ? (
+              <>
+                <button
+                  type='button'
+                  onClick={() => desfazerAcao(codigoAcao, setDias)}
+                  disabled={!codigoAcao}
+                  className={(codigoAcao) ? "botaoPositivo" : "desativado"}
+                >
+                  {(codigoAcao) ? "Confirmar" : "Selecione"}
+                </button>
+
+                <button
+                  type='button'
+                  onClick={() => {
+                    setExibirDesfazerAcao(false);
+                    setCodigoAcao("");
+                  }}
+                >
+                  Cancelar
+                </button>
+              </>
+            ) : (
+              <>
+                <BotaoLink
+                  destino={"/adicionarAcao/".concat(dia.codigo)}
+                  texto={"Adicionar"}
+                  classeAdcional={"reduzido"}
+                />
+
+                {
+                  (exibirConteudo == "saldoEmConta" && acoesDeSaldo.length) || 
+                  (exibirConteudo == "cartaoCredito" && acoesDeCartao.length) 
+                  ? (
+                    <button
+                      type='button'
+                      className={styles.botaoDesfazer}
+                      onClick={() => setExibirDesfazerAcao(true)}
+                    >
+                      Desfazer
+                    </button>
+                  ) : <></>
+                }
+              </>
+            )
+          }
+        </div>
     </>
   )
 }
