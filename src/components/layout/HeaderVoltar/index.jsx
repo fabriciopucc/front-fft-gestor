@@ -1,7 +1,7 @@
 import styles from './HeaderVoltar.module.css';
 
 import { Link } from 'react-router-dom';
-import iconVoltar from '@/assets/icons/iconVoltar.png';
+import iconVoltar from '@/assets/icons/iconVoltar.svg';
 
 export default function HeaderVoltar({destino, tituloPagina}){
 

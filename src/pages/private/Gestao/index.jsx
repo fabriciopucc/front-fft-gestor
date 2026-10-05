@@ -13,11 +13,12 @@ import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import Saldo from '@/components/elements/Saldo';
 import { useState } from 'react';
 import useAcao from '@/hooks/useAcao';
+import BotaoPaginacao from '@/components/utils/BotaoPaginacao';
 
 
 export default function Gestao(){
 
-  const {data, setData, criarDia, dias, setDias} = useDias();
+  const {data, setData, criarDia, dias, setDias, paginacao, avancarPagina, retrocederPagina} = useDias();
   const [codigoAcao, setCodigoAcao] = useState();
   const {saldo} = useSaldo();
   const {desfazerAcao} = useAcao();
@@ -48,6 +49,12 @@ export default function Gestao(){
       >
         {data ? "Criar dia" : "Selecione o dia"}
       </button>
+
+      <BotaoPaginacao
+        paginacao={paginacao}
+        avancar={avancarPagina}
+        voltar={retrocederPagina}
+      />
 
       <ListaDeEntidade
         lista={dias}

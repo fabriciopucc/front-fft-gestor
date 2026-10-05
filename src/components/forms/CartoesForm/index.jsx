@@ -1,6 +1,6 @@
 import styles from './CartoeForm.module.css';
 
-import iconFechar from '@/assets/icons/close.png';
+import iconFechar from '@/assets/icons/iconFechar.svg';
 import Input from "@/components/itensForm/Input";
 import InputNumerico from "@/components/itensForm/InputNumerico";
 

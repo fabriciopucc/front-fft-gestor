@@ -23,11 +23,8 @@
 }
 
 .chipCard{
-  width: 17.5%;
-  height: 20%;
-  border-radius: 7.5px;
-  background: linear-gradient(to right, rgb(198, 189, 205), rgb(84, 82, 88));
-  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+  width: 75px;
+  filter: grayscale(100%) brightness(95%);
 }
 
 .apelidoCartao {
@@ -73,21 +70,6 @@
   color: var(--sucesso);
 }
 
-.barraProgresso {
-  margin-top: 5px;
-  width: 100%;
-  height: 12px;
-  background-color: rgba(104, 23, 190, 0.1);
-  border-radius: 2.5px;
-  overflow: hidden;
-  border: 1px solid rgb(244, 241, 249);
-}
-
-.barraPreenchida {
-  height: 100%;
-  border-radius: inherit;
-}
-
 .porcentagemUso {
   margin-top: 8px;
   color: #777;
@@ -131,6 +113,10 @@
 }
 
 @media screen and (max-width: 450px) {
+  .chipCard{
+    width: 60px;
+  }
+
   .cartaoVisual{
     min-height: 180px;
   }

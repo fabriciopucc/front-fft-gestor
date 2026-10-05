@@ -1,7 +1,7 @@
 .barra {
   width: 100%;
-  height: 15px;
-  background-color: rgba(223, 205, 245, 0.33);
+  height: 13px;
+  background-color: rgba(204, 189, 222, 0.4);
   border-radius: 5px;
   overflow: hidden;
   display: flex;
@@ -15,14 +15,34 @@
 
 .atual {
   height: 100%;
-  background-color: rgb(239, 167, 167);
+  background-color: var(--itemNegativo);
 }
 
 .vermelho{
-  background-color: rgb(251, 111, 111);
+  background-color: var(--itemNegativo);
   margin: 10px 0;
 }
 
 .verde{
-  background-color: rgb(65, 208, 146);
+  background-color: var(--itemPositivo);
+}
+
+.btnroxo{
+  background-color: var(--primaria);
+}
+
+.btnpreto{
+  background-color: rgb(71, 71, 72);
+}
+
+.btnazul{
+  background-color: rgb(3, 108, 228);
+}
+
+.btnvermelho{
+  background-color: rgb(170, 34, 34);
+}
+
+.btnverde{
+  background-color: rgb(11, 148, 73);
 }

@@ -36,12 +36,12 @@
   width: 20px;
   height: 20px;
   border-radius: 5px;
-  background-color: rgb(65, 208, 146);
+  background-color: var(--itemPositivo);
   margin-right: 7.5px;
 }
 
 .indicador2{
-  background-color: rgb(251, 111, 111);
+  background-color: var(--itemNegativo);
 }
 
 .seletorFiltro{
@@ -68,18 +68,21 @@
 }
 
 
-.botoesLancarDespesa, .botoesAcoesDespesa{
-  width: 500px;
+.botoesDespesas{
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: 20px 0 0 0;
+  margin: 0 0 20px 0;
 }
 
-.botoesLancarDespesa button{width: 49%;}
-
-.botaoLancarDespesa, .botaoPendenciarDespesas{
+.botoesDespesas button{
   width: 48.5%;
   margin: 0;
+}
+
+.botoesDespesas button:nth-child(1){
+  background-color: var(--btnSecundario);
+  color: var(--primaria);
 }
 
 .infoDespesas{
@@ -138,7 +141,7 @@
   cursor: pointer;
   width: 60px;
   height: 60px;
-  background-color: rgb(250, 166, 166);
+  background-color: var(--itemNegativo);
   border-radius: 15%;
   display: flex;
   flex-direction: column;
@@ -149,7 +152,7 @@
 }
 
 .molduraDia p{
-  color: rgb(157, 43, 43);
+  color: var(--valorNegativo);
   font-weight: 500;
   margin: 0;
 }
@@ -164,11 +167,11 @@
 }
 
 .lancada{
-  background-color: rgb(226, 248, 237);
+  background-color: var(--itemPositivo);
 }
 
 .lancada p{
-  color: green;
+  color: var(--valorPositivo);
 }
 
 .dadosDespesa{

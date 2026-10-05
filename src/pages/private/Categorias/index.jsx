@@ -7,7 +7,7 @@ import CategoriasForm from '@/components/forms/CategoriasForm';
 
 import useCategorias from '@/hooks/useCategorias.js';
 
-import iconExcluir from '@/assets/icons/iconExcluir.png'
+import iconExcluir from '@/assets/icons/iconLixeira.svg'
 import categoriasIcons from '@/constants/categoriasIcons';
 import QuantidadeEntidades from '@/components/utils/QuantidadeEntidades';
 import useForm from '@/hooks/useForm';

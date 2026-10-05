@@ -2,13 +2,13 @@ import styles from './Menu.module.css';
 
 import Container from "@/components/layout/Container";
 
-import iconEngrenagem from '@/assets/icons/iconEngrenagem.png';
-import iconDespesas from '@/assets/icons/iconDespesas.png';
-import iconEstatisticas from '@/assets/icons/iconEstatisticas.png';
-import iconGestao from '@/assets/icons/iconGestao.png';
-import iconCategorias from '@/assets/icons/iconCategorias.png';
-import iconCartao from '@/assets/icons/iconCartao.png';
-import iconUser from '@/assets/icons/iconUser.png';
+import iconEngrenagem from '@/assets/icons/categorias/iconEngrenagem.svg';
+import iconDespesas from '@/assets/icons/categorias/iconDinheiro.svg';
+import iconResumo from '@/assets/icons/iconResumo.svg';
+import iconGestao from '@/assets/icons/iconGestao.svg';
+import iconCategorias from '@/assets/icons/iconCategorias.svg';
+import iconCartao from '@/assets/icons/iconCartoes.svg';
+import iconUser from '@/assets/icons/iconUser.svg';
 
 import OpcaoMenu from '@/components/elements/OpcaoMenu';
 import Saldo from '@/components/elements/Saldo';
@@ -67,7 +67,7 @@ export default function Menu(){
 
         <OpcaoMenu
           destino={"/resumo"}
-          srcIcon={iconEstatisticas}
+          srcIcon={iconResumo}
           altIcon={"Icon resumo"}
           titulo={"Resumo"}
           txtAlternativo={"Veja seu resumo"}

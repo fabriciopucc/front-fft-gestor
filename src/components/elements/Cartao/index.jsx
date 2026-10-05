@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-import iconChipCard from '@/assets/icons/iconChipCard.png';
+import iconChipCard from '@/assets/icons/iconChipCard.svg';
 
 import { Link } from 'react-router-dom';
 
 import styles from './Cartao.module.css';
 import AlterarLimiteForm from '@/components/forms/AlterarLimiteForm';
+import BarraProgresso from '@/components/utils/BarraProgresso';
 
 
 export default function Cartao({cartao, preencherCartao}){
@@ -17,9 +18,11 @@ export default function Cartao({cartao, preencherCartao}){
       className={styles.cartao}
     >
       <div className={styles.cartaoVisual+" "+[cartao.cor]}>
-        <div className={styles.chipCard}>
-
-        </div>
+        <img 
+          src={iconChipCard} 
+          alt="Icon chip card" 
+          className={styles.chipCard}  
+        />
 
         <div className={styles.apelidoCartao}>
           {cartao.apelido}
@@ -42,12 +45,11 @@ export default function Cartao({cartao, preencherCartao}){
             {" ("}{((cartao.limiteUtilizado/cartao.limiteTotal)*100).toFixed(2)}%{")"}
           </span>
 
-          <div className={styles.barraProgresso}>
-            <div
-              className={styles.barraPreenchida+" btn"+[cartao.cor]}
-              style={{ width: `${(cartao.limiteUtilizado/cartao.limiteTotal)*100}%` }}
-            />
-          </div>
+          <BarraProgresso
+            maximo={cartao.limiteTotal}
+            inicial={cartao.limiteUtilizado}
+            corBarra={"btn".concat(cartao.cor)}
+          />
         </span>
       </div>
 
@@ -62,13 +64,13 @@ export default function Cartao({cartao, preencherCartao}){
       </div>
 
       <div className={styles.informacaoCartao}>
-          <span className={styles.tituloInformacao}>
-            Limite total
-          </span>
+        <span className={styles.tituloInformacao}>
+          Limite total
+        </span>
 
-          <span className={styles.valorPrincipal}>
-            R$ {cartao.limiteTotal.toFixed(2)}
-          </span>
+        <span className={styles.valorPrincipal}>
+          R$ {cartao.limiteTotal.toFixed(2)}
+        </span>
       </div>
 
       {

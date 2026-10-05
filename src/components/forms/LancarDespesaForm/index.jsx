@@ -1,6 +1,6 @@
 import useCartoes from '@/hooks/useCartoes';
 import styles from './LancarDespesaForm.module.css';
-import iconFechar from '@/assets/icons/close.png';
+import iconFechar from '@/assets/icons/iconFechar.svg';
 
 export default function LancarDespesaForm({setExibirFormularioLancarDespesa, despesa, setDespesa, preencherDespesa, lancarDespesaNoDiaAtual}){
 

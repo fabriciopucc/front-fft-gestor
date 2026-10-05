@@ -21,6 +21,14 @@
   --sucesso: #23a55a;
   --erro: rgb(242, 95, 95);
   --sombra: #00000013;
+
+  --btnSecundario: rgb(241, 228, 255);
+
+  --itemPositivo: rgb(140, 242, 193);
+  --itemNegativo: rgb(238, 155, 155);
+
+  --valorPositivo: rgb(20, 184, 113);
+  --valorNegativo: rgb(217, 75, 75);
 }
 
 
@@ -47,13 +55,14 @@ button{
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  color: #fff;
-  background-color: var(--primaria);
   padding: 0 10px;
   height: 40px;
   margin: 0;
   font-size: 15px;
-  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+
+
+  color: #fff;
+  background-color: var(--primaria);
   font-weight: 400;
 }
 
@@ -93,6 +102,13 @@ form h1{
 }
 
 /*Classes padrões*/
+.valorPositivo{
+  color: var(--valorPositivo);
+}
+
+.valorNegativo{
+  color: var(--valorNegativo);
+}
 
 /*Cores dos cartões*/
 .roxo{

@@ -128,7 +128,12 @@
 }
 
 .cardNegativo .textoRodapeSaldo{
-  color: var(--erro);
+  color: var(--valorNegativo);
+  background-color: rgb(234, 2, 2, 0.15);
+}
+
+.valorNegativo{
+  color: var(--valorNegativo);
   background-color: rgb(234, 2, 2, 0.15);
 }
 

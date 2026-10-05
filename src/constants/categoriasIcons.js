@@ -1,15 +1,15 @@
-import iconCarro from '@/assets/icons/categorias/iconCarro.png';
-import iconBaloes from '@/assets/icons/categorias/iconBaloes.png';
-import iconComida from '@/assets/icons/categorias/iconComida.png';
-import iconEstetica from '@/assets/icons/categorias/iconEstetica.png';
-import iconEngrenagem from '@/assets/icons/categorias/iconEngrenagem.png';
-import iconDinheiro from '@/assets/icons/categorias/iconDinheiro.png';
-import iconLampada from '@/assets/icons/categorias/iconLampada.png';
-import iconSaude from '@/assets/icons/categorias/iconSaude.png';
-import iconCassino from '@/assets/icons/categorias/iconCassino.png';
-import iconViagem from '@/assets/icons/categorias/iconViagem.png';
-import iconGasolina from '@/assets/icons/categorias/iconGasolina.png';
-import iconJogo from '@/assets/icons/categorias/iconJogo.png';
+import iconCarro from '@/assets/icons/categorias/iconCarro.svg';
+import iconBaloes from '@/assets/icons/categorias/iconBaloes.svg';
+import iconComida from '@/assets/icons/categorias/iconComida.svg';
+import iconEstetica from '@/assets/icons/categorias/iconEstetica.svg';
+import iconEngrenagem from '@/assets/icons/categorias/iconEngrenagem.svg';
+import iconDinheiro from '@/assets/icons/categorias/iconDinheiro.svg';
+import iconLampada from '@/assets/icons/categorias/iconLampada.svg';
+import iconSaude from '@/assets/icons/categorias/iconSaude.svg';
+import iconGarrafa from '@/assets/icons/categorias/iconGarrafa.svg';
+import iconViagem from '@/assets/icons/categorias/iconViagem.svg';
+import iconGasolina from '@/assets/icons/categorias/iconGasolina.svg';
+import iconJogo from '@/assets/icons/categorias/iconJogo.svg';
 
 const categoriasIcons = [
   {
@@ -64,8 +64,8 @@ const categoriasIcons = [
   },
   {
     id: 11,
-    src: iconCassino,
-    alt: "Icon cassino",
+    src: iconGarrafa,
+    alt: "Icon garrafa",
   },
   {
     id: 12,

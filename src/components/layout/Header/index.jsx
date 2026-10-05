@@ -1,6 +1,6 @@
 import styles from './Header.module.css';
 
-import iconMenu from '@/assets/icons/iconMenu.png';
+import iconMenu from '@/assets/icons/iconMenu.svg';
 import { useLocation } from 'react-router-dom';
 
 

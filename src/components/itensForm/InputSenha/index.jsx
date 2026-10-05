@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styles from './InputSenha.module.css';
 
-import iconOlho from '@/assets/icons/olho.png';
-import iconOlhoF from '@/assets/icons/olhoF.png';
+import iconOlho from '@/assets/icons/iconOlho.svg';
+import iconOlhoF from '@/assets/icons/iconOlhoF.svg';
 
 export default function InputSenha({dica, nome, entidade, preencherEntidade}){
 

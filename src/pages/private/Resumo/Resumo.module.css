@@ -1,3 +1,26 @@
+.seletorQuantidadeDias{
+  width: 500px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.opcaoQuantidadeDias{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  margin: 0 10px;
+  background-color: #efefef;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+  cursor: pointer;
+}
+
+.quantidadeDiasSelecionado{
+  background-color: #fff;
+}
+
 .usoCategorias, .cartoes{
   width: 500px;
   display: flex;
@@ -80,6 +103,43 @@
   font-weight: 400;
 }
 
+.metricasSaldo{
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.receita, .gasto, .balanco{
+  margin: 0;
+  font-weight: 300;
+}
+
+.rodapeValoresMetricas{
+  margin: -5px 0 0 0;
+  font-size: 13px;
+}
+
+.metricasCartao{
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.metricasCartao h1{
+  width: 100%;
+  margin: 0;
+  font-weight: 400;
+  font-size: 25px;
+  color: #000;
+  text-align: right;
+}
+
+.metricasCartao p{
+  font-size: 13px;
+  margin: -7.5px 0 0 0;
+}
+
 .dadosCartao p{margin: 0;}
 
 .dadosCartao p:nth-child(1){
@@ -97,37 +157,8 @@
   color: black;
 }
 
-.positivo{
-  color: rgb(20, 212, 97);
-}
-
-.negativo{
-  color: rgb(227, 48, 48);
-}
-
-.barraProgresso {
-  margin-top: 5px;
-  width: 100%;
-  height: 12px;
-  background-color: rgba(104, 23, 190, 0.1);
-  border-radius: 2.5px;
-  overflow: hidden;
-  border: 1px solid rgb(244, 241, 249);
-}
-
-.barraPreenchida {
-  height: 100%;
-  border-radius: inherit;
-  background-color: var(--primaria);
-}
-
-.porcentagemUso {
-  margin-top: 8px;
-  color: #777;
-}
-
 @media screen and (max-width: 550px) {
-  .usoCategorias, .cartoes{
+  .seletorQuantidadeDias, .usoCategorias, .cartoes{
     width: 100%;
   }
 }

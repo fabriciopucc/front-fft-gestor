@@ -9,18 +9,48 @@ import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import { Loader } from '@/components/utils';
 
 import categoriasIcons from '@/constants/categoriasIcons';
+import { useState } from 'react';
+import BarraProgresso from '@/components/utils/BarraProgresso';
 
 export default function Resumo(){
 
   const {resumo} = useResumo();
 
-  const listaGastosPorCategoriaNoSaldo = [...resumo?.gastosPorCategoriasNoSaldo ?? []]
-    .sort((a, b) => Math.abs(b.valorGasto) - Math.abs(a.valorGasto))
-    .filter((categoria) => categoria.valorGasto !== 0);
+  const [filtroQuantidadeDiasGastosComSaldo, setFiltroQuantidadeDiasGastosComSaldo] = useState("semana");
+    const [filtroQuantidadeDiasGastosComCartao, setFiltroQuantidadeDiasGastosComCartao] = useState("semana");
+
+  const listaGastosPorCategoriaNoSaldo = [
+    ...((filtroQuantidadeDiasGastosComSaldo == "semana")
+      ? resumo?.gastosPorCategoriasNoSaldoNosUltimosSeteDias ?? []
+      : resumo?.gastosPorCategoriasNoSaldoNosUltimosTrintaDias ?? [])
+  ]
+  .sort((a, b) => Math.abs(b.valorGasto) - Math.abs(a.valorGasto))
+  .filter((categoria) => categoria.valorGasto !== 0);
+
+
+  const receitasComSaldo = listaGastosPorCategoriaNoSaldo
+  .reduce((soma, categoria) =>
+    soma + (categoria.valorGasto > 0 ? categoria.valorGasto : 0)
+  , 0);
+
+  const gastosComSaldo = listaGastosPorCategoriaNoSaldo
+  .reduce((soma, categoria) =>
+    soma + (categoria.valorGasto < 0 ? categoria.valorGasto : 0)
+  , 0);
+
+  let balancoComSaldo = receitasComSaldo + gastosComSaldo;
+
   
-  const listaGastosPorCategoriaNoCartao = [...resumo?.gastosPorCategoriasNoCartao ?? []]
-    .sort((a, b) => Math.abs(b.valorGasto) - Math.abs(a.valorGasto))
-    .filter((categoria) => categoria.valorGasto !== 0);
+  const listaGastosPorCategoriaNoCartao = [
+    ...((filtroQuantidadeDiasGastosComCartao == "semana")
+      ? resumo?.gastosPorCategoriasNoCartaoNosUltimosSeteDias ?? []
+      : resumo?.gastosPorCategoriasNoCartaoNosUltimosTrintaDias ?? [])
+  ]
+  .sort((a, b) => Math.abs(b.valorGasto) - Math.abs(a.valorGasto))
+  .filter((categoria) => categoria.valorGasto !== 0);
+
+  const totalGastosComCartao = listaGastosPorCategoriaNoCartao
+  .reduce((soma, categoria) => soma + categoria.valorGasto, 0);
 
   const listaCartoes = resumo?.cartoesSimplificados ?? [];
 
@@ -37,7 +67,24 @@ export default function Resumo(){
 
             <ListaDeEntidade
               lista={listaGastosPorCategoriaNoSaldo}
+              textoAlternativo={"Você ainda não possui nenhum gasto por categoria usando saldo"}
             >
+              <div className={styles.seletorQuantidadeDias}>
+                <div 
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComSaldo == "semana") && "quantidadeDiasSelecionado"]}
+                  onClick={() => setFiltroQuantidadeDiasGastosComSaldo("semana")}
+                >
+                  7 dias
+                </div>
+
+                <div 
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComSaldo == "mes") && "quantidadeDiasSelecionado"]}
+                  onClick={() => setFiltroQuantidadeDiasGastosComSaldo("mes")}
+                >
+                  30 dias
+                </div>
+              </div>
+
               <div className={styles.usoCategorias}>
                 <div className={styles.margemUsoCategorias}>
                   <div className={styles.infosCategorias}>
@@ -65,7 +112,7 @@ export default function Resumo(){
                             {categoria.nomeCategoria}
                           </p>
                           
-                          <p className={styles[(categoria.valorGasto < 0) ? "negativo" : "positivo"]}>
+                          <p className={(categoria.valorGasto > 0) ? "valorPositivo" : "valorNegativo"}>
                             {
                               (categoria.valorGasto < 0) ? "- " : "+ "
                             }
@@ -78,19 +125,62 @@ export default function Resumo(){
                       </div>
                     ))
                   }
+
+                  <div className={styles.metricasSaldo}>
+                    <div className={styles.valoresMetricasSaldo}>
+                      <p className={styles.receita+" "+['valorPositivo']}>
+                        + R$ {receitasComSaldo.toFixed(2)}
+                      </p>
+
+                      <p className={styles.rodapeValoresMetricas}>Receitas</p>
+                    </div>
+                   
+                    <div className={styles.valoresMetricasSaldo}>
+                      <p className={styles.gasto+" "+['valorNegativo']}>
+                        - R$ {Math.abs(gastosComSaldo).toFixed(2)}
+                      </p>
+
+                      <p className={styles.rodapeValoresMetricas}>Gastos</p>
+                    </div>
+
+                    <div className={styles.valoresMetricasSaldo}>
+                      <p className={styles.balanco+" "+[(balancoComSaldo > 0) ? "valorPositivo" : "valorNegativo"]}>
+                        {balancoComSaldo > 0 ? "+ " : "- "}
+                        R$ {Math.abs(balancoComSaldo).toFixed(2)}
+                      </p>
+
+                      <p className={styles.rodapeValoresMetricas}>Balanço</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ListaDeEntidade>
 
             <ListaDeEntidade
               lista={listaGastosPorCategoriaNoCartao}
-              textoAlternativo={"Você ainda não possui nenhum gasto por categoria usando saldo"}
+              textoAlternativo={"Você ainda não possui nenhum gasto por categoria usando cartão"}
             >
+              <div className={styles.seletorQuantidadeDias}>
+                <div 
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComCartao == "semana") && "quantidadeDiasSelecionado"]}
+                  onClick={() => setFiltroQuantidadeDiasGastosComCartao("semana")}
+                >
+                  7 dias
+                </div>
+
+                <div 
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComCartao == "mes") && "quantidadeDiasSelecionado"]}
+                  onClick={() => setFiltroQuantidadeDiasGastosComCartao("mes")}
+                >
+                  30 dias
+                </div>
+              </div>
+
               <div className={styles.usoCategorias}>
                 <div className={styles.margemUsoCategorias}>
                   <div className={styles.infosCategorias}>
                     <span>
-                      <h1>Gastos no cartão</h1>
+                      <h1>Gastos com cartão</h1>
                       <p>últimos 30 dias</p>
                     </span>
                   </div>
@@ -123,6 +213,11 @@ export default function Resumo(){
                       </div>
                     ))
                   }
+
+                  <div className={styles.metricasCartao}>
+                    <h1>R$ {totalGastosComCartao.toFixed(2)}</h1>
+                    <p>Total</p>
+                  </div>
                 </div>
               </div>
             </ListaDeEntidade>
@@ -160,12 +255,10 @@ export default function Resumo(){
                           </p>
                           
 
-                          <div className={styles.barraProgresso}>
-                            <div
-                              className={styles.barraPreenchida}
-                              style={{ width: `${(cartao.limiteUtilizado/cartao.limiteTotal)*100}%` }}
-                            />
-                          </div>
+                          <BarraProgresso
+                            inicial={cartao.limiteUtilizado}
+                            maximo={cartao.limiteTotal}
+                          />
                         </div>
                       </div>
                     ))

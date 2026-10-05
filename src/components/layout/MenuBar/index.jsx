@@ -1,14 +1,15 @@
 import styles from './MenuBar.module.css';
 
 import {Link} from 'react-router-dom';
-import iconCasa from '@/assets/icons/iconCasa.png';
-import iconEngrenagem from '@/assets/icons/iconEngrenagem.png';
-import iconMenu2 from '@/assets/icons/iconMenu2.png';
-import iconDespesas from '@/assets/icons/iconDespesas.png';
-import iconGestao from '@/assets/icons/iconGestao.png';
-import iconCategorias from '@/assets/icons/iconCategorias.png';
-import iconCartao from '@/assets/icons/iconCartao.png';
-import iconUser from '@/assets/icons/iconUser.png';
+import iconCasa from '@/assets/icons/iconHome.svg';
+import iconEngrenagem from '@/assets/icons/categorias/iconEngrenagem.svg';
+import iconMenu2 from '@/assets/icons/iconMenu2.svg';
+import iconDespesas from '@/assets/icons/categorias/iconDinheiro.svg';
+import iconResumo from '@/assets/icons/iconResumo.svg';
+import iconGestao from '@/assets/icons/iconGestao.svg';
+import iconCategorias from '@/assets/icons/iconCategorias.svg';
+import iconCartao from '@/assets/icons/iconCartoes.svg';
+import iconUser from '@/assets/icons/iconUser.svg';
 
 import useSessao from '@/hooks/useSessao';
 
@@ -79,7 +80,21 @@ export default function MenuBar(){
                     <p>Configuração</p>
                   </Link>
 
-                   <Link 
+                  <Link 
+                    to={"/resumo"}
+                    className={styles.opcao}
+                    onClick={fecharMenuBar}
+                  >
+                    <img 
+                      src={iconResumo} 
+                      alt="Icon resumo"
+                      className={styles.iconMenu} 
+                    />
+                    
+                    <p>Resumo</p>
+                  </Link>
+
+                  <Link 
                     to={"/gestao"}
                     className={styles.opcao}
                     onClick={fecharMenuBar}

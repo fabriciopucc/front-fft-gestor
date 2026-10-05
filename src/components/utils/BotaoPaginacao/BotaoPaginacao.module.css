@@ -1,0 +1,31 @@
+.botaoPaginacao{
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.botaoPaginacao button{
+  width: 40px;
+  height: 40px;
+}
+
+.botaoPaginacao p{
+  margin: 0 10px;
+}
+
+.botao{
+  padding: 0px 10px;
+  color: #000;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.botao:hover{
+  color: var(--primaria);
+}
+
+.botaoDesativado, .botaoDesativado:hover{
+  color: rgb(203, 203, 203);
+  cursor: initial;
+}

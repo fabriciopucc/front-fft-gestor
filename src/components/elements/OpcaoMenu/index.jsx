@@ -2,7 +2,7 @@ import styles from './OpcaoMenu.module.css';
 
 import { Link } from 'react-router-dom';
 
-import iconProximo from '@/assets/icons/iconProximo.png';
+import iconProximo from '@/assets/icons/iconProximo.svg';
 import useSessao from '@/hooks/useSessao';
 
 

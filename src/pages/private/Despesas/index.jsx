@@ -1,6 +1,6 @@
 import styles from './Despesas.module.css';
 
-import iconExcluir from '@/assets/icons/iconExcluir.png'
+import iconExcluir from '@/assets/icons/iconLixeira.svg'
 import Container from '@/components/layout/Container';
 import HeaderVoltar from '@/components/layout/HeaderVoltar';
 import DespesasForm from '@/components/forms/DespesasForm';
@@ -80,50 +80,6 @@ export default function Despesas(){
         )
       }
 
-      {
-        (escolherDespesa && !visibilidadeForm) ? (
-          <div
-            className={styles.botoesLancarDespesa}
-          >
-            <button
-              onClick={() => {
-                setDespesa({codigo: ''});
-                setEscolherDespesa(false);
-              }}
-            >
-              Cancelar
-            </button>
-
-            <button
-              disabled={(!despesa.codigo)}
-              className={(despesa.codigo) ? "botaoPositivo" : "desativado"}
-              onClick={() => setExibirFormularioLancarDespesa(true)}
-            >
-              {despesa.codigo ? "Confirmar" : "Selecione (1)"}
-            </button>
-          </div>
-        ) : (despesas.length && !visibilidadeForm) ? (
-          <div className={styles.botoesAcoesDespesa}>
-            <button
-              disabled={!despesas.length}
-              className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
-              type='button'
-              onClick={() => setEscolherDespesa(true)}
-            >
-              Lançar despesa
-            </button>
-
-            <button
-              type='button'
-              disabled={quantidadeDespesasPagas === 0}
-              className={styles.botaoPendenciarDespesas+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
-              onClick={tornarTodasDespesasPendentes}
-            >
-              Pendenciar todas
-            </button>
-          </div>
-        ) : (<></>)
-      }
 
       <ListaDeEntidade
         lista={despesasFiltradas}
@@ -135,6 +91,51 @@ export default function Despesas(){
       >
         <div className={styles.containerDespesas}>
           <div className={styles.margemContainerDespesas}>
+            <div className={styles.botoesDespesas}>
+              {
+                (escolherDespesa && !visibilidadeForm) ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        setDespesa({codigo: ''});
+                        setEscolherDespesa(false);
+                      }}
+                    >
+                      Cancelar
+                    </button>
+
+                    <button
+                      disabled={(!despesa.codigo)}
+                      className={(despesa.codigo) ? "botaoPositivo" : "desativado"}
+                      onClick={() => setExibirFormularioLancarDespesa(true)}
+                    >
+                      {despesa.codigo ? "Confirmar" : "Selecione (1)"}
+                    </button>
+                  </>
+                ) : (despesas.length && !visibilidadeForm) ? (
+                  <>
+                    <button
+                      disabled={!despesas.length}
+                      className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
+                      type='button'
+                      onClick={() => setEscolherDespesa(true)}
+                    >
+                      Lançar despesa
+                    </button>
+
+                    <button
+                      type='button'
+                      disabled={quantidadeDespesasPagas === 0}
+                      className={styles.botaoPendenciarDespesas+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
+                      onClick={tornarTodasDespesasPendentes}
+                    >
+                      Pendenciar todas
+                    </button>
+                  </>
+                ) : (<></>)
+              }
+            </div>
+
             <div className={styles.metricasDespesas}>
               <div className={styles.cabecalhoMetricas}>
                 <h1 className={styles.valorTotal}>R$ {totalDespesas.toFixed(2)}</h1>
@@ -152,6 +153,7 @@ export default function Despesas(){
                 inicial={totalDespesasPagas}
                 compararValores={true}
               />
+              
               <div className={styles.totais}>
                 <span>
                   <div className={styles.indicador}></div>
@@ -212,7 +214,7 @@ export default function Despesas(){
                         {despesaDaLista.descricao}
                       </p>
 
-                      <p className={styles.statusDespesa+" "+styles[(despesaDaLista.jaFoiLancadaEsseMes) ? "statusLancada" : "statusPendente"]}>
+                      <p className={styles.statusDespesa+" "+[(despesaDaLista.jaFoiLancadaEsseMes) ? "valorPositivo" : "valorNegativo"]}>
                         {(despesaDaLista.jaFoiLancadaEsseMes) ? "Paga" : "Pendente"}
                       </p>
                     </div>

@@ -1,4 +1,4 @@
-import iconSeta from '@/assets/icons/iconSeta.png';
+import iconSeta from '@/assets/icons/iconSeta.svg';
 
 import styles from './ListaDeAcoes.module.css';
 import { useState } from 'react';
@@ -44,7 +44,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
             <div className={styles.metricas}>
               <p>Variação do dia</p>
               <h1  
-                className={styles.valorBalanco+" "+styles[((dia.saldoAtual - dia.saldoInicial) > 0) ? "balancoPositivo" : ((dia.saldoAtual - dia.saldoInicial) < 0) && "balancoNegativo"]}
+                className={styles.valorBalanco+" "+[((dia.saldoAtual - dia.saldoInicial) > 0) ? "valorPositivo" : ((dia.saldoAtual - dia.saldoInicial) < 0) && "valorNegativo"]}
               >
                 {((dia.saldoAtual - dia.saldoInicial) > 0) ? "+ " : ((dia.saldoAtual - dia.saldoInicial) < 0) && "- "}
                 R$ {parseFloat(Math.abs(dia.saldoAtual - dia.saldoInicial)).toFixed(2)}
@@ -61,42 +61,40 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                 <p>R$ {dia.saldoAtual.toFixed(2)}</p>
               </div>
             </div>
-
-            <p className={styles.quantidadeMovimentacoes}>
-              {acoesDeSaldo.length} {(acoesDeSaldo.length) > 1 ? "movimentações" : "movimentação"}
-            </p>
-
-            {
-              acoesDeSaldo.map((acao) => (
-                <div
-                  key={acao.codigo}
-                  className={styles.acao+" "+styles[(codigoAcao == acao.codigo) && "acaoSelecionada"]}
-                  onClick={() => {
-                      if(exibirDesfazerAcao) setCodigoAcao(acao.codigo)
+          
+            <div className={styles.containerAcoes}>
+              {
+                acoesDeSaldo.map((acao) => (
+                  <div
+                    key={acao.codigo}
+                    className={styles.acao+" "+styles[(codigoAcao == acao.codigo) && "acaoSelecionada"]}
+                    onClick={() => {
+                        if(exibirDesfazerAcao) setCodigoAcao(acao.codigo)
+                      }
                     }
-                  }
-                >
-                  <div className={styles.molduraIcone}>
-                    <img 
-                      src={(categoriasIcons[acao.indiceIcon - 1] ?? categoriasIcons[0]).src}
-                      alt="Icon" 
-                    />
-                  </div>
+                  >
+                    <div className={styles.molduraIcone}>
+                      <img 
+                        src={(categoriasIcons[acao.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                        alt="Icon" 
+                      />
+                    </div>
 
-                  <div className={styles.dadosAcao}>
-                    <span>
-                      <p>{acao.categoria}</p>
-                      <p>{acao.horario}</p>
-                    </span>
+                    <div className={styles.dadosAcao}>
+                      <span>
+                        <p>{acao.categoria}</p>
+                        <p>{acao.horario}</p>
+                      </span>
 
-                    <p className={styles[(acao.tipoTransacao == "saida") ? "negativo" : "positivo"]}>
-                      {(acao.tipoTransacao == "saida") ? "- " :  "+ "}
-                      R$ {Math.abs((acao.valor)).toFixed(2)}
-                    </p>
+                      <p className={(acao.tipoTransacao == "saida") ? "valorNegativo" : "valorPositivo"}>
+                        {(acao.tipoTransacao == "saida") ? "- " :  "+ "}
+                        R$ {Math.abs((acao.valor)).toFixed(2)}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))
-            }
+                ))
+              }
+            </div>
           </ListaDeEntidade>
         ) : (
           <ListaDeEntidade
@@ -115,7 +113,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                       {metricasCartao.apelidoCartao}
                     </p>
                     
-                    <p>
+                    <p className={['valorNegativo']}>
                       {(metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual).toFixed(2)} hoje
                     </p>
                   </div>
@@ -139,11 +137,8 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
               ))
             }
 
-            <p className={styles.quantidadeMovimentacoes}>
-              {acoesDeCartao.length} {(acoesDeCartao.length) > 1 ? "movimentações" : "movimentação"}
-            </p>
-
-            {
+            <div className={styles.containerAcoes}>
+              {
               acoesDeCartao.map((acao) => (
                 <div
                   key={acao.codigo}
@@ -163,7 +158,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                   <div className={styles.dadosAcao}>
                     <span>
                       <p>{acao.categoria}</p>
-                      <p>{acao.horario} - {acao.apelidoCartao}</p>
+                      <p>{acao.horario} {acao.horario}</p>
                     </span>
 
                     <p>
@@ -173,6 +168,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                 </div>
               ))
             }
+            </div>
           </ListaDeEntidade>
         )  
       }

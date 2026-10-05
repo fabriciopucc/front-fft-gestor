@@ -96,13 +96,13 @@
 .statusQuitado{
   width: 20px;
   height: 20px;
-  background-color: var(--erro);
+  background-color: var(--itemNegativo);
   border-radius: 5px;
   margin: 0;
 }
 
 .foiQuitado{
-  background-color: var(--sucesso);
+  background-color: var(--itemPositivo);
 }
 
 @media screen and (max-width: 500px){

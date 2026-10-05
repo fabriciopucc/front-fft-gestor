@@ -17,7 +17,6 @@ const useFatura = () => {
   const {atualizarSaldo} = useSaldo();
   const {setCarregando} = useLoader();
 
-
   const [exibirSelecione, setExibirSelecione] = useState(false);
   const [listaCodigos, setListaCodigos] = useState([]);
 
@@ -26,7 +25,7 @@ const useFatura = () => {
   const adicionarCodigo = (codigo) => {
       setListaCodigos((listaAtual) => {
         if (listaAtual.includes(codigo)) {
-            return listaAtual.filter((item) => item !== codigo);
+          return listaAtual.filter((item) => item !== codigo);
         }
 
         return [...listaAtual, codigo];
@@ -52,8 +51,6 @@ const useFatura = () => {
   }
 
   const quitarCompras = () => {
-
-    console.log(listaCodigos)
     exibirCardLoader();
     api.put("/compra/quitarCompras", listaCodigos)
     .then((resp) => {
