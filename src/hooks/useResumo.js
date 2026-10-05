@@ -6,10 +6,9 @@ import useLoader from "./useLoader";
 
 const useResumo = () => {
 
-  const [usoCategorias, setUsoCategorias] = useState([]);
   const {codigo} = useSessao();
   const {tratarErro} = useTratarErro();
-  const {setCarregando} = useLoader();
+  const {setCarregando, exibirCardLoader, esconderCardLoader} = useLoader();
 
   const [filtroTipoDeUsoCategoria, setFiltroTipoDeUsoCategoria] = useState("saldo");
   
@@ -26,15 +25,74 @@ const useResumo = () => {
     })
     .finally(() => {
       setCarregando(false);
-    })
-    ;
+    });
   }
 
   useEffect(() => {
     buscarResumoDeUmUsuario();
   }, []);
 
-  return{resumo, filtroTipoDeUsoCategoria, setFiltroTipoDeUsoCategoria};
+
+  //Filtros
+  const [filtroPeriodo, setFiltroPeriodo] = useState({
+    comSaldo: "semana",
+    comCartao: "semana"
+  });
+
+  const alterarFiltroPeriodo = (tipo, periodo) => {
+    setExibirAcoes({
+      indice: -1,
+      tipo: ""
+    });
+    setAcoesPorCategoria([]);
+    setFiltroPeriodo({
+      ...filtroPeriodo, 
+        [tipo] : periodo 
+    });
+  }
+
+  const [acoesPorCategoria, setAcoesPorCategoria] = useState([]);
+  const [exibirAcoes, setExibirAcoes] = useState({
+    indice: -1,
+    tipo: "" 
+  });
+
+  const buscarAcoesPorCategoriaDeUmUsuario = (categoria, index, tipo) => {
+    let filtro = (tipo == "comSaldo") ? filtroPeriodo.comSaldo : filtroPeriodo.comCartao;
+
+    if(exibirAcoes.indice == index){
+      setAcoesPorCategoria([]);
+      setExibirAcoes({
+        indice: -1,
+        tipo: ""
+      });
+    }
+    else{
+      exibirCardLoader();
+      api.post("/resumo/acoesPorCategoria", {
+        codigoUsuario: codigo,
+        categoria: categoria, 
+        periodo: filtro
+      })
+      .then((resp) => {
+        esconderCardLoader();
+        setAcoesPorCategoria(resp.data);
+        setExibirAcoes({
+          indice: index,
+          tipo: tipo
+        });
+      })
+      .catch((error) => {
+        tratarErro(error);
+      });
+    }
+  }
+
+  return{
+    alterarFiltroPeriodo, filtroPeriodo,
+    resumo, filtroTipoDeUsoCategoria, setFiltroTipoDeUsoCategoria,
+    buscarAcoesPorCategoriaDeUmUsuario, acoesPorCategoria, exibirAcoes
+  };
 }
 
 export default useResumo;

@@ -115,21 +115,21 @@ export default function Despesas(){
                 ) : (despesas.length && !visibilidadeForm) ? (
                   <>
                     <button
-                      disabled={!despesas.length}
-                      className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
-                      type='button'
-                      onClick={() => setEscolherDespesa(true)}
-                    >
-                      Lançar despesa
-                    </button>
-
-                    <button
                       type='button'
                       disabled={quantidadeDespesasPagas === 0}
                       className={styles.botaoPendenciarDespesas+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
                       onClick={tornarTodasDespesasPendentes}
                     >
                       Pendenciar todas
+                    </button>
+
+                    <button
+                      disabled={!despesas.length}
+                      className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
+                      type='button'
+                      onClick={() => setEscolherDespesa(true)}
+                    >
+                      Lançar despesa
                     </button>
                   </>
                 ) : (<></>)

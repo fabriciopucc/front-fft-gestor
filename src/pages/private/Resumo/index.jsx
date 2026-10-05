@@ -9,18 +9,21 @@ import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import { Loader } from '@/components/utils';
 
 import categoriasIcons from '@/constants/categoriasIcons';
-import { useState } from 'react';
+import iconSetaParaBaixo from '@/assets/icons/iconSetaParaBaixo.svg'
 import BarraProgresso from '@/components/utils/BarraProgresso';
+import converterDataAmericanaEmBrasileira from '@/utils/converterDataAmericanaEmBrasileira';
 
 export default function Resumo(){
 
-  const {resumo} = useResumo();
-
-  const [filtroQuantidadeDiasGastosComSaldo, setFiltroQuantidadeDiasGastosComSaldo] = useState("semana");
-    const [filtroQuantidadeDiasGastosComCartao, setFiltroQuantidadeDiasGastosComCartao] = useState("semana");
+  const {
+    alterarFiltroPeriodo, filtroPeriodo,
+    resumo,
+    acoesPorCategoria, exibirAcoes,
+    buscarAcoesPorCategoriaDeUmUsuario
+  } = useResumo();
 
   const listaGastosPorCategoriaNoSaldo = [
-    ...((filtroQuantidadeDiasGastosComSaldo == "semana")
+    ...((filtroPeriodo.comSaldo == "semana")
       ? resumo?.gastosPorCategoriasNoSaldoNosUltimosSeteDias ?? []
       : resumo?.gastosPorCategoriasNoSaldoNosUltimosTrintaDias ?? [])
   ]
@@ -39,10 +42,9 @@ export default function Resumo(){
   , 0);
 
   let balancoComSaldo = receitasComSaldo + gastosComSaldo;
-
   
   const listaGastosPorCategoriaNoCartao = [
-    ...((filtroQuantidadeDiasGastosComCartao == "semana")
+    ...((filtroPeriodo.comCartao == "semana")
       ? resumo?.gastosPorCategoriasNoCartaoNosUltimosSeteDias ?? []
       : resumo?.gastosPorCategoriasNoCartaoNosUltimosTrintaDias ?? [])
   ]
@@ -71,15 +73,15 @@ export default function Resumo(){
             >
               <div className={styles.seletorQuantidadeDias}>
                 <div 
-                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComSaldo == "semana") && "quantidadeDiasSelecionado"]}
-                  onClick={() => setFiltroQuantidadeDiasGastosComSaldo("semana")}
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroPeriodo.comSaldo == "semana") && "quantidadeDiasSelecionado"]}
+                  onClick={() => alterarFiltroPeriodo("comSaldo", "semana")}
                 >
                   7 dias
                 </div>
 
                 <div 
-                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComSaldo == "mes") && "quantidadeDiasSelecionado"]}
-                  onClick={() => setFiltroQuantidadeDiasGastosComSaldo("mes")}
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroPeriodo.comSaldo == "mes") && "quantidadeDiasSelecionado"]}
+                  onClick={() => alterarFiltroPeriodo("comSaldo", "mes")}
                 >
                   30 dias
                 </div>
@@ -98,30 +100,78 @@ export default function Resumo(){
                     listaGastosPorCategoriaNoSaldo.map((categoria, index) => (
                       <div
                         key={index}
-                        className={styles.categoria}
                       >
-                        <div className={styles.iconeCategoria}>
-                         <img
-                            src={(categoriasIcons[categoria.indiceIcon - 1] ?? categoriasIcons[0]).src}
-                            alt="icon categoria"
+                        <div
+                          className={styles.categoria}
+                          onClick={() => buscarAcoesPorCategoriaDeUmUsuario(categoria.nomeCategoria, index, "comSaldo")}
+                        >
+                          <div className={styles.iconeCategoria}>
+                          <img
+                              src={(categoriasIcons[categoria.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                              alt="icon categoria"
+                            />
+                          </div>
+
+                          <div className={styles.dadosCategoria}>
+                            <p>
+                              {categoria.nomeCategoria}
+                            </p>
+                            
+                            <p className={(categoria.valorGasto > 0) ? "valorPositivo" : "valorNegativo"}>
+                              {
+                                (categoria.valorGasto < 0) ? "- " : "+ "
+                              }
+                              R$ 
+                              {
+                                Math.abs(categoria.valorGasto).toFixed(2) 
+                              }
+                            </p>
+                          </div>
+
+                          <img 
+                            src={iconSetaParaBaixo} 
+                            className={styles.iconSeta+" "+styles[(exibirAcoes == index) && "iconInvertido"]}
+                            alt="Icon seta para baixo" 
                           />
                         </div>
 
-                        <div className={styles.dadosCategoria}>
-                          <p>
-                            {categoria.nomeCategoria}
-                          </p>
-                          
-                          <p className={(categoria.valorGasto > 0) ? "valorPositivo" : "valorNegativo"}>
-                            {
-                              (categoria.valorGasto < 0) ? "- " : "+ "
-                            }
-                            R$ 
-                            {
-                              Math.abs(categoria.valorGasto).toFixed(2) 
-                            }
-                          </p>
-                        </div>
+                        {
+                          (exibirAcoes.indice == index && exibirAcoes.tipo == "comSaldo") && (
+                            <ListaDeEntidade
+                              lista={acoesPorCategoria}
+                            >
+                              <div className={styles.acoes}>
+                                {
+                                  acoesPorCategoria
+                                  .filter((acao) => ['entrada', 'saida'].includes(acao.tipoTransacao))
+                                  .map((acao) => (
+                                    <div
+                                      key={acao.codigo} 
+                                      className={styles.acaoCategoria}
+                                    >
+                                      <div className={styles.infoAcaoCategoria}>
+                                        <p className={styles.dataAcaoCategoria}>
+                                          {converterDataAmericanaEmBrasileira(acao.data)}
+                                        </p>
+                                        
+                                        <p className={styles.horarioAcaoCategoria}>
+                                          {acao.horario}
+                                        </p>
+                                      </div>
+
+                                      <div className={styles.infoAcaoCategoria}>
+                                        <p className={styles.valorAcaoCategoria}>
+                                          {(acao.tipoTransacao == "entrada") ? "+ " : "- "}
+                                          R$ {acao.valor.toFixed(2)}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  ))
+                                }
+                              </div>
+                            </ListaDeEntidade>
+                          )
+                        }
                       </div>
                     ))
                   }
@@ -162,15 +212,15 @@ export default function Resumo(){
             >
               <div className={styles.seletorQuantidadeDias}>
                 <div 
-                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComCartao == "semana") && "quantidadeDiasSelecionado"]}
-                  onClick={() => setFiltroQuantidadeDiasGastosComCartao("semana")}
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroPeriodo.comCartao == "semana") && "quantidadeDiasSelecionado"]}
+                  onClick={() => alterarFiltroPeriodo("comCartao", "semana")}
                 >
                   7 dias
                 </div>
 
                 <div 
-                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroQuantidadeDiasGastosComCartao == "mes") && "quantidadeDiasSelecionado"]}
-                  onClick={() => setFiltroQuantidadeDiasGastosComCartao("mes")}
+                  className={styles.opcaoQuantidadeDias+" "+styles[(filtroPeriodo.comCartao == "mes") && "quantidadeDiasSelecionado"]}
+                 onClick={() => alterarFiltroPeriodo("comCartao", "mes")}
                 >
                   30 dias
                 </div>
@@ -189,27 +239,72 @@ export default function Resumo(){
                     listaGastosPorCategoriaNoCartao.map((categoria, index) => (
                       <div
                         key={index}
-                        className={styles.categoria}
                       >
-                        <div className={styles.iconeCategoria}>
-                         <img
-                            src={(categoriasIcons[categoria.indiceIcon - 1] ?? categoriasIcons[0]).src}
-                            alt="icon categoria"
+                        <div
+                          className={styles.categoria}
+                          onClick={() => buscarAcoesPorCategoriaDeUmUsuario(categoria.nomeCategoria, index, "comCartao")}
+                        >
+                          <div className={styles.iconeCategoria}>
+                          <img
+                              src={(categoriasIcons[categoria.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                              alt="icon categoria"
+                            />
+                          </div>
+
+                          <div className={styles.dadosCategoria}>
+                            <p>
+                              {categoria.nomeCategoria}
+                            </p>
+                            
+                            <p>
+                              R$ 
+                              {
+                                Math.abs(categoria.valorGasto).toFixed(2) 
+                              }
+                            </p>
+                          </div>
+
+                          <img 
+                            src={iconSetaParaBaixo} 
+                            className={styles.iconSeta+" "+styles[(exibirAcoes == index) && "iconInvertido"]}
+                            alt="Icon seta para baixo" 
                           />
                         </div>
 
-                        <div className={styles.dadosCategoria}>
-                          <p>
-                            {categoria.nomeCategoria}
-                          </p>
-                          
-                          <p>
-                            R$ 
-                            {
-                              Math.abs(categoria.valorGasto).toFixed(2) 
-                            }
-                          </p>
-                        </div>
+                        {
+                         (exibirAcoes.indice == index && exibirAcoes.tipo == "comCartao") && (
+                            <ListaDeEntidade
+                              lista={acoesPorCategoria}
+                            >
+                              <div className={styles.acoes}>
+                                {
+                                  acoesPorCategoria
+                                  .filter((acao) => acao.tipoTransacao == "cartaoCredito")
+                                  .map((acao) => (
+                                    <div
+                                      key={acao.codigo} 
+                                      className={styles.acaoCategoria}
+                                    >
+                                      <div className={styles.infoAcaoCategoria}>
+                                        <p className={styles.dataAcaoCategoria}>
+                                          {converterDataAmericanaEmBrasileira(acao.data)}
+                                        </p>
+                                        
+                                        <p className={styles.horarioAcaoCategoria}>
+                                          {acao.horario} - {acao.apelidoCartao}
+                                        </p>
+                                      </div>
+
+                                      <div className={styles.infoAcaoCategoria}>
+                                        <p className={styles.valorAcaoCategoria}>R$ {acao.valor.toFixed(2)}</p>
+                                      </div>
+                                    </div>
+                                  ))
+                                }
+                              </div>
+                            </ListaDeEntidade>
+                          )
+                        }
                       </div>
                     ))
                   }
@@ -221,6 +316,42 @@ export default function Resumo(){
                 </div>
               </div>
             </ListaDeEntidade>
+
+            {
+              resumo.totalDespesas && (
+                <div className={styles.metricasDespesas}>
+                  <div className={styles.margemMetricasDespesas}>
+                    <div className={styles.infosCategorias}>
+                      <span>
+                        <h1>Despesas</h1>
+                      </span>
+                    </div>
+
+                    <div className={styles.cabecalhoMetricas}>
+                      <h1 className={styles.valorTotal}>R$ {resumo.totalDespesas.toFixed(2)}</h1>
+                    </div>
+
+                    <BarraProgresso
+                      maximo={resumo.totalDespesas}
+                      inicial={resumo.totalDespesasLancadas}
+                      compararValores={true}
+                    />
+                    
+                    <div className={styles.totais}>
+                      <span>
+                        <div className={styles.indicador}></div>
+                        R$ {resumo.totalDespesasLancadas.toFixed(2)}
+                      </span>
+
+                      <span>
+                        <div className={styles.indicador2}></div>
+                        R$ {(resumo.totalDespesas - resumo.totalDespesasLancadas).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
 
             <ListaDeEntidade
               lista={listaCartoes}

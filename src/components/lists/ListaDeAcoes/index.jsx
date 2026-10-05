@@ -158,7 +158,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                   <div className={styles.dadosAcao}>
                     <span>
                       <p>{acao.categoria}</p>
-                      <p>{acao.horario} {acao.horario}</p>
+                      <p>{acao.horario} - {acao.apelidoCartao}</p>
                     </span>
 
                     <p>
