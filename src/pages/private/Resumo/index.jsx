@@ -279,7 +279,7 @@ export default function Resumo(){
                               <div className={styles.acoes}>
                                 {
                                   acoesPorCategoria
-                                  .filter((acao) => acao.tipoTransacao == "cartaoCredito")
+                                  .filter((acao) => ['cartaoCredito', 'quitacaoCartao'].includes(acao.tipoTransacao))
                                   .map((acao) => (
                                     <div
                                       key={acao.codigo} 
