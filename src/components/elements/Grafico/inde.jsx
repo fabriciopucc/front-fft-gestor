@@ -2,9 +2,7 @@ import styles from "./Grafico.module.css";
 
 export default function Grafico({ dados = [] }) {
 
-  const maiorValor = Math.max(0, ...dados.map((item) => Number(item.valor) || 0));
-  const diasDaSemana = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
-
+  const maiorValor = Math.max(0, ...dados.map((item) => Number(item.valor) || 0));;
 
   return (
     <div className={styles.containerGrafico}>
@@ -15,7 +13,7 @@ export default function Grafico({ dados = [] }) {
         </span>
 
         <div className={styles.grafico}>
-          {dados.map((item) => {
+          {dados.map((item, index) => {
             const valor = Number(item.valor) || 0;
             const altura =  maiorValor > 0 ? (valor / maiorValor) * 100 : 0;
             const [ano, mes, dia] = item.data.split("-");
@@ -23,8 +21,6 @@ export default function Grafico({ dados = [] }) {
             return (
               <div className={styles.coluna} key={item.data}>
                 <span className={styles.valor}>
-                  R$
-                  <br />
                   {valor.toFixed(2)}
                 </span>
 
@@ -40,9 +36,9 @@ export default function Grafico({ dados = [] }) {
                 </div>
 
                 <span className={styles.data}>
-                  {dia}/{mes}
-                  <br />
-                  {diasDaSemana[new Date(item.data).getDay()]}
+                  {
+                    index == 0 ? "hoje" :  dia+"/"+mes 
+                  }
                 </span>
               </div>
             );

@@ -57,6 +57,8 @@ export default function Resumo(){
 
   const listaCartoes = resumo?.cartoesSimplificados ?? [];
 
+  const gastosNosUltimos7Dias = resumo?.gastosNosUltimos7Dias ?? [];
+
   return(
     <Container centralizar={true}>
       <HeaderVoltar
@@ -68,9 +70,13 @@ export default function Resumo(){
           <>
             <Saldo/>
 
-            <Grafico
-              dados={resumo.gastosNosUltimos7Dias}
-            />
+            <ListaDeEntidade
+              lista={gastosNosUltimos7Dias}
+            >
+              <Grafico
+                dados={gastosNosUltimos7Dias}
+              />
+            </ListaDeEntidade>
 
             <ListaDeEntidade
               lista={listaGastosPorCategoriaNoSaldo}
