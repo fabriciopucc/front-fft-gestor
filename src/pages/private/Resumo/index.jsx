@@ -12,6 +12,7 @@ import categoriasIcons from '@/constants/categoriasIcons';
 import iconSetaParaBaixo from '@/assets/icons/iconSetaParaBaixo.svg'
 import BarraProgresso from '@/components/utils/BarraProgresso';
 import converterDataAmericanaEmBrasileira from '@/utils/converterDataAmericanaEmBrasileira';
+import Grafico from '@/components/elements/Grafico/inde';
 
 export default function Resumo(){
 
@@ -67,6 +68,10 @@ export default function Resumo(){
           <>
             <Saldo/>
 
+            <Grafico
+              dados={resumo.gastosNosUltimos7Dias}
+            />
+
             <ListaDeEntidade
               lista={listaGastosPorCategoriaNoSaldo}
               textoAlternativo={"Você ainda não possui nenhum gasto por categoria usando saldo"}
@@ -92,7 +97,7 @@ export default function Resumo(){
                   <div className={styles.infosCategorias}>
                     <span>
                       <h1>Receitas/Gastos com saldo</h1>
-                      <p>últimos 30 dias</p>
+                      <p>{filtroPeriodo.comSaldo == "semana" ? "Última semana" : "Último mês"}</p>
                     </span>
                   </div>
                   
@@ -130,7 +135,7 @@ export default function Resumo(){
 
                           <img 
                             src={iconSetaParaBaixo} 
-                            className={styles.iconSeta+" "+styles[(exibirAcoes == index) && "iconInvertido"]}
+                            className={styles.iconSeta+" "+styles[(exibirAcoes.indice == index && exibirAcoes.tipo == "comSaldo") && "iconInvertido"]}
                             alt="Icon seta para baixo" 
                           />
                         </div>
@@ -231,7 +236,7 @@ export default function Resumo(){
                   <div className={styles.infosCategorias}>
                     <span>
                       <h1>Gastos com cartão</h1>
-                      <p>últimos 30 dias</p>
+                      <p>{filtroPeriodo.comCartao == "semana" ? "Última semana" : "Último mês"}</p>       
                     </span>
                   </div>
                   
@@ -266,7 +271,7 @@ export default function Resumo(){
 
                           <img 
                             src={iconSetaParaBaixo} 
-                            className={styles.iconSeta+" "+styles[(exibirAcoes == index) && "iconInvertido"]}
+                            className={styles.iconSeta+" "+styles[(exibirAcoes.indice == index && exibirAcoes.tipo == "comCartao") && "iconInvertido"]}
                             alt="Icon seta para baixo" 
                           />
                         </div>

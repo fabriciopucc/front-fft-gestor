@@ -14,7 +14,7 @@ export default function AlterarSenhaForm(){
         preencherEntidade={preencherUsuario}
       />
 
-      <br />
+      <br /><br />
 
       <InputSenha
         dica={"Defina a nova senha"}

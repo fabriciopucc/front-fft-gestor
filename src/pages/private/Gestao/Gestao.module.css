@@ -43,8 +43,20 @@
 }
 
 .tituloDia{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tituloDia h1{
   font-size: 20px;
-  margin: 0 0 15px 0;
+  margin: 0;
+}
+
+.tituloDia p{
+  font-size: 13.5px;
+  margin: -7.5px 0 0 0;
 }
 
 @media screen and (max-width: 600px) {

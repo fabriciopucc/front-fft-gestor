@@ -1,19 +1,18 @@
 import styles from './AletararLimiteForm.module.css';
 
-import InputNumerico from "@/components/itensForm/InputNumerico";
 
-export default function AlterarLimiteForm({cartao, setVisibilidadeAlterarLimite, preencherCartao}){
-
+export default function AlterarLimiteForm({cartao, setVisibilidadeAlterarLimite, novoLimite, definirNovoLimite, enviarFormularioAlterarLimiteCartao}){
 
   return(
     <form 
       className={styles.formAlterarLimite}
+      onSubmit={(e) => enviarFormularioAlterarLimiteCartao(e, cartao.codigo)}
     >
-      <InputNumerico
-        dica={"Digite o novo limite"}
-        nome={"limite"}
-        entidade={cartao.limite}
-        preencherEntidade={preencherCartao}
+      <input 
+        type="number" 
+        placeholder={"Digite o novo limite"}
+        onChange={(e) => definirNovoLimite(e)}
+        value={novoLimite || ""}
       />
 
       <div
@@ -28,7 +27,8 @@ export default function AlterarLimiteForm({cartao, setVisibilidadeAlterarLimite,
         </button>
 
         <button
-          className={['botaoPositivo']}
+          disabled={novoLimite <= 0}
+          className={['botaoPositivo']+" "+[(novoLimite <= 0) && "desativado"]}
         >
           Confirmar
         </button>

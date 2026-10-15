@@ -3,6 +3,7 @@
   height: 35px;
   display: flex;
   justify-content: center;
+  margin-top: -20px;
 }
 
 .opcaoQuantidadeDias{
@@ -18,14 +19,14 @@
 }
 
 .quantidadeDiasSelecionado{
-  background-color: #fff;
+  background-color: var(--card);
 }
 
 .usoCategorias, .metricasDespesas, .cartoes{
   width: 500px;
   display: flex;
   justify-content: center;
-  background-color: #fff;
+  background-color: var(--card);
   box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
   margin: 0 0 30px 0;
   border-radius: 10px;
@@ -71,7 +72,7 @@
 .iconeCategoria{
   width: 50px;
   height: 50px;
-  background-color: rgb(140, 43, 251, 0.15);
+  background-color: var(--primariaClara);
   border-radius: 50%;
   margin-right: 20px;
   display: flex;
@@ -81,7 +82,7 @@
 
 .iconeCategoria img{
   width: 25px;
-  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+  filter: var(--iconeColorido);
 }
 
 .iconeCategoria p{
@@ -123,7 +124,7 @@
   align-items: center;
   margin: 0;
   margin-top: -15px;
-  background-color: rgba(209, 177, 247, 0.125);
+  background-color: var(--primariaClara);
   border-radius: 10px;
 }
 

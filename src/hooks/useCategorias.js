@@ -72,8 +72,12 @@ const useCategorias = () => {
   const excluirCategoria = (codigo) => {
     exibirCardLoader();
     api.delete("/categoria/".concat(codigo))
-    .then((resp) => {
-      setCategorias(resp.data);
+    .then(() => {
+      setCategorias((categoriasAtuais) =>
+        categoriasAtuais.filter((categoria) =>
+          (categoria.codigo !== codigo) && categoria
+        )
+      );
       esconderCardLoader();
       exibirMessageBox('', true, "Categoria excluida com sucesso!", "Prosseguir");
     })

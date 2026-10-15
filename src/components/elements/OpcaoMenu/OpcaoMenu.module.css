@@ -27,7 +27,7 @@
 .molduraIcone{
   width: 55px;
   height: 55px;
-  background-color: rgb(141, 60, 248, 0.15);
+  background-color: var(--primariaClara);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@
 
 .molduraIcone img{
   width: 35px;
-  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+  filter: var(--iconeColorido);
 }
 
 .desativado, .desativado:hover{
@@ -53,13 +53,6 @@
   filter: invert(35%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(101%) contrast(96%);
 }
 
-/*.molduraIcone{
-  background-color: silver;
-}
-
-.molduraIcone img{
-  filter: grayscale(100%) brightness(100%);
-}*/
 
 .margemOpcao p{
   font-size: 11px;
@@ -81,7 +74,7 @@
 
 .titulo img{
   width: 20px;
-  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+  filter: var(--iconeColorido);
 }
 
 

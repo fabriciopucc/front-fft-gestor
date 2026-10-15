@@ -7,7 +7,8 @@ import InputNumerico from "@/components/itensForm/InputNumerico";
 
 export default function CartoesForm({cartao, preencherCartao, definirCorCartao, enviarFormularioCadastrarCartao, esconderForm}){
 
-  let cores = ['roxo', 'azul', 'vermelho', 'verde', 'preto'];
+  const cores = ['roxo', 'azul', 'vermelho', 'verde', 'preto', 'amarelo'];
+  const dias = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
 
   return(
     <form onSubmit={enviarFormularioCadastrarCartao}>
@@ -48,6 +49,29 @@ export default function CartoesForm({cartao, preencherCartao, definirCorCartao, 
         maximoDenumeros={4}
       />
 
+      <select 
+        onChange={(e) => preencherCartao(e)}
+        name={"diaVencimento"}
+        value={cartao.diaVencimento || ""}
+      >
+        <option
+          value={"escolha"}
+        >
+          Escolha o dia do vencimento
+        </option>
+        
+        {
+          dias.map((dia) => (
+            <option 
+              value={dia}
+              key={dia}
+            >
+              {dia}
+            </option>
+          ))
+        }
+      </select>
+
       <Input
         dica={"Digite o limite do cartão"}
         nome={"limiteTotal"}
@@ -57,8 +81,8 @@ export default function CartoesForm({cartao, preencherCartao, definirCorCartao, 
       />
 
       <button
-        disabled={!(cartao.cor || cartao.apelido || cartao.ultimosDigitos || cartao.limiteTotal)}
-        className={[(cartao.cor && cartao.apelido && cartao.ultimosDigitos && cartao.limiteTotal) ? "" : "desativado"]}   
+        disabled={!(cartao.cor || cartao.apelido || cartao.ultimosDigitos || cartao.limiteTotal) || cartao.diaVencimento == "escolha"}
+        className={[(cartao.cor && cartao.apelido && cartao.ultimosDigitos && cartao.diaVencimento !== "escolha" && cartao.limiteTotal) ? "" : "desativado"]}   
       >
         Adicionar cartão
       </button>

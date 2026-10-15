@@ -104,10 +104,13 @@ const useDespesas = () => {
   const excluirDespesa = (codigo) => {
     exibirCardLoader();
     api.delete("/despesa/".concat(codigo))
-    .then((resp) => {
-      setDespesas(resp.data);
+    .then(() => {
+      setDespesas((despesasAtuais) =>
+        despesasAtuais.filter((despesa) =>
+          (despesa.codigo !== codigo) && despesa
+        )
+      );
       esconderCardLoader();
-      exibirMessageBox("", true, "Despesa excluida com sucesso!", "Prosseguir");
     })
     .catch((error) => {
       tratarErro(error);

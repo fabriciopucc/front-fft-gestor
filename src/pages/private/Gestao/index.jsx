@@ -24,6 +24,7 @@ export default function Gestao(){
   const {desfazerAcao} = useAcao();
 
   const meses =  ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  const diasDaSemana = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
 
   return(
     <Container centralizar={true}>
@@ -67,17 +68,23 @@ export default function Gestao(){
               className={styles.dia}
             >
               <div className={styles.margemDia}>
-                <h1
+                <span
                   className={styles.tituloDia}
                 >
-                  {
-                    dia.data.split("-")[2] 
-                    +"  "+
-                    meses[parseInt(dia.data.split("-")[1])-1] 
-                    +"  "+
-                    dia.data.split("-")[0]
-                  }
-                </h1>
+                  <h1>
+                    {
+                      dia.data.split("-")[2] 
+                      +"  "+
+                      meses[parseInt(dia.data.split("-")[1])-1] 
+                      +"  "+
+                      dia.data.split("-")[0]
+                    }
+                  </h1>
+
+                  <p>
+                    {diasDaSemana[new Date(dia.data).getDay()]}
+                  </p>
+                </span>
                 
                 <ListaDeAcoes
                   dia={dia}

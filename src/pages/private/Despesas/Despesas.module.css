@@ -133,8 +133,7 @@
 }
 
 .selecionado{
-  background-color: rgb(141, 60, 248, 0.15);
-  border: 4px solid rgba(140, 43, 251, 0.18);
+  background-color: var(--primariaClara);
 }
 
 .molduraDia{
@@ -210,7 +209,7 @@
 }
 
 .botaoExcluir:hover{
-  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+  filter: var(--iconeColorido);
 }
 
 @media screen and (max-width: 600px) {

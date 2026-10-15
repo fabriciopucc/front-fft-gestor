@@ -52,6 +52,7 @@ const useValidacoes = () => {
 
     if(cartao.apelido.length > 8) erros.push("O apelido só pode conter no máximo 8 caracteres!");
     if(cartao.ultimosDigitos.length !== 4) erros.push("Você deve digitar apenas os ultimos 4 (QUATRO) digitos!");
+    if(cartao.diaVencimento <= 0 || cartao.diaVencimento > 28) erros.push("O dia do vencimento só pode ser entre os dias 1 e 28!!");
     if(cartao.limiteTotal <= 0) erros.push("O limite deve ser maior que 0!");
 
     if(erros.length === 0) return true;

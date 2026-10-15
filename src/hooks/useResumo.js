@@ -60,7 +60,7 @@ const useResumo = () => {
   const buscarAcoesPorCategoriaDeUmUsuario = (categoria, index, tipo) => {
     let filtro = (tipo == "comSaldo") ? filtroPeriodo.comSaldo : filtroPeriodo.comCartao;
 
-    if(exibirAcoes.indice == index){
+    if(exibirAcoes.indice == index && tipo == exibirAcoes.tipo){
       setAcoesPorCategoria([]);
       setExibirAcoes({
         indice: -1,

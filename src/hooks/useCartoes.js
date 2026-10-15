@@ -14,6 +14,7 @@ const useCartoes = () => {
 
   const [cartoes, setCartoes] = useState([]);
   const [cartao, setCartao] = useState({
+    diaVencimento: 'escolha',
     periodos: []
   });
   const {codigo} = useSessao();
@@ -42,17 +43,12 @@ const useCartoes = () => {
       esconderCardLoader();
       listarCartoesDeUmUsuario();
       atualizarSaldo();
-      exibirMessageBox("", true, "Cartão cadastrado com sucesso!", "Prosseguir")
+      exibirMessageBox("", true, "Cartão cadastrado com sucesso!", "Prosseguir");
       setCartao({});
     })
     .catch((error) => {
       tratarErro(error);
     });
-  }
-
-  const enviarFormularioCadastrarCartao = (e) => {
-    e.preventDefault();
-    if(validarCadastroCartao(cartao)) cadastrarCartao();
   }
 
   const listarCartoesDeUmUsuario = () => {
@@ -89,9 +85,56 @@ const useCartoes = () => {
     if(["cartoes", "adicionarAcao", "despesas"].includes(caminho)) listarCartoesDeUmUsuario();
     if(caminho == "fatura") buscarCartaoDeUmUsuario();
   }, []);
+
+  const [visibilidadeAlterarLimite, setVisibilidadeAlterarLimite] = useState(false);
+  const [novoLimite, setNovoLimite] = useState(0);
+
+  const definirNovoLimite = (e) => {
+    setNovoLimite(e.target.value);
+  }
+
+  const alterarLimite = (codigo) => {
+    exibirCardLoader();
+    api.put("/cartao/alterarLimite", {
+      codigoCartao: codigo,
+      novoLimite: novoLimite
+    })
+    .then((resp) => {
+      setCartoes((cartoesAtuais) => 
+        cartoesAtuais.map((cartao) => 
+          (cartao.codigo === codigo) ? 
+            resp.data : cartao
+        )
+      );
+      atualizarSaldo();
+      setNovoLimite(0);
+      setVisibilidadeAlterarLimite(false);
+      esconderCardLoader();
+      exibirMessageBox("", true, "Limite atualizado com sucesso!", "Prosseguir");
+    })
+    .catch((error) => {
+      tratarErro(error);
+    });
+  }
+
+  const enviarFormularioCadastrarCartao = (e) => {
+    e.preventDefault();
+    if(validarCadastroCartao(cartao)) cadastrarCartao();
+  }
+
+  const enviarFormularioAlterarLimiteCartao = (e, codigo) => {
+    e.preventDefault();
+    alterarLimite(codigo);
+  }
   
 
-  return {cartao, preencherCartao, definirCorCartao, cartoes, enviarFormularioCadastrarCartao};
+  return {
+    cartao, preencherCartao, definirCorCartao,
+    novoLimite, definirNovoLimite,
+    visibilidadeAlterarLimite, setVisibilidadeAlterarLimite,
+    cartoes, 
+    enviarFormularioCadastrarCartao, enviarFormularioAlterarLimiteCartao
+  };
 }
 
 export default useCartoes;

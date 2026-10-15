@@ -181,7 +181,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
               <>
                 <button
                   type='button'
-                  onClick={() => desfazerAcao(codigoAcao, setDias)}
+                  onClick={() => desfazerAcao(dia.codigo, codigoAcao, setDias)}
                   disabled={!codigoAcao}
                   className={(codigoAcao) ? "botaoPositivo" : "desativado"}
                 >

@@ -11,7 +11,7 @@ import Cartao from '@/components/elements/Cartao';
 
 export default function Cartoes(){
 
-  const {cartao, preencherCartao, definirCorCartao, cartoes, enviarFormularioCadastrarCartao} = useCartoes();
+  const {cartao, preencherCartao, definirCorCartao, cartoes, enviarFormularioCadastrarCartao, visibilidadeAlterarLimite, setVisibilidadeAlterarLimite, novoLimite, definirNovoLimite, enviarFormularioAlterarLimiteCartao} = useCartoes();
   const {visibilidadeForm, exibirForm, esconderForm} = useForm();
 
   return(
@@ -50,7 +50,11 @@ export default function Cartoes(){
             <Cartao
               key={cartao.codigo}
               cartao={cartao}
-              preencherCartao={preencherCartao}
+              visibilidadeAlterarLimite={visibilidadeAlterarLimite}
+              setVisibilidadeAlterarLimite={setVisibilidadeAlterarLimite}
+              novoLimite={novoLimite}
+              definirNovoLimite={definirNovoLimite}
+              enviarFormularioAlterarLimiteCartao={enviarFormularioAlterarLimiteCartao}
             />
           ))
         }

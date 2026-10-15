@@ -6,6 +6,7 @@ import useTratarErro from "./useTratarErro";
 
 import api from "@/services/api";
 import useSaldo from "./useSaldo";
+import usePaginacao from "./usePaginacao";
 
 
 const useAcao = () => {
@@ -24,6 +25,7 @@ const useAcao = () => {
   const {codigo} = useParams();
   const {tratarErro} = useTratarErro();
   const {atualizarSaldo} = useSaldo();
+  const {paginacao} = usePaginacao();
 
   const preencherAcao = (e) => {
     setAcao({...acao, [e.target.name] : e.target.value});
@@ -75,14 +77,20 @@ const useAcao = () => {
     });
   }
 
-  const desfazerAcao = (codigo, setDias) => {
+  const desfazerAcao = (codigoDia, codigoAcao, setDias) => {
     exibirCardLoader();
-    api.delete("/acao/".concat(codigo))
+    api.delete("/acao/".concat(codigoAcao), {
+      params: paginacao
+    })
     .then((resp) => {
       esconderCardLoader();
       atualizarSaldo();
       exibirMessageBox("/gestao", true, "Ação desfeita com sucesso!", "Prosseguir");
-      setDias(resp.data);
+      setDias((diasAtuais) => 
+        diasAtuais.map((dia) => 
+          dia.codigo === codigoDia ? resp.data : dia
+        )
+      );
     })
     .catch((error) => {
       tratarErro(error);

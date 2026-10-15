@@ -10,7 +10,7 @@
   margin-bottom: 25px;
   display: flex;
   justify-content: center;
-  background-color: rgba(104, 60, 248, 0.1);
+  background-color: var(--primariaClara);
   box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
 }
 
@@ -35,7 +35,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  filter: invert(35%) sepia(93%) saturate(3500%) hue-rotate(255deg) brightness(101%) contrast(96%);
+  filter: var(--iconeColorido);
 }
 
 /*Saldo positivo*/
@@ -112,19 +112,19 @@
   font-size: 14px;
   width: fit-content;
   padding: 5px;
-  background-color: rgb(140, 43, 251, 0.15);
+  background-color: rgba(130, 60, 248, 0.15);
   border-radius: 10px;
   color: var(--primaria);
   font-weight: 500;
 }
 
 .textoRodapeSaldo{
-  background-color: rgb(23, 190, 90, 0.1);
+  background-color: rgb(23, 190, 90, 0.15);
   color: rgb(23, 190, 90);
 }
 
 .cardNegativo h1{
-  color: var(--erro);
+  color: var(--valorNegativo);
 }
 
 .cardNegativo .textoRodapeSaldo{

@@ -79,7 +79,7 @@ export default function Saldo() {
 
       <div className={styles.saldo+" "+styles[(saldo.saldoAtual < 0) ? "cardNegativo" : "cardPositivo"]}>
         <div className={styles.margemSaldo}>
-            <img 
+          <img 
             src={iconCarteira} 
             alt="Icone dinheiro" 
             className={styles.iconCarteira+" "+styles[(saldo.saldoAtual < 0) ? "carteiraNegativa" : ""]}  

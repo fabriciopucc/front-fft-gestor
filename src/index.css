@@ -13,22 +13,23 @@
 }
 
 :root{
-  --fundo: rgb(251, 249, 255);
+  --fundo: #fdfbff;
   --card: #fff;
-  --primaria: rgb(141, 60, 248);
+  --primaria: rgb(125, 60, 248);
   --primariaEscura: rgb(77, 22, 150);
+  --primariaClara: rgba(130, 60, 248, 0.1);
   --borda: rgb(216, 198, 243);
-  --sucesso: #23a55a;
-  --erro: rgb(242, 95, 95);
   --sombra: #00000013;
 
   --btnSecundario: rgb(241, 228, 255);
 
-  --itemPositivo: rgb(140, 242, 193);
-  --itemNegativo: rgb(238, 155, 155);
+  --itemPositivo: rgb(151, 245, 199);
+  --itemNegativo: rgb(255, 173, 173);
 
   --valorPositivo: rgb(20, 184, 113);
-  --valorNegativo: rgb(217, 75, 75);
+  --valorNegativo: rgb(246, 88, 88);
+
+  --iconeColorido: invert(26%) sepia(91%) saturate(4750%) hue-rotate(254deg) brightness(98%) contrast(98%);;
 }
 
 
@@ -116,7 +117,7 @@ form h1{
 }
 
 .preto{
-  background: linear-gradient(135deg, rgb(71, 71, 72), rgb(20, 20, 20));
+  background: linear-gradient(135deg, rgb(71, 71, 72), rgb(14, 14, 14));
 }
 
 .azul{
@@ -128,9 +129,14 @@ form h1{
 }
 
 .verde{
-  background: linear-gradient(135deg, rgb(11, 148, 73), rgb(4, 95, 45));
+  background: linear-gradient(135deg, rgb(11, 148, 73), rgb(3, 77, 36));
 }
 
+.amarelo{
+  background: linear-gradient(135deg, rgb(247, 247, 65), rgb(146, 128, 23));
+}
+
+/*Botões*/
 .btnroxo{
   background-color: var(--primaria);
 }
@@ -151,8 +157,13 @@ form h1{
   background-color: rgb(11, 148, 73);
 }
 
+.btnamarelo{
+  background-color: rgb(209, 209, 54);
+}
+
+
 .botaoPositivo{
-  background-color: rgb(23, 190, 132);
+  background-color: rgb(9, 198, 157);
 }
 
 .aviso{

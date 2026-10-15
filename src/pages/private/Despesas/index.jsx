@@ -224,16 +224,15 @@ export default function Despesas(){
                     </p>
                   </div>
 
-                  {
-                    (!escolherDespesa) && (
-                      <img 
-                        src={iconExcluir} 
-                        alt="Icone excluir" 
-                        className={styles.botaoExcluir}
-                        onClick={() => excluirDespesa(despesaDaLista.codigo)}
-                      />
-                    )
-                  }
+                  <img 
+                    src={iconExcluir} 
+                    alt="Icone excluir" 
+                    className={styles.botaoExcluir}
+                    onClick={() => {
+                        if(!escolherDespesa) excluirDespesa(despesaDaLista.codigo)
+                      }
+                    }
+                  />
                 </div>
               ))
             }

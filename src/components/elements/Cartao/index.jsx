@@ -9,9 +9,7 @@ import AlterarLimiteForm from '@/components/forms/AlterarLimiteForm';
 import BarraProgresso from '@/components/utils/BarraProgresso';
 
 
-export default function Cartao({cartao, preencherCartao}){
-
-  const [visibilidadeAlterarLimite, setVisibilidadeAlterarLimite] = useState(false);
+export default function Cartao({cartao, visibilidadeAlterarLimite, setVisibilidadeAlterarLimite, novoLimite, definirNovoLimite, enviarFormularioAlterarLimiteCartao}){
 
   return(
     <div 
@@ -74,17 +72,15 @@ export default function Cartao({cartao, preencherCartao}){
       </div>
 
       {
-        visibilidadeAlterarLimite && (
+        visibilidadeAlterarLimite ? (
           <AlterarLimiteForm
             cartao={cartao}
+            novoLimite={novoLimite}
+            definirNovoLimite={definirNovoLimite}
             setVisibilidadeAlterarLimite={setVisibilidadeAlterarLimite}
-            preencherCartao={preencherCartao}
+            enviarFormularioAlterarLimiteCartao={enviarFormularioAlterarLimiteCartao}
           />
-        )
-      }
-
-      {
-        !visibilidadeAlterarLimite && (
+        ) : (
           <div className={styles.botoesCartao}>
             <Link
               className={styles.botaoFatura+" btn"+[cartao.cor]}
