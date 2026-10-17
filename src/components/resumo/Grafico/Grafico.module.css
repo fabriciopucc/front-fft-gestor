@@ -1,10 +1,9 @@
 .containerGrafico{
-  width: 500px;
+  width: 100%;
   display: flex;
   justify-content: center;
   background-color: var(--card);
   box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
-  margin: 0 0 30px 0;
   border-radius: 10px;
 }
 
@@ -77,10 +76,4 @@
   color: #888;
   white-space: nowrap;
   text-align: center;
-}
-
-@media screen and (max-width: 500px) {
-  .containerGrafico{
-    width: 100%;
-  }
 }

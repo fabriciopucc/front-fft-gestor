@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useSessao from "./useSessao";
 import useLoader from "./useLoader";
 import useTratarErro from "./useTratarErro";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import api from "@/services/api";
 import useValidacoes from "./useValidacoes";
@@ -14,13 +14,12 @@ const useCartoes = () => {
 
   const [cartoes, setCartoes] = useState([]);
   const [cartao, setCartao] = useState({
-    diaVencimento: 'escolha',
+    diaFechamento: 'escolha',
     periodos: []
   });
   const {codigo} = useSessao();
   const {exibirCardLoader, esconderCardLoader, setCarregando} = useLoader();
   const location = useLocation();
-  const {codigoCartao} = useParams();
   const {tratarErro} = useTratarErro();
   const {validarCadastroCartao} = useValidacoes();
   const {atualizarSaldo} = useSaldo();
@@ -65,25 +64,25 @@ const useCartoes = () => {
     });
   }
 
-  const buscarCartaoDeUmUsuario = () => {
-    setCarregando(true);
-    api.get("/cartao/cartaoDeUmUsuario/usuario/".concat(codigo)+"/cartao/".concat(codigoCartao))
+  const listarCartoesDeUmUsuarioSemLoading = () => {
+    api.get("/cartao/cartoesDeUmUsuario/".concat(codigo))
     .then((resp) => {
-      setCartao(resp.data);
+      setCartoes(resp.data);
     })
     .catch((error) => {
       tratarErro(error);
-    })
-    .finally(() => {
-      setCarregando(false);
     });
   }
 
   useEffect(() => {
     let caminho = location.pathname.split("/")[1];
 
-    if(["cartoes", "adicionarAcao", "despesas"].includes(caminho)) listarCartoesDeUmUsuario();
-    if(caminho == "fatura") buscarCartaoDeUmUsuario();
+    if(["cartoes", "adicionarAcao", "despesas"].includes(caminho)){
+      listarCartoesDeUmUsuario();
+    }
+    else if(["despesas"].includes(caminho)){
+      listarCartoesDeUmUsuarioSemLoading();
+    }
   }, []);
 
   const [visibilidadeAlterarLimite, setVisibilidadeAlterarLimite] = useState(false);
@@ -127,7 +126,7 @@ const useCartoes = () => {
     alterarLimite(codigo);
   }
   
-
+  
   return {
     cartao, preencherCartao, definirCorCartao,
     novoLimite, definirNovoLimite,

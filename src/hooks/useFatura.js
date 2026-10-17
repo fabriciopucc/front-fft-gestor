@@ -5,6 +5,7 @@ import api from "@/services/api";
 import useTratarErro from "./useTratarErro";
 import useLoader from "./useLoader";
 import useSaldo from "./useSaldo";
+import { useParams } from "react-router-dom";
 
 
 const useFatura = () => {
@@ -12,6 +13,8 @@ const useFatura = () => {
   const [compras, setCompras] = useState([]);
   const {exibirMessageBox} = useMessageBox();
   const {tratarErro} = useTratarErro();
+  const [periodos, setPeriodos] = useState([]);
+  const {codigoCartao} = useParams();
   const [codigoPeriodo, setCodigoPeriodo] = useState();
   const {exibirCardLoader, esconderCardLoader} = useLoader();
   const {atualizarSaldo} = useSaldo();
@@ -36,11 +39,11 @@ const useFatura = () => {
     setCodigoPeriodo(codigoPeriodo);
   };
 
-  const buscarComprasDeUmPeriodo = () => {
+  const listarPeriodosDeUmCartao = () => {
     setCarregando(true);
-    api.get("/compra/periodo/".concat(codigoPeriodo))
+    api.get("/periodo/periodosDeUmCartao/".concat(codigoCartao))
     .then((resp) => {
-      setCompras(resp.data);
+      setPeriodos(resp.data);
     })
     .catch((error) => {
       tratarErro(error);
@@ -48,6 +51,25 @@ const useFatura = () => {
     .finally(() => {
       setCarregando(false);
     })
+  }
+
+  const buscarComprasDeUmPeriodo = () => {
+    if(codigoPeriodo == 0){
+      setCompras([]);
+    }
+    else{
+      setCarregando(true);
+      api.get("/compra/periodo/".concat(codigoPeriodo))
+      .then((resp) => {
+        setCompras(resp.data);
+      })
+      .catch((error) => {
+        tratarErro(error);
+      })
+      .finally(() => {
+        setCarregando(false);
+      });
+    }
   }
 
   const quitarCompras = () => {
@@ -67,10 +89,15 @@ const useFatura = () => {
   }
 
   useEffect(() => {
-    if(codigoPeriodo) buscarComprasDeUmPeriodo();
-  }, [codigoPeriodo])
+    listarPeriodosDeUmCartao();
+  }, []);
+
+  useEffect(() => {
+    if(codigoPeriodo > 0) buscarComprasDeUmPeriodo();
+  }, [codigoPeriodo]);
 
   return{
+    periodos, codigoPeriodo,
     filtroFatura, setFiltroFatura,
     exibirSelecione, setExibirSelecione,
     listaCodigos, adicionarCodigo, setListaCodigos,

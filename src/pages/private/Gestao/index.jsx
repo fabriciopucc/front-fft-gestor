@@ -14,6 +14,7 @@ import Saldo from '@/components/elements/Saldo';
 import { useState } from 'react';
 import useAcao from '@/hooks/useAcao';
 import BotaoPaginacao from '@/components/utils/BotaoPaginacao';
+import ContainerMolde from '@/components/utils/ContainerMolde';
 
 
 export default function Gestao(){
@@ -35,69 +36,71 @@ export default function Gestao(){
 
       <Saldo/>
 
-      <input 
-        type="date" 
-        onChange={(e) => setData(e.target.value)}
-        value={data || ''}
-        className={styles.definirData}
-      />
+      <ContainerMolde>
+        <input 
+          type="date" 
+          onChange={(e) => setData(e.target.value)}
+          value={data || ''}
+          className={styles.definirData}
+        />
 
-      <button 
-        type='button'
-        onClick={criarDia}
-        className={styles.botaoCriarDia+" "+[(saldo.saldoInicial == 0 || !data) && "desativado"]}
-        disabled={(saldo.saldoInicial == 0 || !data)}        
-      >
-        {data ? "Criar dia" : "Selecione o dia"}
-      </button>
+        <button 
+          type='button'
+          onClick={criarDia}
+          className={styles.botaoCriarDia+" "+[(saldo.saldoInicial == 0 || !data) && "desativado"]}
+          disabled={(saldo.saldoInicial == 0 || !data)}        
+        >
+          {data ? "Criar dia" : "Selecione o dia"}
+        </button>
 
-      <BotaoPaginacao
-        paginacao={paginacao}
-        avancar={avancarPagina}
-        voltar={retrocederPagina}
-      />
+        <BotaoPaginacao
+          paginacao={paginacao}
+          avancar={avancarPagina}
+          voltar={retrocederPagina}
+        />
 
-      <ListaDeEntidade
-        lista={dias}
-        textoAlternativo={"Ainda não existem dias para esse usuário!"}
-      >
-        {
-          dias.map((dia) => (
-            <div
-              key={dia.codigo}  
-              className={styles.dia}
-            >
-              <div className={styles.margemDia}>
-                <span
-                  className={styles.tituloDia}
-                >
-                  <h1>
-                    {
-                      dia.data.split("-")[2] 
-                      +"  "+
-                      meses[parseInt(dia.data.split("-")[1])-1] 
-                      +"  "+
-                      dia.data.split("-")[0]
-                    }
-                  </h1>
+        <ListaDeEntidade
+          lista={dias}
+          textoAlternativo={"Ainda não existem dias para esse usuário!"}
+        >
+          {
+            dias.map((dia) => (
+              <div
+                key={dia.codigo}  
+                className={styles.dia}
+              >
+                <div className={styles.margemDia}>
+                  <span
+                    className={styles.tituloDia}
+                  >
+                    <h1>
+                      {
+                        dia.data.split("-")[2] 
+                        +"  "+
+                        meses[parseInt(dia.data.split("-")[1])-1] 
+                        +"  "+
+                        dia.data.split("-")[0]
+                      }
+                    </h1>
 
-                  <p>
-                    {diasDaSemana[new Date(dia.data).getDay()]}
-                  </p>
-                </span>
-                
-                <ListaDeAcoes
-                  dia={dia}
-                  codigoAcao={codigoAcao}
-                  setCodigoAcao={setCodigoAcao}
-                  desfazerAcao={desfazerAcao}
-                  setDias={setDias}
-                />
+                    <p>
+                      {diasDaSemana[new Date(dia.data).getDay()]}
+                    </p>
+                  </span>
+                  
+                  <ListaDeAcoes
+                    dia={dia}
+                    codigoAcao={codigoAcao}
+                    setCodigoAcao={setCodigoAcao}
+                    desfazerAcao={desfazerAcao}
+                    setDias={setDias}
+                  />
+                </div>
               </div>
-            </div>
-          ))
-        }
-      </ListaDeEntidade>
+            ))
+          }
+        </ListaDeEntidade>
+      </ContainerMolde>
     </Container>
   )
 }

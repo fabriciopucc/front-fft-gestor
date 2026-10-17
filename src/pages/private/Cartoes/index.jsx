@@ -7,6 +7,7 @@ import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import QuantidadeEntidades from '@/components/utils/QuantidadeEntidades';
 import useForm from '@/hooks/useForm';
 import Cartao from '@/components/elements/Cartao';
+import ContainerMolde from "@/components/utils/ContainerMolde";
 
 
 export default function Cartoes(){
@@ -41,24 +42,26 @@ export default function Cartoes(){
         )
       }
 
-      <ListaDeEntidade
-        lista={cartoes}
-        textoAlternativo={"Você ainda não possui cartões cadastrados!"}
-      >
-        {
-          cartoes.map((cartao) => (
-            <Cartao
-              key={cartao.codigo}
-              cartao={cartao}
-              visibilidadeAlterarLimite={visibilidadeAlterarLimite}
-              setVisibilidadeAlterarLimite={setVisibilidadeAlterarLimite}
-              novoLimite={novoLimite}
-              definirNovoLimite={definirNovoLimite}
-              enviarFormularioAlterarLimiteCartao={enviarFormularioAlterarLimiteCartao}
-            />
-          ))
-        }
-      </ListaDeEntidade>
+      <ContainerMolde>
+        <ListaDeEntidade
+          lista={cartoes}
+          textoAlternativo={"Você ainda não possui cartões cadastrados!"}
+        >
+          {
+            cartoes.map((cartao) => (
+              <Cartao
+                key={cartao.codigo}
+                cartao={cartao}
+                visibilidadeAlterarLimite={visibilidadeAlterarLimite}
+                setVisibilidadeAlterarLimite={setVisibilidadeAlterarLimite}
+                novoLimite={novoLimite}
+                definirNovoLimite={definirNovoLimite}
+                enviarFormularioAlterarLimiteCartao={enviarFormularioAlterarLimiteCartao}
+              />
+            ))
+          }
+        </ListaDeEntidade>
+      </ContainerMolde>
     </Container>
   );
 }

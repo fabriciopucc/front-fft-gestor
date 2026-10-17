@@ -1,7 +1,6 @@
 import useCartoes from '@/hooks/useCartoes';
 import styles from './AdicionarAcaoForm.module.css'
 import useCategorias from '@/hooks/useCategorias';
-import useLoader from '@/hooks/useLoader';
 import useAcao from '@/hooks/useAcao';
 import Input from '@/components/itensForm/Input';
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
@@ -10,10 +9,9 @@ import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 export default function AdicionarAcaoForm(){
 
   const {acao, definirFormaDePagamento, definirCategoriaAcao, definirCartao, definirTipoTransacao, preencherAcao, enviarFormularioAdicionarAcao} = useAcao();
-  const {visibilidadeLoader} = useLoader();
   const {categorias} = useCategorias();
   const {cartoes} = useCartoes();
-
+  const parcelas = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return(
     <form onSubmit={enviarFormularioAdicionarAcao}>
@@ -88,6 +86,20 @@ export default function AdicionarAcaoForm(){
                 </>
               )
             }
+
+            <select name="numeroParcelas" onChange={(e) => preencherAcao(e)}>
+              <option value={1}>À vista</option>
+              {
+                parcelas.map((parcela) => (
+                  <option
+                    key={parcela}
+                    value={parcela}
+                  >
+                    Em {parcela}x
+                  </option>
+                ))
+              }
+            </select>
           </>
         ) : acao.formaPagamento == "saldoEmConta" && (
           <>
@@ -155,7 +167,7 @@ export default function AdicionarAcaoForm(){
           (acao.formaPagamento == "saldoEmConta") ? 
               !(acao.valor > 0 && acao.tipoTransacao && acao.categoria != "escolha")
           : (acao.formaPagamento == "cartaoCredito") ? 
-              !(acao.valor > 0 && acao.tipoTransacao && acao.codigoCartao && acao.apelidoCartao && acao.categoria != "escolha")
+              !(acao.valor > 0 && acao.tipoTransacao && acao.codigoCartao && acao.apelidoCartao &&  acao.categoria != "escolha")
           : (acao.formaPagamento == "escolha")
         }
         className={

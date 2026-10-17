@@ -7,18 +7,18 @@
   margin-top: 50px;
 }
 
-.botaoCriarDia{
-  width: 500px;
-}
-
 .definirData{
-  width: 480px;
+  width: calc(100% - 20px);
   padding: 0 10px;
   height: 40px;
   border-radius: 7.5px;
-  margin-bottom: 20px;
   border: 1px solid var(--borda);
   cursor: pointer;
+}
+
+.botaoCriarDia{
+  width: 100%;
+  margin: 20px 0;
 }
 
 .dia{
@@ -57,10 +57,4 @@
 .tituloDia p{
   font-size: 13.5px;
   margin: -7.5px 0 0 0;
-}
-
-@media screen and (max-width: 600px) {
-  .botaoCriarDia, .definirData, .containerDias, .dia{
-    width: 100%;
-  }
 }

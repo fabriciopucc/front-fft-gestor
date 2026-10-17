@@ -3,15 +3,19 @@ import styles from './Fatura.module.css';
 import Container from "@/components/layout/Container";
 import HeaderVoltar from "@/components/layout/HeaderVoltar";
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
+import ContainerMolde from '@/components/utils/ContainerMolde';
 
 import useCartoes from "@/hooks/useCartoes";
 import useFatura from "@/hooks/useFatura";
+import { converterNumeroEmNumeroDeCalendario } from '@/utils/converterNumeroEmNumeroDeCalendario';
 
 
 export default function Fatura(){
 
-  const {cartao} = useCartoes();
-  const {filtroFatura, setFiltroFatura, exibirSelecione, setExibirSelecione, listaCodigos, adicionarCodigo, setListaCodigos, definirCodigoPeriodoDaFatura, compras, quitarCompras} = useFatura();
+  const {
+    periodos, codigoPeriodo,
+    filtroFatura, setFiltroFatura, exibirSelecione, setExibirSelecione, listaCodigos, adicionarCodigo, setListaCodigos, definirCodigoPeriodoDaFatura, compras, quitarCompras
+  } = useFatura();
 
   const comprasFiltradas = compras.filter((compra) => {
     return filtroFatura == "todas"
@@ -28,33 +32,39 @@ export default function Fatura(){
         tituloPagina={"Fatura"}
       />
 
-      <ListaDeEntidade
-        lista={cartao.periodos}
-        textoAlternativo={"Você ainda não utilizou esse cartão!"}
-      >
-        <select
-          onChange={(e) => definirCodigoPeriodoDaFatura(e.target.value)}
-          className={styles.definirPeriodo}
+      <ContainerMolde>
+        <ListaDeEntidade
+          lista={periodos}
+          textoAlternativo={"Você ainda não utilizou esse cartão!"}
         >
-          <option value="escolha">Escolha o periodo</option>
-          {
-            cartao.periodos.map((periodo, index) => (
-              <option 
-                key={index}
-                value={periodo.codigo}
-              >
-                {["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"][periodo.mes - 1]}
-                /{periodo.ano}
-              </option>
-            ))
-          }
-        </select>
-      </ListaDeEntidade>
+          <select
+            onChange={(e) => definirCodigoPeriodoDaFatura(e.target.value)}
+            className={styles.definirPeriodo}
+            value={codigoPeriodo || ""}
+          >
+            <option value={0}>Escolha o periodo</option>
+            {
+              periodos.map((periodo, index) => {
+                const diaFechamento =converterNumeroEmNumeroDeCalendario(periodo.diaFechamento);
+                const mes = converterNumeroEmNumeroDeCalendario(periodo.mes);
+                const proximoMes = (periodo.mes == 12) ? "01" : converterNumeroEmNumeroDeCalendario(periodo.mes + 1);
 
-      <ListaDeEntidade
-        lista={comprasFiltradas}
-        textoAlternativo={"Selecione uma fatura"}
-      >
+                return (
+                  <option 
+                    key={index}
+                    value={periodo.codigo}
+                  >
+                    de&nbsp;
+                    {diaFechamento}/{mes}
+                    &nbsp; até &nbsp;
+                    {diaFechamento}/{proximoMes}
+                  </option>
+                )
+              })
+            }
+          </select>
+        </ListaDeEntidade>
+        
         {
           exibirSelecione ? (
             <div className={styles.botoesQuitacao}>
@@ -103,57 +113,62 @@ export default function Fatura(){
           )
         }
 
-        <div
-            className={styles.containerCompras}
-          >
-            <div
-              className={styles.margemContainerCompras}
+        <ListaDeEntidade
+          lista={comprasFiltradas}
+          textoAlternativo={"Sem compras para este filtro"}
+        >
+          <div
+              className={styles.containerCompras}
             >
               <div
-                className={styles.compra}
+                className={styles.margemContainerCompras}
               >
-                <p>Dia</p>
-                <p>Descrição</p>
-                <p>Valor</p>
-                <p>Quitado</p>
-              </div>
-              {
-                comprasFiltradas.map((compra) => (
-                  <div
-                    key={compra.codigo}
-                    className={
-                      styles.compra+" "+
-                      styles[(exibirSelecione) && "selecione"]+" "+
-                      styles[(listaCodigos.includes(compra.codigo) && exibirSelecione) && "selecionado"]
-                    }
-                    onClick={() => {
-                        if(exibirSelecione && !compra.quitado) adicionarCodigo(compra.codigo);
-                      }
-                    }
-                  >
-                    <div>
-                      <p>{compra.dia}</p>
-                    </div>
-
-                    <div>
-                      <p>{compra.descricao}</p>
-                    </div>
-
-                    <div>
-                      <p>R$ {compra.valor.toFixed(2)}</p>
-                    </div>
-
+                <div
+                  className={styles.compra}
+                >
+                  <p>Dia</p>
+                  <p>Descrição</p>
+                  <p>Valor</p>
+                  <p>Quitado</p>
+                </div>
+                {
+                  comprasFiltradas.map((compra) => (
                     <div
-                      className={styles.quitado}
+                      key={compra.codigo}
+                      className={
+                        styles.compra+" "+
+                        styles[(exibirSelecione) && "selecione"]+" "+
+                        styles[(listaCodigos.includes(compra.codigo) && exibirSelecione) && "selecionado"]
+                      }
+                      onClick={() => {
+                          if(exibirSelecione && !compra.quitado) adicionarCodigo(compra.codigo);
+                        }
+                      }
                     >
-                      <span className={styles.statusQuitado+" "+styles[(compra.quitado) && "foiQuitado"]}></span>
+                      <div>
+                        <p>{compra.dia}</p>
+                      </div>
+
+                      <div>
+                        <p>{compra.descricao}</p>
+                      </div>
+
+                      <div>
+                        <p>R$ {compra.valor.toFixed(2)}</p>
+                      </div>
+
+                      <div
+                        className={styles.quitado}
+                      >
+                        <span className={styles.statusQuitado+" "+styles[(compra.quitado) && "foiQuitado"]}></span>
+                      </div>
                     </div>
-                  </div>
-                )) 
-              }
+                  )) 
+                }
+              </div>
             </div>
-          </div>
-      </ListaDeEntidade>
+        </ListaDeEntidade>
+      </ContainerMolde>
     </Container>
   )
 }

@@ -1,0 +1,17 @@
+.containerMolde{
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.semBordaSuperior{
+  margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .containerMolde{
+    width: 100%;
+  }
+}

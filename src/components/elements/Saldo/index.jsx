@@ -7,9 +7,11 @@ import iconCartao from '@/assets/icons/iconCard.svg';
 import iconCarteira from '@/assets/icons/iconCarteira.svg';
 import BarraProgresso from '@/components/utils/BarraProgresso';
 import { useLocation } from 'react-router-dom';
+import ContainerMolde from '@/components/utils/ContainerMolde';
 
 export default function Saldo() {
   const { saldo } = useSaldo();
+  const location = useLocation();
 
   if (!saldo) {
     return <Loader />;
@@ -19,11 +21,13 @@ export default function Saldo() {
     return null;
   }
 
-  const location = useLocation();
   let balancoSaldo = saldo.saldoAtual - saldo.saldoInicial;
 
+
   return (
-    <div className={styles.containerSaldo}>
+    <ContainerMolde
+      classeAdicional={"semBordaSuperior"}
+    >
       <div className={styles.saldo}>
         <div className={styles.margemSaldo}>
           <img 
@@ -35,44 +39,82 @@ export default function Saldo() {
           <div className={styles.divisorDados}>
             <p className={styles.tituloSaldo}>Limites cartões</p>
 
-            <div className={styles.valoresCredito}>
-              {
-                (saldo.totalLimiteTotal) ? (
-                  <>
+            {
+              (saldo.totalLimiteTotal) ? (
+                <div className={styles.credito}>
+                  <div className={styles.valoresCredito}>
                     <h1>R$ {(saldo.totalLimiteUtilizado).toFixed(2)}</h1>
                     <p>&nbsp; / R$ {(saldo.totalLimiteTotal).toFixed(2)}</p>
-                  </>
-                ) : (
-                  <>
-                    <h1>-</h1>
-                    <p>-</p>
-                  </>
-                )
-              }
-              
-            </div>
+                  </div>
+
+                  {
+                    saldo.totalLimiteUtilizado > 0 && (
+                      <div className={styles.porcentagem}>
+                        <BarraProgresso
+                          maximo={saldo.totalLimiteTotal}
+                          inicial={saldo.totalLimiteUtilizado}
+                        />
+
+                        <p>&nbsp;&nbsp;</p>
+
+                        <p className={styles.valorPorcentagem}>
+                          {((saldo.totalLimiteUtilizado/saldo.totalLimiteTotal)*100).toFixed(2)}%
+                        </p> 
+                      </div>
+                    )
+                  }
+                </div>
+              ) : (
+                <>
+                  <h1>-</h1>
+                  <p>-</p>
+                </>
+              )
+            }
 
             {(saldo.totalLimiteTotal > 0 && saldo.totalLimiteUtilizado > 0) && (
               <>
-                <BarraProgresso
-                  maximo={saldo.totalLimiteTotal}
-                  inicial={saldo.totalLimiteUtilizado}
-                />
 
-                <p className={styles.textoRodapeCredito}>
-                  {((saldo.totalLimiteUtilizado/saldo.totalLimiteTotal)*100).toFixed(2)}% Limite utilizado
-                  
-                  {
-                    location.pathname == "/resumo" && (
-                      <>
-                        <br />
-                        Limite disponível: R$ {(saldo.totalLimiteTotal - saldo.totalLimiteUtilizado).toFixed(2)}
-                      </>
-                    )
-                  }
-                </p> 
+                {
+                  (saldo.totalLimiteUtilizado - saldo.totalLimitesFaturasAtuaisUtilizado) > 0 && (
+                    <div className={styles.metricas}>
+                      <div className={styles.metricasCredito}>
+                        <div className={styles.margemMetricasCartao}>
+                          <p>Atrasadas</p>
+                          <h1 className={styles.limiteUtilizado}>R$ {(saldo.totalLimitesFaturasPassadasUtilizado).toFixed(2)}</h1>
+                        </div>
+                      </div>
+
+                      <div className={styles.metricasCredito}>
+                        <div className={styles.margemMetricasCartao}>
+                          <p>Atual</p>
+                          <h1 className={styles.limiteUtilizado}>R$ {(saldo.totalLimitesFaturasAtuaisUtilizado).toFixed(2)}</h1>
+                        </div>
+                      </div>
+
+                      <div className={styles.metricasCredito}>
+                        <div className={styles.margemMetricasCartao}>
+                          <p>Futuras</p>
+                          <h1 className={styles.limiteUtilizado}>R$ {(saldo.totalLimitesFaturasFuturasUtilizado).toFixed(2)}</h1>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
               </>
             )}
+
+            {
+              location.pathname == "/resumo" && (
+                <>
+                  <br/>
+
+                  <p className={styles.textoRodapeCredito}>
+                    Limite disponível: R$ {(saldo.totalLimiteTotal - saldo.totalLimiteUtilizado).toFixed(2)}
+                  </p>
+                </>
+              )
+            }
           </div>
         </div>
       </div>
@@ -111,7 +153,7 @@ export default function Saldo() {
           </div>
         </div>
       </div>
-    </div>
+    </ContainerMolde>
   );
 }
 

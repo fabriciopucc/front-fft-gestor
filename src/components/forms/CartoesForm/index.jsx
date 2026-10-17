@@ -51,13 +51,13 @@ export default function CartoesForm({cartao, preencherCartao, definirCorCartao, 
 
       <select 
         onChange={(e) => preencherCartao(e)}
-        name={"diaVencimento"}
-        value={cartao.diaVencimento || ""}
+        name={"diaFechamento"}
+        value={cartao.diaFechamento || ""}
       >
         <option
           value={"escolha"}
         >
-          Escolha o dia do vencimento
+          Escolha o dia do fechamento
         </option>
         
         {
@@ -81,8 +81,8 @@ export default function CartoesForm({cartao, preencherCartao, definirCorCartao, 
       />
 
       <button
-        disabled={!(cartao.cor || cartao.apelido || cartao.ultimosDigitos || cartao.limiteTotal) || cartao.diaVencimento == "escolha"}
-        className={[(cartao.cor && cartao.apelido && cartao.ultimosDigitos && cartao.diaVencimento !== "escolha" && cartao.limiteTotal) ? "" : "desativado"]}   
+        disabled={!(cartao.cor || cartao.apelido || cartao.ultimosDigitos || cartao.limiteTotal) || cartao.diaFechamento == "escolha"}
+        className={[(cartao.cor && cartao.apelido && cartao.ultimosDigitos && cartao.diaFechamento !== "escolha" && cartao.limiteTotal) ? "" : "desativado"]}   
       >
         Adicionar cartão
       </button>

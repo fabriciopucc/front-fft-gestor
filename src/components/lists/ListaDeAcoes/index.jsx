@@ -85,11 +85,13 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                         <p>{acao.categoria}</p>
                         <p>{acao.horario}</p>
                       </span>
-
-                      <p className={(acao.tipoTransacao == "saida") ? "valorNegativo" : "valorPositivo"}>
-                        {(acao.tipoTransacao == "saida") ? "- " :  "+ "}
-                        R$ {Math.abs((acao.valor)).toFixed(2)}
-                      </p>
+                      
+                      <span>
+                        <p className={(acao.tipoTransacao == "saida") ? "valorNegativo" : "valorPositivo"}>
+                          {(acao.tipoTransacao == "saida") ? "- " :  "+ "}
+                          R$ {Math.abs((acao.valor)).toFixed(2)}
+                        </p>
+                      </span>
                     </div>
                   </div>
                 ))
@@ -161,9 +163,14 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
                       <p>{acao.horario} - {acao.apelidoCartao}</p>
                     </span>
 
-                    <p>
-                      R$ {acao.valor.toFixed(2)}
-                    </p>
+                    <span>
+                      <p> R$ {acao.valor.toFixed(2)}</p>
+                      {
+                        acao.numeroParcelas > 1 && (
+                          <p> (em {acao.numeroParcelas}x)</p>
+                        )
+                      }
+                    </span>
                   </div>
                 </div>
               ))

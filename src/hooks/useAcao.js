@@ -18,6 +18,7 @@ const useAcao = () => {
     apelidoCartao: '',
     tipoTransacao: 'saida',
     categoria: 'escolha',
+    numeroParcelas: 1
   });
 
   const {exibirCardLoader, esconderCardLoader} = useLoader();

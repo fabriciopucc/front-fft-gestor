@@ -11,6 +11,7 @@ import iconExcluir from '@/assets/icons/iconLixeira.svg'
 import categoriasIcons from '@/constants/categoriasIcons';
 import QuantidadeEntidades from '@/components/utils/QuantidadeEntidades';
 import useForm from '@/hooks/useForm';
+import ContainerMolde from '@/components/utils/ContainerMolde';
 
 
 export default function Categorias(){
@@ -45,41 +46,43 @@ export default function Categorias(){
         )
       }
 
-      <ListaDeEntidade
-        classe={"horizontal"}
-        lista={categorias}
-        textoAlternativo={"Ainda não foram cadastradas as categorias!"}
-      > 
-        {
-          categorias.map((categoria) => (
-            <div
-              key={categoria.codigo}
-              className={styles.categoria}
-            >
+      <ContainerMolde>
+        <ListaDeEntidade
+          classe={"horizontal"}
+          lista={categorias}
+          textoAlternativo={"Ainda não foram cadastradas as categorias!"}
+        > 
+          {
+            categorias.map((categoria) => (
               <div
-                className={styles.margemCategoria}
+                key={categoria.codigo}
+                className={styles.categoria}
               >
-                <img 
-                  src={iconExcluir} 
-                  alt="Icone excluir" 
-                  className={styles.botaoExcluir}
-                  onClick={() => excluirCategoria(categoria.codigo)}  
-                />
-
                 <div
-                  className={styles.molduraIcone}
+                  className={styles.margemCategoria}
                 >
-                  <img
-                    src={categoriasIcons[categoria.indiceIcon - 1].src}
+                  <img 
+                    src={iconExcluir} 
+                    alt="Icone excluir" 
+                    className={styles.botaoExcluir}
+                    onClick={() => excluirCategoria(categoria.codigo)}  
                   />
-                </div>
 
-                <p>{categoria.nome}</p>
+                  <div
+                    className={styles.molduraIcone}
+                  >
+                    <img
+                      src={categoriasIcons[categoria.indiceIcon - 1].src}
+                    />
+                  </div>
+
+                  <p>{categoria.nome}</p>
+                </div>
               </div>
-            </div>
-          ))
-        }
-      </ListaDeEntidade>
+            ))
+          }
+        </ListaDeEntidade>
+      </ContainerMolde>
     </Container>
   )
 }

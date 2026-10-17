@@ -1,0 +1,73 @@
+.metricasDespesas{
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+}
+
+.margemMetricasDespesas{
+  width: 90%;
+  margin: 20px 0;
+}
+
+.metricasDespesas p{margin: 0;}
+
+.infosDespesas{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.infosDespesas h1{
+  font-size: 20px;
+  color: #000;
+  font-weight: 450;
+  margin: 0;
+}
+
+.cabecalhoMetricas{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cabecalhoMetricas select{
+  width: 30%;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.valorTotal{
+  font-weight: 400;
+  color: #5a5a5a;
+  margin: 0;
+}
+
+.metricasDespesas span{
+  display: flex;
+}
+
+.totais{
+  display: flex;
+  justify-content: space-between;
+}
+
+.indicador, .indicador2{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: var(--itemPositivo);
+  margin-right: 7.5px;
+}
+
+.indicador2{
+  background-color: var(--itemNegativo);
+}
+
+.textoAlternativo{
+  width: 100%;
+  text-align: center;
+}

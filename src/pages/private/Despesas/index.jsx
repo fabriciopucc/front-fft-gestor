@@ -12,6 +12,7 @@ import LancarDespesaForm from '@/components/forms/LancarDespesaForm';
 import QuantidadeEntidades from '@/components/utils/QuantidadeEntidades';
 import useForm from '@/hooks/useForm';
 import BarraProgresso from '@/components/utils/BarraProgresso';
+import ContainerMolde from '@/components/utils/ContainerMolde';
 
 
 export default function Despesas(){
@@ -39,7 +40,6 @@ export default function Despesas(){
     .filter(despesa => despesa.jaFoiLancadaEsseMes)
     .reduce((soma, despesa) => soma + despesa.valor, 0);
     
-
   let quantidadeDespesasPagas = despesas.filter((despesa) => despesa.jaFoiLancadaEsseMes).length;
 
   return(
@@ -81,164 +81,166 @@ export default function Despesas(){
       }
 
 
-      <ListaDeEntidade
-        lista={despesasFiltradas}
-        textoAlternativo={
-          (filtro == "todas") ? "Ainda não foram cadastradas as despesas!" :
-          (filtro == "lancadasEsseMes") ? "Sem despesas pagas no momento!" : 
-          "Sem despesas pendentes no momento!"
-        }
-      >
-        <div className={styles.containerDespesas}>
-          <div className={styles.margemContainerDespesas}>
-            <div className={styles.botoesDespesas}>
-              {
-                (escolherDespesa && !visibilidadeForm) ? (
-                  <>
-                    <button
-                      onClick={() => {
-                        setDespesa({codigo: ''});
-                        setEscolherDespesa(false);
-                      }}
-                    >
-                      Cancelar
-                    </button>
+      <ContainerMolde>
+        <ListaDeEntidade
+          lista={despesasFiltradas}
+          textoAlternativo={
+            (filtro == "todas") ? "Ainda não foram cadastradas as despesas!" :
+            (filtro == "lancadasEsseMes") ? "Sem despesas pagas no momento!" : 
+            "Sem despesas pendentes no momento!"
+          }
+        >
+          <div className={styles.containerDespesas}>
+            <div className={styles.margemContainerDespesas}>
+              <div className={styles.botoesDespesas}>
+                {
+                  (escolherDespesa && !visibilidadeForm) ? (
+                    <>
+                      <button
+                        onClick={() => {
+                          setDespesa({codigo: ''});
+                          setEscolherDespesa(false);
+                        }}
+                      >
+                        Cancelar
+                      </button>
 
-                    <button
-                      disabled={(!despesa.codigo)}
-                      className={(despesa.codigo) ? "botaoPositivo" : "desativado"}
-                      onClick={() => setExibirFormularioLancarDespesa(true)}
-                    >
-                      {despesa.codigo ? "Confirmar" : "Selecione (1)"}
-                    </button>
-                  </>
-                ) : (despesas.length && !visibilidadeForm) ? (
-                  <>
-                    <button
-                      type='button'
-                      disabled={quantidadeDespesasPagas === 0}
-                      className={styles.botaoPendenciarDespesas+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
-                      onClick={tornarTodasDespesasPendentes}
-                    >
-                      Pendenciar todas
-                    </button>
+                      <button
+                        disabled={(!despesa.codigo)}
+                        className={(despesa.codigo) ? "botaoPositivo" : "desativado"}
+                        onClick={() => setExibirFormularioLancarDespesa(true)}
+                      >
+                        {despesa.codigo ? "Confirmar" : "Selecione (1)"}
+                      </button>
+                    </>
+                  ) : (despesas.length && !visibilidadeForm) ? (
+                    <>
+                      <button
+                        type='button'
+                        disabled={quantidadeDespesasPagas === 0}
+                        className={styles.botaoPendenciarDespesas+" "+[(quantidadeDespesasPagas === 0) && "desativado"]}
+                        onClick={tornarTodasDespesasPendentes}
+                      >
+                        Pendenciar todas
+                      </button>
 
-                    <button
-                      disabled={!despesas.length}
-                      className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
-                      type='button'
-                      onClick={() => setEscolherDespesa(true)}
-                    >
-                      Lançar despesa
-                    </button>
-                  </>
-                ) : (<></>)
-              }
-            </div>
-
-            <div className={styles.metricasDespesas}>
-              <div className={styles.cabecalhoMetricas}>
-                <h1 className={styles.valorTotal}>R$ {totalDespesas.toFixed(2)}</h1>
-
-                <select onChange={(e) => setFiltro(e.target.value)}>
-                  <option value="todas">Todas</option>
-                  <option value="lancadasEsseMes">Pendentes</option>
-                  <option value="naoLancadasEsseMes">Lançadas</option>
-                </select>
+                      <button
+                        disabled={!despesas.length}
+                        className={styles.botaoLancarDespesa+" "+[(!despesas.length) ? "desativado" : ""]}
+                        type='button'
+                        onClick={() => setEscolherDespesa(true)}
+                      >
+                        Lançar despesa
+                      </button>
+                    </>
+                  ) : (<></>)
+                }
               </div>
-              
 
-              <BarraProgresso
-                maximo={totalDespesas}
-                inicial={totalDespesasPagas}
-                compararValores={true}
-              />
-              
-              <div className={styles.totais}>
-                <span>
-                  <div className={styles.indicador}></div>
-                  R$ {totalDespesasPagas.toFixed(2)}
-                </span>
+              <div className={styles.metricasDespesas}>
+                <div className={styles.cabecalhoMetricas}>
+                  <h1 className={styles.valorTotal}>R$ {totalDespesas.toFixed(2)}</h1>
 
-                <span>
-                  <div className={styles.indicador2}></div>
-                  R$ {(totalDespesas - totalDespesasPagas).toFixed(2)}
-                </span>
-              </div>
-            </div>
+                  <select onChange={(e) => setFiltro(e.target.value)}>
+                    <option value="todas">Todas</option>
+                    <option value="lancadasEsseMes">Pendentes</option>
+                    <option value="naoLancadasEsseMes">Lançadas</option>
+                  </select>
+                </div>
+                
 
-            {
-              despesasFiltradas.map((despesaDaLista) => (
-                <div
-                  key={despesaDaLista.codigo}
-                  className={
-                    styles.despesa+" "+
-                    styles[(escolherDespesa) && "escolherDespesa"]+" "+
-                    styles[(despesaDaLista.codigo == despesa.codigo) && "selecionado"]
-                  }
-                  onClick={() => {
-                    if(escolherDespesa){
-                      setDespesa({
-                        formaPagamento: 'escolha',
-                        codigo: despesaDaLista.codigo
-                      });
-                    }
-                  }}
-                > 
-                  <span
-                    className={
-                      styles.molduraDia+" "+
-                      styles[(despesaDaLista.codigo == despesa.codigo) && "neutra"]+" "+
-                      styles[(despesaDaLista.jaFoiLancadaEsseMes) && "lancada"]
-                    }
-                    onClick={() => {
-                        if(!escolherDespesa){
-                          alterarStatusLancamentoDespesa(despesaDaLista.codigo)
-                        }
-                      }
-                    }
-                  >
-                    <p>
-                      dia
-                    </p>
-
-                    <p>
-                      {(despesaDaLista.diaVencimento < 10) && "0"}
-                      {despesaDaLista.diaVencimento}
-                    </p>
+                <BarraProgresso
+                  maximo={totalDespesas}
+                  inicial={totalDespesasPagas}
+                  compararValores={true}
+                />
+                
+                <div className={styles.totais}>
+                  <span>
+                    <div className={styles.indicador}></div>
+                    R$ {totalDespesasPagas.toFixed(2)}
                   </span>
 
-                  <div className={styles.dadosDespesa}>
-                    <div>
+                  <span>
+                    <div className={styles.indicador2}></div>
+                    R$ {(totalDespesas - totalDespesasPagas).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+
+              {
+                despesasFiltradas.map((despesaDaLista) => (
+                  <div
+                    key={despesaDaLista.codigo}
+                    className={
+                      styles.despesa+" "+
+                      styles[(escolherDespesa) && "escolherDespesa"]+" "+
+                      styles[(despesaDaLista.codigo == despesa.codigo) && "selecionado"]
+                    }
+                    onClick={() => {
+                      if(escolherDespesa){
+                        setDespesa({
+                          formaPagamento: 'escolha',
+                          codigo: despesaDaLista.codigo
+                        });
+                      }
+                    }}
+                  > 
+                    <span
+                      className={
+                        styles.molduraDia+" "+
+                        styles[(despesaDaLista.codigo == despesa.codigo) && "neutra"]+" "+
+                        styles[(despesaDaLista.jaFoiLancadaEsseMes) && "lancada"]
+                      }
+                      onClick={() => {
+                          if(!escolherDespesa){
+                            alterarStatusLancamentoDespesa(despesaDaLista.codigo)
+                          }
+                        }
+                      }
+                    >
                       <p>
-                        {despesaDaLista.descricao}
+                        dia
                       </p>
 
-                      <p className={styles.statusDespesa+" "+[(despesaDaLista.jaFoiLancadaEsseMes) ? "valorPositivo" : "valorNegativo"]}>
-                        {(despesaDaLista.jaFoiLancadaEsseMes) ? "Paga" : "Pendente"}
+                      <p>
+                        {(despesaDaLista.diaVencimento < 10) && "0"}
+                        {despesaDaLista.diaVencimento}
+                      </p>
+                    </span>
+
+                    <div className={styles.dadosDespesa}>
+                      <div>
+                        <p>
+                          {despesaDaLista.descricao}
+                        </p>
+
+                        <p className={styles.statusDespesa+" "+[(despesaDaLista.jaFoiLancadaEsseMes) ? "valorPositivo" : "valorNegativo"]}>
+                          {(despesaDaLista.jaFoiLancadaEsseMes) ? "Paga" : "Pendente"}
+                        </p>
+                      </div>
+
+                      <p className={styles.valorDespesa}>
+                        R$ {parseFloat(despesaDaLista.valor).toFixed(2)}
                       </p>
                     </div>
 
-                    <p className={styles.valorDespesa}>
-                      R$ {parseFloat(despesaDaLista.valor).toFixed(2)}
-                    </p>
-                  </div>
-
-                  <img 
-                    src={iconExcluir} 
-                    alt="Icone excluir" 
-                    className={styles.botaoExcluir}
-                    onClick={() => {
-                        if(!escolherDespesa) excluirDespesa(despesaDaLista.codigo)
+                    <img 
+                      src={iconExcluir} 
+                      alt="Icone excluir" 
+                      className={styles.botaoExcluir}
+                      onClick={() => {
+                          if(!escolherDespesa) excluirDespesa(despesaDaLista.codigo)
+                        }
                       }
-                    }
-                  />
-                </div>
-              ))
-            }
+                    />
+                  </div>
+                ))
+              }
+            </div>
           </div>
-        </div>
-      </ListaDeEntidade>
+        </ListaDeEntidade>
+      </ContainerMolde>
     </Container>
   )
 }
