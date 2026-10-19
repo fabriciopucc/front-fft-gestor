@@ -42,6 +42,8 @@ export default function MeuPerfil(){
           <p>**********</p>
         </div>
 
+        <br />
+
         <BotaoLink
           destino={"/alterarSenha"}
           texto={"Alterar senha"}

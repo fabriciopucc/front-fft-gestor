@@ -4,6 +4,8 @@ import useCategorias from '@/hooks/useCategorias';
 import useAcao from '@/hooks/useAcao';
 import Input from '@/components/itensForm/Input';
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
+import { useParams } from 'react-router-dom';
+import { lazy, useState } from 'react';
 
 
 export default function AdicionarAcaoForm(){
@@ -12,6 +14,13 @@ export default function AdicionarAcaoForm(){
   const {categorias} = useCategorias();
   const {cartoes} = useCartoes();
   const parcelas = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  const {dia} = useParams();
+  const [diaFechamento, setDiaFechamento] = useState(0);
+
+  const definirDiaFechamento = (diaFechamento) => {
+   setDiaFechamento(diaFechamento);
+  }
 
   return(
     <form onSubmit={enviarFormularioAdicionarAcao}>
@@ -63,7 +72,11 @@ export default function AdicionarAcaoForm(){
                       >
                         <div
                           className={styles.selecionarCartao}
-                          onClick={() => definirCartao(cartao.codigo+'-'+cartao.apelido)}
+                          onClick={() => {
+                              definirDiaFechamento(cartao.diaFechamento);
+                              definirCartao(cartao.codigo+'-'+cartao.apelido);
+                            }
+                          }
                         >
                           <div className={styles[(acao.codigoCartao == cartao.codigo) && 'selecionado']}></div>
                         </div>
@@ -87,7 +100,10 @@ export default function AdicionarAcaoForm(){
               )
             }
 
-            <select name="numeroParcelas" onChange={(e) => preencherAcao(e)}>
+            <select 
+              name="numeroParcelas" 
+              onChange={(e) => preencherAcao(e)}
+            >
               <option value={1}>À vista</option>
               {
                 parcelas.map((parcela) => (
@@ -100,6 +116,27 @@ export default function AdicionarAcaoForm(){
                 ))
               }
             </select>
+
+            {
+              diaFechamento == dia && (
+                <>
+                  <p className={styles.aviso}>
+                    O cartão selecionado fecha hoje.
+                    Nâo temos controle de qual fatura uma compra no dia do fechamento cai, 
+                    somente o próprio banco pode definir isso (de acordo com o horário da compra). 
+                    Portanto, escolha se a {acao.numeroParcelas > 1 ? "1ª parcela" : "compra"} caiu na fatura que fechou ou inicou hoje. 
+                  </p>
+
+                  <select 
+                    name="faturaReferente" 
+                    onChange={(e) => preencherAcao(e)}
+                  >
+                    <option value="atual">Na que fechou hoje</option>
+                    <option value="proxima">Na que iniciou hoje</option>
+                  </select>
+                </>
+              )
+            }
           </>
         ) : acao.formaPagamento == "saldoEmConta" && (
           <>

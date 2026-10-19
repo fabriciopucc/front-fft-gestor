@@ -18,7 +18,8 @@ const useAcao = () => {
     apelidoCartao: '',
     tipoTransacao: 'saida',
     categoria: 'escolha',
-    numeroParcelas: 1
+    numeroParcelas: 1,
+    faturaReferente: "atual"
   });
 
   const {exibirCardLoader, esconderCardLoader} = useLoader();
@@ -27,6 +28,7 @@ const useAcao = () => {
   const {tratarErro} = useTratarErro();
   const {atualizarSaldo} = useSaldo();
   const {paginacao} = usePaginacao();
+  const [codigoAcao, setCodigoAcao] = useState();
 
   const preencherAcao = (e) => {
     setAcao({...acao, [e.target.name] : e.target.value});
@@ -84,14 +86,15 @@ const useAcao = () => {
       params: paginacao
     })
     .then((resp) => {
-      esconderCardLoader();
-      atualizarSaldo();
-      exibirMessageBox("/gestao", true, "Ação desfeita com sucesso!", "Prosseguir");
-      setDias((diasAtuais) => 
+       setDias((diasAtuais) => 
         diasAtuais.map((dia) => 
           dia.codigo === codigoDia ? resp.data : dia
         )
       );
+      setCodigoAcao("");
+      esconderCardLoader();
+      atualizarSaldo();
+      exibirMessageBox("/gestao", true, "Ação desfeita com sucesso!", "Prosseguir");
     })
     .catch((error) => {
       tratarErro(error);
@@ -103,7 +106,7 @@ const useAcao = () => {
     adicionarAcao();
   }
 
-  return{acao, definirCategoriaAcao, definirFormaDePagamento, definirCartao, definirTipoTransacao, preencherAcao, enviarFormularioAdicionarAcao, desfazerAcao};
+  return{acao, definirCategoriaAcao, definirFormaDePagamento, definirCartao, definirTipoTransacao, preencherAcao, enviarFormularioAdicionarAcao, desfazerAcao, codigoAcao, setCodigoAcao};
 }
 
 export default useAcao;

@@ -28,7 +28,7 @@ export default function Categorias(){
 
       <QuantidadeEntidades
         lista={categorias}
-        limite={20}
+        limite={25}
         nomeEntidade={"categorias"}
         visibilidadeForm={visibilidadeForm}
         exibirForm={exibirForm}

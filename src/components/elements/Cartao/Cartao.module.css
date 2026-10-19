@@ -36,6 +36,12 @@
 
 .numeroCartao {
   margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.numeroCartao p{
+  margin: 0;
   letter-spacing: 3px;
   font-size: 1rem;
   color: #fff;

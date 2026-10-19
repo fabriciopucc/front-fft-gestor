@@ -77,3 +77,25 @@
   white-space: nowrap;
   text-align: center;
 }
+
+.metricasGrafico{
+  margin-left: auto;
+  width: fit-content;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.metricasGrafico h1{
+  font-size: 25px;
+  margin: 0;
+  font-weight: 300;
+  color: var(--texto);
+}
+
+.metricasGrafico p{
+  width: 100%;
+  text-align: left;
+  margin: -10px 0 0 0;
+}

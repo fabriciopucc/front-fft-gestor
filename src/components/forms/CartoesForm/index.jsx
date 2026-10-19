@@ -81,7 +81,7 @@ export default function CartoesForm({cartao, preencherCartao, definirCorCartao, 
       />
 
       <button
-        disabled={!(cartao.cor || cartao.apelido || cartao.ultimosDigitos || cartao.limiteTotal) || cartao.diaFechamento == "escolha"}
+        disabled={!cartao.cor || !cartao.apelido || !cartao.ultimosDigitos  || !cartao.diaFechamento == "escolha" || !cartao.limiteTotal}
         className={[(cartao.cor && cartao.apelido && cartao.ultimosDigitos && cartao.diaFechamento !== "escolha" && cartao.limiteTotal) ? "" : "desativado"]}   
       >
         Adicionar cartão

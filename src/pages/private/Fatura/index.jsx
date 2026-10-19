@@ -4,6 +4,7 @@ import Container from "@/components/layout/Container";
 import HeaderVoltar from "@/components/layout/HeaderVoltar";
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import ContainerMolde from '@/components/utils/ContainerMolde';
+import categoriasIcons from '@/constants/categoriasIcons';
 
 import useCartoes from "@/hooks/useCartoes";
 import useFatura from "@/hooks/useFatura";
@@ -65,8 +66,8 @@ export default function Fatura(){
           </select>
         </ListaDeEntidade>
         
-        {
-          exibirSelecione ? (
+        { 
+          (exibirSelecione && codigoPeriodo > 0) ? (
             <div className={styles.botoesQuitacao}>
               <button
                 type='button'
@@ -89,7 +90,7 @@ export default function Fatura(){
                 {(listaCodigos.length) ? "Confirmar" : "Selecione (*)"}
               </button>
             </div>
-          ) : (
+          ) : (codigoPeriodo > 0) && (
             <div className={styles.botoesAcoes}>
               <button
                 type='button'
@@ -123,44 +124,37 @@ export default function Fatura(){
               <div
                 className={styles.margemContainerCompras}
               >
-                <div
-                  className={styles.compra}
-                >
-                  <p>Dia</p>
-                  <p>Descrição</p>
-                  <p>Valor</p>
-                  <p>Quitado</p>
-                </div>
                 {
-                  comprasFiltradas.map((compra) => (
+                  comprasFiltradas
+                  .slice().reverse()
+                  .map((compra) => (
                     <div
                       key={compra.codigo}
                       className={
                         styles.compra+" "+
                         styles[(exibirSelecione) && "selecione"]+" "+
-                        styles[(listaCodigos.includes(compra.codigo) && exibirSelecione) && "selecionado"]
+                        styles[(listaCodigos.includes(compra.codigo) && exibirSelecione) && "compraSelecionada"]
                       }
-                      onClick={() => {
-                          if(exibirSelecione && !compra.quitado) adicionarCodigo(compra.codigo);
-                        }
-                      }
+                      onClick={() => adicionarCodigo(compra.codigo)}
                     >
-                      <div>
-                        <p>{compra.dia}</p>
+                      <div className={styles.molduraIcone+" "+styles[(compra.quitado) && "pago"]}>
+                        <img 
+                          src={(categoriasIcons[compra.indiceIcon - 1] ?? categoriasIcons[0]).src}
+                          alt="Icon" 
+                        />
                       </div>
 
-                      <div>
-                        <p>{compra.descricao}</p>
-                      </div>
+                      <div className={styles.dadosCompra}>
+                        <span>
+                          <p>{compra.descricao}</p>
+                          <p>{converterNumeroEmNumeroDeCalendario(compra.dia)}/{converterNumeroEmNumeroDeCalendario(compra.mes)}</p>
+                        </span>
 
-                      <div>
-                        <p>R$ {compra.valor.toFixed(2)}</p>
-                      </div>
-
-                      <div
-                        className={styles.quitado}
-                      >
-                        <span className={styles.statusQuitado+" "+styles[(compra.quitado) && "foiQuitado"]}></span>
+                        <span>
+                          <p>R$ {compra.valor.toFixed(2)}</p>
+                          
+                          <p className={(compra.quitado) ? "valorPositivo" : "valorNegativo"}>{compra.quitado ? "Pago" : "Pendente"}</p>
+                        </span>
                       </div>
                     </div>
                   )) 

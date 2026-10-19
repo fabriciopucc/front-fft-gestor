@@ -20,9 +20,8 @@ import ContainerMolde from '@/components/utils/ContainerMolde';
 export default function Gestao(){
 
   const {data, setData, criarDia, dias, setDias, paginacao, avancarPagina, retrocederPagina} = useDias();
-  const [codigoAcao, setCodigoAcao] = useState();
   const {saldo} = useSaldo();
-  const {desfazerAcao} = useAcao();
+  const {desfazerAcao, codigoAcao, setCodigoAcao} = useAcao();
 
   const meses =  ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   const diasDaSemana = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
@@ -53,11 +52,15 @@ export default function Gestao(){
           {data ? "Criar dia" : "Selecione o dia"}
         </button>
 
-        <BotaoPaginacao
-          paginacao={paginacao}
-          avancar={avancarPagina}
-          voltar={retrocederPagina}
-        />
+        {
+          dias.length ? (
+            <BotaoPaginacao
+              paginacao={paginacao}
+              avancar={avancarPagina}
+              voltar={retrocederPagina}
+            />
+          ) : <></>
+        }
 
         <ListaDeEntidade
           lista={dias}

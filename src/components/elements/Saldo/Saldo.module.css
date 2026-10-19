@@ -48,10 +48,14 @@
   flex-direction: column;
 }
 
-.tituloSaldo{
+.tituloSaldo, .tituloFaturas{
   font-size: 17.5px;
   color: rgb(71, 71, 71);
   font-weight: 600;
+}
+
+.tituloFaturas{
+  margin: 5px 0 -100px 0;
 }
 
 .divisorDados p, .divisorDados h1{
@@ -80,11 +84,8 @@
   color: rgb(113, 113, 113);
 }
 
-
-
-
 .valorSaldoEmConta{
-  color: rgb(23, 190, 90);
+  color: var(--valorPositivo);
   font-weight: 500;
   font-size: 32.5px;
 }

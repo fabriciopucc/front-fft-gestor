@@ -45,7 +45,7 @@ const router =  createBrowserRouter([
         element: <RecuperarSenha/>
       },
       {
-        path: "/adicionarAcao/:codigo",
+        path: "/adicionarAcao/:codigo/:dia",
         element: <AdiconarAcao/>
       },
       {

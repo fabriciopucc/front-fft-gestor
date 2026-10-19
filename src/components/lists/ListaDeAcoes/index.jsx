@@ -14,7 +14,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
   const [exibirDesfazerAcao, setExibirDesfazerAcao] = useState(false);
 
   let acoesDeSaldo = dia.acoes.filter((acao) => ['saida', 'entrada'].includes(acao.tipoTransacao));
-  let acoesDeCartao = dia.acoes.filter((acao) => ['cartaoCredito', 'quitacaoCartao'].includes(acao.tipoTransacao));
+  let acoesDeCartao = dia.acoes.filter((acao) => ['cartaoCredito', 'quitacaoCartao', 'quitado'].includes(acao.tipoTransacao));
 
   return(
     <>
@@ -105,38 +105,45 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
             textoAlternativo={"Ainda não há ações de cartão neste dia!"}
           >
             {
-              dia.historicoUsoCartoes.map((metricasCartao) => (
-                <div
-                  key={metricasCartao.codigo}
-                  className={styles.metricasCartao}
-                >
-                  <div className={styles.dadosMetricas}>
-                    <p>
-                      {metricasCartao.apelidoCartao}
-                    </p>
-                    
-                    <p className={['valorNegativo']}>
-                      {(metricasCartao.limiteUsadoInicial - metricasCartao.limiteUsadoAtual).toFixed(2)} hoje
-                    </p>
-                  </div>
+              dia.historicoUsoCartoes.map((metricasCartao) => {
+                const inicial = metricasCartao.limiteUsadoInicial.toFixed(2);
+                const atual = metricasCartao.limiteUsadoAtual.toFixed(2);
+                const total = metricasCartao.limiteTotal.toFixed(2);
+                const balanco = (inicial - atual).toFixed(2);
 
-                  <BarraProgresso
-                    inicial={metricasCartao.limiteUsadoInicial}
-                    atual={metricasCartao.limiteUsadoAtual}
-                    maximo={metricasCartao.limiteTotal}
-                  />
+                return(
+                  <div
+                    key={metricasCartao.codigo}
+                    className={styles.metricasCartao}
+                  >
+                    <div className={styles.dadosMetricas}>
+                      <p>
+                        {metricasCartao.apelidoCartao}
+                      </p>
+                      
+                      <p className={[(balanco < 0) ? 'valorNegativo' : "valorPositivo"]}>
+                        {balanco} hoje
+                      </p>
+                    </div>
 
-                  <div className={styles.dadosMetricas}>
-                    <p>
-                      R$ {metricasCartao.limiteUsadoInicial.toFixed(2)}
-                    </p>
-                    
-                    <p>
-                      R$ {metricasCartao.limiteUsadoAtual.toFixed(2)} de {metricasCartao.limiteTotal}
-                    </p>
+                    <BarraProgresso
+                      inicial={inicial}
+                      atual={atual}
+                      maximo={total}
+                    />
+
+                    <div className={styles.dadosMetricas}>
+                      <p>
+                        R$ {inicial}
+                      </p>
+                      
+                      <p>
+                        R$ {atual} de {total}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))
+                )
+              })
             }
 
             <div className={styles.containerAcoes}>
@@ -159,12 +166,19 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
 
                   <div className={styles.dadosAcao}>
                     <span>
-                      <p>{acao.categoria}</p>
+                      <p>{acao.categoria} {(acao.tipoTransacao == "quitado" && " (quitado)")}</p>
                       <p>{acao.horario} - {acao.apelidoCartao}</p>
                     </span>
 
                     <span>
-                      <p> R$ {acao.valor.toFixed(2)}</p>
+                      <p className={
+                        (acao.tipoTransacao == "quitado") ? "riscado" : 
+                        (acao.tipoTransacao == "quitacaoCartao") ? "valorPositivo" : ""
+                      }>
+                        {(acao.tipoTransacao == "quitacaoCartao") &&  "+ "}
+                        R$ {Math.abs((acao.valor)).toFixed(2)}
+                      </p>
+                     
                       {
                         acao.numeroParcelas > 1 && (
                           <p> (em {acao.numeroParcelas}x)</p>
@@ -208,7 +222,7 @@ export default function ListaDeAcoes({dia,  codigoAcao, setCodigoAcao, desfazerA
             ) : (
               <>
                 <BotaoLink
-                  destino={"/adicionarAcao/".concat(dia.codigo)}
+                  destino={"/adicionarAcao/"+dia.codigo+"/"+parseInt(dia.data.split("-")[2])}
                   texto={"Adicionar"}
                   classeAdcional={"reduzido"}
                 />

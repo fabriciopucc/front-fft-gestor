@@ -159,7 +159,10 @@
 }
 
 .metricasCartao h1{
+  font-size: 25px;
   margin: 0;
+  font-weight: 300;
+  color: var(--texto);
 }
 
 .metricasCartao p{

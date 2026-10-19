@@ -35,74 +35,77 @@
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 4px var(--sombra), 0 8px 16px var(--sombra);
+  margin: 20px 0 0 0;
 }
 
 .margemContainerCompras{
-  width: 90%;
+  width: calc(90% + 20px);
   margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .compra{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.selecione{
-  cursor: pointer;
-}
-
-.selecionado{
-  border-radius: 5px;
-  background-color: rgb(140, 43, 251, 0.15);
-}
-
-.compra:nth-child(1) p{
-  font-weight: 400;
-}
-
-.compra:nth-child(1) p:nth-child(4), .compra:nth-child(1) p:nth-child(5){
-  width: 20%;
-  text-align: center;
-}
-
-.compra div{
+  width: calc(100% - 20px);
   display: flex;
   align-items: center;
-  margin: 10px 0;
-}
-
-.compra div:nth-child(1), .compra:nth-child(1) p:nth-child(1){
-  width: 20%;
-}
-
-.compra div:nth-child(2), .compra:nth-child(1) p:nth-child(2){
-  width: 30%;
-}
-
-.compra div:nth-child(3), .compra:nth-child(1) p:nth-child(3){
-  width: 25%;
-}
-
-.compra div p{
   margin: 0;
 }
 
-.quitado{
+.compraSelecionada{
+  padding: 0 10px;
+  background-color: var(--primariaClara);
+}
+
+.molduraIcone{
+  width: 50px;
+  height: 50px;
+  background-color: var(--primariaClara);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  width: 20%;
+  border-radius: 50%;
+  margin: 5px 10px 0 0;
 }
 
-.statusQuitado{
-  width: 20px;
-  height: 20px;
-  background-color: var(--itemNegativo);
-  border-radius: 5px;
+.molduraIcone img{
+  width: 30px;
+  filter: var(--iconeColorido)
+}
+
+.dadosCompra{
+  width: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dadosCompra span p{
+  margin: 0;
+  line-height: 1.25;
+}
+
+.dadosCompra span:nth-child(1) p:nth-child(1){
+  color: #000;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.dadosCompra span:nth-child(1) p:nth-child(2){
+  font-size: 15px;
+}
+
+.dadosCompra span:nth-child(2) p:nth-child(1){
+  font-size: 15px;
+  font-weight: 400;
   margin: 0;
 }
 
-.foiQuitado{
-  background-color: var(--itemPositivo);
+.dadosCompra span:nth-child(2) p:nth-child(2){
+  font-size: 12px;
+  text-align: right;
+  font-weight: 400;
 }
 
 @media screen and (max-width: 500px){

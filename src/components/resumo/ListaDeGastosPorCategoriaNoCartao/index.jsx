@@ -86,7 +86,7 @@ export default function ListaGastosPorCategoriaNoCartao({listaGastosPorCategoria
                           <div className={styles.acoes}>
                             {
                               acoesPorCategoria
-                              .filter((acao) => ['cartaoCredito', 'quitacaoCartao'].includes(acao.tipoTransacao))
+                              .filter((acao) => ['cartaoCredito', 'quitado'].includes(acao.tipoTransacao))
                               .map((acao) => (
                                 <div
                                   key={acao.codigo} 

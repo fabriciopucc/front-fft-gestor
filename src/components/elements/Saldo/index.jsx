@@ -66,21 +66,19 @@ export default function Saldo() {
                 </div>
               ) : (
                 <>
-                  <h1>-</h1>
-                  <p>-</p>
+                  <p>Sem cartões até o momento!</p>
                 </>
               )
             }
 
             {(saldo.totalLimiteTotal > 0 && saldo.totalLimiteUtilizado > 0) && (
               <>
-
                 {
                   (saldo.totalLimiteUtilizado - saldo.totalLimitesFaturasAtuaisUtilizado) > 0 && (
                     <div className={styles.metricas}>
                       <div className={styles.metricasCredito}>
                         <div className={styles.margemMetricasCartao}>
-                          <p>Atrasadas</p>
+                          <p>Fechadas</p>
                           <h1 className={styles.limiteUtilizado}>R$ {(saldo.totalLimitesFaturasPassadasUtilizado).toFixed(2)}</h1>
                         </div>
                       </div>

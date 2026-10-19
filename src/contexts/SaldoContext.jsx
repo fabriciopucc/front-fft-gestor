@@ -24,7 +24,7 @@ export const SaldoProvider = ({ children }) => {
       }));
     })
     .catch((error) => {
-      tratarErro(error);
+      console.log(error);
     });
   };
 

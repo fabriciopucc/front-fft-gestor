@@ -73,15 +73,22 @@ const useFatura = () => {
   }
 
   const quitarCompras = () => {
+    console.log(listaCodigos)
     exibirCardLoader();
     api.put("/compra/quitarCompras", listaCodigos)
-    .then((resp) => {
-      setFiltroFatura("/todas");
+    .then(() => {
+      setFiltroFatura("todas");
       setExibirSelecione(!setExibirSelecione);
       esconderCardLoader();
       atualizarSaldo();
       exibirMessageBox('', true, "Compras quitadas com sucesso!", "Prosseguir");
-      setCompras(resp.data);
+      setCompras((comprasAtuais) => 
+        comprasAtuais.map((compra) => 
+          (listaCodigos.includes(compra.codigo)) ?
+            {...compra, quitado: true} : compra
+        )
+      );
+      setListaCodigos([]);
     })
     .catch((error) => {
       tratarErro(error);

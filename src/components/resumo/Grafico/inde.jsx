@@ -1,9 +1,17 @@
 import ContainerMolde from "@/components/utils/ContainerMolde";
 import styles from "./Grafico.module.css";
+import { Loader } from "@/components/utils";
 
 export default function Grafico({ dados = [] }) {
 
   const maiorValor = Math.max(0, ...dados.map((item) => Number(item.valor) || 0));;
+
+  const totalGastoGrafico = dados
+  .reduce((soma, item) => soma + item.valor, 0);
+
+  if(!dados.length){
+    return <Loader/>
+  }
 
   return (
     <ContainerMolde>
@@ -45,6 +53,11 @@ export default function Grafico({ dados = [] }) {
                 </div>
               );
             })}
+          </div>
+
+          <div className={styles.metricasGrafico}>
+            <h1>R$ {totalGastoGrafico.toFixed(2)}</h1>
+            <p>Total</p>
           </div>
         </div>
       </div>

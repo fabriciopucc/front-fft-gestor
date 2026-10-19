@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import styles from './Cartao.module.css';
 import AlterarLimiteForm from '@/components/forms/AlterarLimiteForm';
 import BarraProgresso from '@/components/utils/BarraProgresso';
+import { converterNumeroEmNumeroDeCalendario } from '@/utils/converterNumeroEmNumeroDeCalendario';
 
 
 export default function Cartao({cartao, visibilidadeAlterarLimite, setVisibilidadeAlterarLimite, novoLimite, definirNovoLimite, enviarFormularioAlterarLimiteCartao}){
@@ -27,7 +28,13 @@ export default function Cartao({cartao, visibilidadeAlterarLimite, setVisibilida
         </div>
 
         <div className={styles.numeroCartao}>
-          •••• •••• •••• {cartao.ultimosDigitos}
+          <p>
+            •••• •••• •••• {cartao.ultimosDigitos}
+          </p>
+
+          <p>
+            Fecha {converterNumeroEmNumeroDeCalendario(cartao.diaFechamento)}
+          </p>
         </div>
       </div>
 
