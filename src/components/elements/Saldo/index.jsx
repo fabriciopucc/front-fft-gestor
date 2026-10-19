@@ -23,6 +23,13 @@ export default function Saldo() {
 
   let balancoSaldo = saldo.saldoAtual - saldo.saldoInicial;
 
+  const totalLimiteAtualUtilizado = Math.round(
+    (saldo.totalLimitesFaturasAtuaisUtilizado + Number.EPSILON) * 100
+  );
+
+  const totalLimiteUtilizado = Math.round(
+    (saldo.totalLimiteUtilizado + Number.EPSILON) * 100
+  );
 
   return (
     <ContainerMolde
@@ -71,7 +78,7 @@ export default function Saldo() {
               )
             }
 
-            {(saldo.totalLimiteTotal > 0 && saldo.totalLimiteUtilizado > 0) && (
+            {(totalLimiteAtualUtilizado !== totalLimiteUtilizado) && (
               <>
                 {
                   (saldo.totalLimiteUtilizado - saldo.totalLimitesFaturasAtuaisUtilizado) > 0 && (
