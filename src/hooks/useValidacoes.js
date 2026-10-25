@@ -7,7 +7,7 @@ const useValidacoes = () => {
   const validarCadastroUsuario = (usuario) => {
     let erros = [];
 
-    if(usuario.nome.split(" ").lenth <= 1) erros.push("Digite o nome completo!");
+    if(usuario.nome.split(" ").length <= 1) erros.push("Digite o nome completo!");
     if(!usuario.email.endsWith("@gmail.com")) erros.push("Adicione o prefixo @gmail.com no seu email!");
     if(usuario.senha.length <= 7) erros.push("A senha deve conter ao menos 8 digítos!");
     if(usuario.senha !== usuario.confirmacaoSenha) erros.push("A senha e sua confirmação devem ser iguais!");

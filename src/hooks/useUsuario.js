@@ -31,19 +31,20 @@ const useUsuario = () => {
   }
 
   const solicitarCodigoDeConfirmacao = () => {
-    exibirCardLoader();
-    api.post("/codigoConfirmacao/".concat(usuario.email))
-    .then(() => {
-      esconderCardLoader();
-      setUsuario({...usuario, emailDefinido: usuario.email});
-      exibirMessageBox("", true, "Código enviado com sucesso!", "Prosseguir");
-
-      setIndiceCadastroForm(1);
-      setIndiceRecuperarSenhaForm(1);
-    })
-    .catch((error) => {
-      tratarErro(error);
-    })
+    if(validarCadastroUsuario(usuario)){
+      exibirCardLoader();
+      api.post("/codigoConfirmacao/".concat(usuario.email))
+      .then(() => {
+        esconderCardLoader();
+        setUsuario({...usuario, emailDefinido: usuario.email});
+        exibirMessageBox("", true, "Código enviado com sucesso!", "Prosseguir");
+        setIndiceCadastroForm(1);
+        setIndiceRecuperarSenhaForm(1);
+      })
+      .catch((error) => {
+        tratarErro(error);
+      });
+    }
   }
 
   const fazerCadastro = () => {
@@ -102,7 +103,7 @@ const useUsuario = () => {
 
   const enviarFormularioFazerCadastro = (e) => {
     e.preventDefault();
-    if(validarCadastroUsuario(usuario)) fazerCadastro();
+    fazerCadastro();
   }
 
   const enviarFormularioFazerLogin = (e) => {

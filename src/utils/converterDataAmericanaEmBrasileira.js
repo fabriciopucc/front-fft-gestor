@@ -1,5 +1,7 @@
 const converterDataAmericanaEmBrasileira = (data) => {
-  return data.split("-")[2]+"/"+data.split("-")[1]+"/"+data.split("-")[0];
+  const [ano, mes, dia] = data.split("-");
+  
+  return dia+"/"+mes+"/"+ano;
 }
 
 export default converterDataAmericanaEmBrasileira;

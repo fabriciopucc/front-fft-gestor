@@ -60,13 +60,14 @@ export default function Saldo() {
                         <BarraProgresso
                           maximo={saldo.totalLimiteTotal}
                           inicial={saldo.totalLimiteUtilizado}
+                          classeAdicional={"margemInferior"}
                         />
 
-                        <p>&nbsp;&nbsp;</p>
-
-                        <p className={styles.valorPorcentagem}>
-                          {((saldo.totalLimiteUtilizado/saldo.totalLimiteTotal)*100).toFixed(2)}%
-                        </p> 
+                        <p className={styles.textoRodapeCredito}>
+                          {((saldo.totalLimiteUtilizado/saldo.totalLimiteTotal)*100).toFixed(2)}% total utilizado
+                          <br />
+                          R$ {(saldo.totalLimiteTotal - saldo.totalLimiteUtilizado).toFixed(2)} disponível
+                        </p>
                       </div>
                     )
                   }
@@ -108,18 +109,6 @@ export default function Saldo() {
                 }
               </>
             )}
-
-            {
-              location.pathname == "/resumo" && (
-                <>
-                  <br/>
-
-                  <p className={styles.textoRodapeCredito}>
-                    Limite disponível: R$ {(saldo.totalLimiteTotal - saldo.totalLimiteUtilizado).toFixed(2)}
-                  </p>
-                </>
-              )
-            }
           </div>
         </div>
       </div>
@@ -138,22 +127,10 @@ export default function Saldo() {
             <h1 className={styles.valorSaldoEmConta}>R$ {(saldo.saldoAtual).toFixed(2)}</h1>
 
             <div>
-              {
-                (saldo.saldoAtual > 0 && location.pathname != "/resumo") && (
-                  <p className={styles.textoRodapeSaldo}>
-                    Disponível para uso
-                  </p>
-                )
-              }
-
-              {
-                (location.pathname == "/resumo") && (
-                  <p className={styles.textoRodapeSaldo+" "+styles[(balancoSaldo < 0) && "valorNegativo"]}>
-                    {(balancoSaldo < 0) ? "- " : (balancoSaldo > 0) ? "+ " : ""}
-                    R$ {Math.abs(balancoSaldo).toFixed(2)} desde o ínicio da gestão
-                  </p>
-                )
-              } 
+              <p className={styles.textoRodapeSaldo}>
+                {(balancoSaldo < 0) ? "- " : (balancoSaldo > 0) ? "+ " : ""}
+                R$ {Math.abs(balancoSaldo).toFixed(2)} desde o ínicio da gestão
+              </p>
             </div>
           </div>
         </div>

@@ -52,8 +52,7 @@
 
 .areaTorre {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column-reverse;
   width: 100%;
   max-width: 35px;
   flex: 1;
@@ -63,11 +62,20 @@
   background: rgba(130, 60, 248, 0.08);
 }
 
-.torre {
+.torre, .torre2 {
   width: 100%;
   min-height: 0;
   background: var(--primaria);
   transition: height 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ebebeb;
+  font-size: 10px;
+}
+
+.torre2{
+  background-color: var(--itemNegativo);
 }
 
 .data {
@@ -79,12 +87,35 @@
 }
 
 .metricasGrafico{
-  margin-left: auto;
-  width: fit-content;
-  margin-top: 10px;
+  width: 100%;
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: end;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tipoDeGasto{
+  display: flex;
+  align-items: center;
+}
+
+.tipoDeGasto:nth-child(1){margin-bottom: 10px;}
+
+.indicador{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: var(--primaria);
+  margin-right: 7.5px;
+}
+
+.tipoDeGasto:nth-child(1) div{
+  background-color: var(--itemNegativo);
+}
+
+.tipoDeGasto p{
+  margin: 0;
+  font-size: 12.5px;
 }
 
 .metricasGrafico h1{
@@ -95,6 +126,7 @@
 }
 
 .metricasGrafico p{
+  font-size: 12.5px;
   width: 100%;
   text-align: left;
   margin: -10px 0 0 0;

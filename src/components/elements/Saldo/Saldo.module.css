@@ -92,24 +92,27 @@
 
 .porcentagem{
   display: flex;
+  flex-direction: column;
 }
 
-.valorPorcentagem{
-  font-size: 15px;
-  color: var(--primaria);
-  font-weight: 500;
-}
-
-.textoRodapeSaldo{
+.textoRodapeSaldo, .textoRodapeCredito{
   font-size: 14px;
   width: fit-content;
-  padding: 5px;
+  padding: 5px 10px;
   background-color: rgba(130, 60, 248, 0.15);
   border-radius: 10px;
   color: var(--primaria);
   font-weight: 500;
   background-color: rgb(23, 190, 90, 0.15);
   color: rgb(23, 190, 90);
+}
+
+.textoRodapeCredito{
+  background-color: var(--primariaClara);
+  border-radius: 10px;
+  color: var(--primaria);
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .cardNegativo h1{
@@ -156,16 +159,6 @@
   font-weight: 300;
   font-size: 15px;
   margin: 0;
-}
-
-.textoRodapeCredito{
-  width: fit-content;
-  padding: 5px 10px;
-  background-color: var(--primariaClara);
-  border-radius: 10px;
-  color: var(--primaria);
-  font-weight: 500;
-  font-size: 15px;
 }
 
 @media screen and (max-width: 600px) {

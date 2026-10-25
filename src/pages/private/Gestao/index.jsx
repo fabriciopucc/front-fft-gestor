@@ -7,11 +7,8 @@ import ListaDeAcoes from '@/components/lists/ListaDeAcoes';
 import useSaldo from '@/hooks/useSaldo';
 import useDias from '@/hooks/UseDias';
 
-import converterDataAmericanaEmBrasileira from '@/utils/converterDataAmericanaEmBrasileira';
-import BotaoLink from '@/components/utils/BotaoLink';
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
 import Saldo from '@/components/elements/Saldo';
-import { useState } from 'react';
 import useAcao from '@/hooks/useAcao';
 import BotaoPaginacao from '@/components/utils/BotaoPaginacao';
 import ContainerMolde from '@/components/utils/ContainerMolde';
