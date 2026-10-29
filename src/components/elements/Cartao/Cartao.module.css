@@ -6,7 +6,7 @@
 .cartao {
   width: 500px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
@@ -53,6 +53,7 @@
   justify-content: left;
   margin: 15px 0 0 0;
   width: fit-content;
+
 }
 
 .informacaoCartao:nth-child(3){margin: 15px 10% 0 10%;}
@@ -105,6 +106,34 @@
 .botaoFatura:hover{
   filter: brightness(80%);
 }
+
+
+.metricas{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 0 0;
+}
+
+.metricasCredito{
+  width: 31.5%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.metricasCredito p{
+  font-weight: 500;
+  font-size: 15px;
+  margin: 10px 10px 0 10px;
+}
+
+.limiteUtilizado{
+  font-weight: 300;
+  font-size: 15px;
+  margin: 0 10px 10px 10px;
+}
+
 
 @media screen and (max-width: 600px) {
   .containerCartoes, .cartao{width: 100%;}

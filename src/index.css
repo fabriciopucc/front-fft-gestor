@@ -165,7 +165,57 @@ form h1{
   background-color: rgb(209, 209, 54);
 }
 
+/*Cards*/
+.cardroxo div{
+  background-color: var(--primariaClara);
+}
 
+.cardroxo p{
+  color: var(--primaria);
+}
+
+.cardpreto div{
+  background-color: rgb(71, 71, 72, 0.1);
+}
+
+.cardpreto p{
+  color: rgb(71, 71, 72);
+}
+
+.cardazul div{
+  background-color: rgb(3, 108, 228, 0.1);
+}
+
+.cardazul p{
+  color: rgb(3, 108, 228);
+}
+
+.cardvermelho div{
+  background-color: rgb(170, 34, 34, 0.1);
+}
+
+.cardvermelho p{
+  color: rgb(170, 34, 34);
+}
+
+.cardverde div{
+  background-color: rgb(11, 148, 68, 0.1);
+}
+
+.cardverde p{
+  color: rgb(11, 148, 68);
+}
+
+.cardamarelo div{
+  background-color: rgb(209, 209, 54, 0.1);
+}
+
+.cardamarelo p{
+  color: rgb(209, 209, 54);
+}
+
+
+/*Classes gerais*/
 .botaoPositivo{
   background-color: rgb(23, 190, 90);
 }

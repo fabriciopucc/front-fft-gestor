@@ -1,8 +1,12 @@
 import ContainerMolde from "@/components/utils/ContainerMolde";
 import styles from "./Grafico.module.css";
+import iconSetaParaBaixo from '@/assets/icons/iconSetaParaBaixo.svg';
 import { Loader } from "@/components/utils";
+import { useState } from "react";
+import { data } from "react-router-dom";
+import ListaDeEntidade from "@/components/lists/ListaDeEntidade";
 
-export default function Grafico({ dados = [] }) {
+export default function Grafico({dados = [], acoesDeUmDia, indiceDia, setIndiceDia, buscarAcoesDeUmDia}) {
 
   const maiorValor = Math.max(0, ...dados.map((item) => Number(item.gastoTotal) || 0));;
 
@@ -66,10 +70,57 @@ export default function Grafico({ dados = [] }) {
                       index == 0 ? "hoje" :  dia+"/"+mes 
                     }
                   </span>
+
+                  <img 
+                    src={iconSetaParaBaixo} 
+                    alt="Icone seta para baixo" 
+                    className={
+                      styles.iconeSetaParaBaixo+" "+
+                      styles[(valorGastos == 0) && "iconeDesativado"]+" "+
+                      styles[(indiceDia == index) && "iconeInvertido"]
+                    }  
+                    onClick={() => {
+                        if(valorGastos > 0) buscarAcoesDeUmDia(index, item.data);
+                      }
+                    }
+                  />
                 </div>
               );
             })}
           </div>
+
+          {
+            indiceDia >= 0 && (
+             <ListaDeEntidade
+                lista={acoesDeUmDia}
+              >
+                <div className={styles.acoes}>
+                  {
+                    acoesDeUmDia.map((acao) => (
+                      <div
+                        key={acao.codigo} 
+                        className={styles.acaoCategoria}
+                      >
+                        <div className={styles.infoAcaoCategoria}>
+                          <p className={styles.dataAcaoCategoria}>
+                            {acao.categoria}
+                          </p>
+                          
+                          <p className={styles.horarioAcaoCategoria}>
+                            {acao.horario} - {(acao.apelidoCartao) ? "Cartão ".concat(acao.apelidoCartao) : "Saldo em conta"}
+                          </p>
+                        </div>
+
+                        <div className={styles.infoAcaoCategoria}>
+                          <p className={styles.valorAcaoCategoria}>R$ {acao.valor.toFixed(2)}</p>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </ListaDeEntidade>
+            )
+          }
 
           <div className={styles.metricasGrafico}>
             <div>

@@ -88,10 +88,35 @@ const useResumo = () => {
     }
   }
 
+  const [acoesDeUmDia, setAcoesDeUmDia] = useState([]);
+  const [indiceDia, setIndiceDia] = useState(-1);
+
+  const buscarAcoesDeUmDia = (index, data) => {
+    if(indiceDia == index){
+      setIndiceDia(-1);
+    }
+    else{
+      exibirCardLoader();
+      api.post("/resumo/acoesDeUmaData", {
+        codigoUsuario: codigo,
+        data: data
+      })
+      .then((resp) => {
+        setIndiceDia(index);
+        setAcoesDeUmDia(resp.data);
+        esconderCardLoader();
+      })
+      .catch((error) => {
+        tratarErro(error);
+      });
+    }
+  }
+
   return{
     alterarFiltroPeriodo, filtroPeriodo,
     resumo, filtroTipoDeUsoCategoria, setFiltroTipoDeUsoCategoria,
-    buscarAcoesPorCategoriaDeUmUsuario, acoesPorCategoria, exibirAcoes
+    buscarAcoesPorCategoriaDeUmUsuario, acoesPorCategoria, exibirAcoes,
+    acoesDeUmDia, indiceDia, setIndiceDia, buscarAcoesDeUmDia
   };
 }
 

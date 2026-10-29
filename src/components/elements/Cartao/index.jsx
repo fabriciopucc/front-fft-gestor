@@ -78,6 +78,23 @@ export default function Cartao({cartao, visibilidadeAlterarLimite, setVisibilida
         </span>
       </div>
 
+      <div className={styles.metricas+" card"+[cartao.cor]}>
+        <div className={styles.metricasCredito}>
+          <p>Fechadas</p>
+          <h1 className={styles.limiteUtilizado}>R$ {(cartao.limiteFechadoUtilizado).toFixed(2)}</h1>
+        </div>
+
+        <div className={styles.metricasCredito}>
+          <p>Atual</p>
+          <h1 className={styles.limiteUtilizado}>R$ {(cartao.limiteAtualUtilizado).toFixed(2)}</h1>
+        </div>
+
+        <div className={styles.metricasCredito}>
+          <p>Futuras</p>
+          <h1 className={styles.limiteUtilizado}>R$ {(cartao.limiteFuturoUtilizado).toFixed(2)}</h1>
+        </div>
+      </div>
+
       {
         visibilidadeAlterarLimite ? (
           <AlterarLimiteForm

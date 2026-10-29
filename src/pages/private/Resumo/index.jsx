@@ -17,7 +17,8 @@ export default function Resumo(){
     alterarFiltroPeriodo, filtroPeriodo,
     resumo,
     acoesPorCategoria, exibirAcoes,
-    buscarAcoesPorCategoriaDeUmUsuario
+    buscarAcoesPorCategoriaDeUmUsuario,
+    acoesDeUmDia, indiceDia, setIndiceDia, buscarAcoesDeUmDia
   } = useResumo();
 
   const listaGastosPorCategoriaNoSaldo = [
@@ -54,6 +55,10 @@ export default function Resumo(){
 
             <Grafico
               dados={gastosNosUltimos7Dias}
+              acoesDeUmDia={acoesDeUmDia}
+              indiceDia={indiceDia}
+              setIndiceDia={setIndiceDia}
+              buscarAcoesDeUmDia={buscarAcoesDeUmDia}
             />
 
             <ListaGastosPorCategoriaNoSaldo

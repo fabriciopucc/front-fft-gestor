@@ -64,6 +64,20 @@ const useCartoes = () => {
     });
   }
 
+  const listarCartoesDeUmUsuarioComLimitesFechadosEFuturos = () => {
+    setCarregando(true);
+    api.get("/cartao/cartoesDeUmUsuario/limitesFechadosEFuturos/".concat(codigo))
+    .then((resp) => {
+      setCartoes(resp.data);
+    })
+    .catch((error) => {
+      tratarErro(error);
+    })
+    .finally(() => {
+      setCarregando(false);
+    });
+  }
+
   const listarCartoesDeUmUsuarioSemLoading = () => {
     api.get("/cartao/cartoesDeUmUsuario/".concat(codigo))
     .then((resp) => {
@@ -77,8 +91,11 @@ const useCartoes = () => {
   useEffect(() => {
     let caminho = location.pathname.split("/")[1];
 
-    if(["cartoes", "adicionarAcao", "despesas"].includes(caminho)){
+    if(["adicionarAcao", "despesas"].includes(caminho)){
       listarCartoesDeUmUsuario();
+    }
+     else if(["cartoes"].includes(caminho)){
+      listarCartoesDeUmUsuarioComLimitesFechadosEFuturos();
     }
     else if(["despesas"].includes(caminho)){
       listarCartoesDeUmUsuarioSemLoading();

@@ -34,16 +34,10 @@
   justify-content: space-between;
 }
 
-.cabecalhoMetricas select{
-  width: 30%;
-  margin: 0;
-  padding: 0 10px;
-}
-
 .valorTotal{
   font-weight: 400;
   color: #5a5a5a;
-  margin: 0;
+  margin: 0 0 -10px 0;
 }
 
 .metricasDespesas span{

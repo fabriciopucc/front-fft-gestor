@@ -3,6 +3,7 @@ import styles from './Fatura.module.css';
 import Container from "@/components/layout/Container";
 import HeaderVoltar from "@/components/layout/HeaderVoltar";
 import ListaDeEntidade from '@/components/lists/ListaDeEntidade';
+import BarraProgresso from '@/components/utils/BarraProgresso';
 import ContainerMolde from '@/components/utils/ContainerMolde';
 import categoriasIcons from '@/constants/categoriasIcons';
 
@@ -25,6 +26,14 @@ export default function Fatura(){
         ? !compra.quitado
         : compra.quitado
   });
+
+
+  let totalCompras = compras
+    .reduce((soma, compra) => soma + compra.valor, 0);
+
+  const totalPagas = compras
+    .filter(compra => compra.quitado)
+    .reduce((soma, compra) => soma + compra.valor, 0);
 
   return(
     <Container>
@@ -124,6 +133,30 @@ export default function Fatura(){
               <div
                 className={styles.margemContainerCompras}
               >
+                <div className={styles.metricasFatura}>
+                  <div className={styles.cabecalhoMetricas}>
+                    <h1 className={styles.valorTotal}>R$ {totalCompras.toFixed(2)}</h1>
+                  </div>
+  
+                  <BarraProgresso
+                    maximo={totalCompras}
+                    inicial={totalPagas}
+                    compararValores={true}
+                  />
+                  
+                  <div className={styles.totais}>
+                    <span>
+                      <div className={styles.indicador}></div>
+                      R$ {totalPagas.toFixed(2)}
+                    </span>
+  
+                    <span>
+                      <div className={styles.indicador2}></div>
+                      R$ {(totalCompras - totalPagas).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+
                 {
                   comprasFiltradas
                   .slice().reverse()

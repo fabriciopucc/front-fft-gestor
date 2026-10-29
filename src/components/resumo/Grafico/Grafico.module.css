@@ -131,3 +131,53 @@
   text-align: left;
   margin: -10px 0 0 0;
 }
+
+.iconeSetaParaBaixo{
+  width: 15px;
+  margin: 5px 0 10px 0;
+  cursor: pointer;
+}
+
+.iconeDesativado{
+  cursor: initial;
+  filter:invert(75%);
+}
+
+.iconeInvertido{
+ transform: rotate(180deg);
+}
+
+.acoes{
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--primariaClara);
+  border-radius: 10px;
+}
+
+.acaoCategoria{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 0 0;
+}
+
+.acaoCategoria:nth-child(1){
+  margin-top: 0;
+}
+
+.infoAcaoCategoria p{
+  margin: 0;
+}
+
+.dataAcaoCategoria, .valorAcaoCategoria{
+  font-size: 15px;
+  color: #282828;
+}
+
+.horarioAcaoCategoria{
+  font-size: 12px;
+}
