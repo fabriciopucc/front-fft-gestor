@@ -18,7 +18,7 @@ export default function Resumo(){
     resumo,
     acoesPorCategoria, exibirAcoes,
     buscarAcoesPorCategoriaDeUmUsuario,
-    acoesDeUmDia, indiceDia, setIndiceDia, buscarAcoesDeUmDia
+    acoesDeUmDia, indiceDia, buscarAcoesDeUmDia
   } = useResumo();
 
   const listaGastosPorCategoriaNoSaldo = [
@@ -46,6 +46,7 @@ export default function Resumo(){
     <Container centralizar={true}>
       <HeaderVoltar
         destino={"/menu"}
+        tituloPagina={"Resumo"}
       />
 
       {
@@ -57,7 +58,6 @@ export default function Resumo(){
               dados={gastosNosUltimos7Dias}
               acoesDeUmDia={acoesDeUmDia}
               indiceDia={indiceDia}
-              setIndiceDia={setIndiceDia}
               buscarAcoesDeUmDia={buscarAcoesDeUmDia}
             />
 

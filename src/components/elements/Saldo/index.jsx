@@ -64,9 +64,9 @@ export default function Saldo() {
                         />
 
                         <p className={styles.textoRodapeCredito}>
-                          {((saldo.totalLimiteUtilizado/saldo.totalLimiteTotal)*100).toFixed(2)}% total utilizado
+                          Total utilizado: {((saldo.totalLimiteUtilizado/saldo.totalLimiteTotal)*100).toFixed(2)}%
                           <br />
-                          R$ {(saldo.totalLimiteTotal - saldo.totalLimiteUtilizado).toFixed(2)} disponível
+                          Total disponível: R$ {(saldo.totalLimiteTotal - saldo.totalLimiteUtilizado).toFixed(2)}
                         </p>
                       </div>
                     )

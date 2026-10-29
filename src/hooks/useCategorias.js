@@ -56,7 +56,9 @@ const useCategorias = () => {
       }
     )
     .then((resp) => {
-      setCategorias(resp.data);
+      setCategorias((categoriasAtuais) => 
+        [...categoriasAtuais, resp.data]
+      );
       esconderCardLoader();
       exibirMessageBox("", false, "Categoria cadastrada com suceso!", "Prosseguir");
       setCategoria({

@@ -54,7 +54,8 @@ const useDespesas = () => {
     api.post("/despesa", 
       {...despesa, 
         codigoUsuario: codigo
-      })
+      }
+    )
     .then((resp) => {
       setDespesas(resp.data);
       esconderCardLoader();

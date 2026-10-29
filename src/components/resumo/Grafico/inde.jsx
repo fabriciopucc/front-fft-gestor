@@ -6,7 +6,7 @@ import { useState } from "react";
 import { data } from "react-router-dom";
 import ListaDeEntidade from "@/components/lists/ListaDeEntidade";
 
-export default function Grafico({dados = [], acoesDeUmDia, indiceDia, setIndiceDia, buscarAcoesDeUmDia}) {
+export default function Grafico({dados = [], acoesDeUmDia, indiceDia, buscarAcoesDeUmDia}) {
 
   const maiorValor = Math.max(0, ...dados.map((item) => Number(item.gastoTotal) || 0));;
 
@@ -41,7 +41,7 @@ export default function Grafico({dados = [], acoesDeUmDia, indiceDia, setIndiceD
 
               return (
                 <div className={styles.coluna} key={item.data}>
-                  <span className={styles.valor}>
+                  <span className={styles.valor+" "+styles[(maiorValor > 0 && maiorValor == valorGastos) && "maiorValor"]}>
                     {valorGastos.toFixed(2)}
                   </span>
 
@@ -53,16 +53,12 @@ export default function Grafico({dados = [], acoesDeUmDia, indiceDia, setIndiceD
                     <div
                       className={styles.torre}
                       style={{ height: `${alturaGastos}%` }}
-                    >
-                      {((valorGastos - valorDespesas) > 0 && valorDespesas > 0) && (valorGastos - valorDespesas)}
-                    </div>
+                    ></div>
 
                     <div
                       className={styles.torre2}
                       style={{ height: `${alturaGastosComDespesas}%` }}
-                    >
-                      {((valorGastos - valorDespesas) > 0 && valorDespesas > 0) && valorDespesas}
-                    </div>
+                    ></div>
                   </div>
 
                   <span className={styles.data}>

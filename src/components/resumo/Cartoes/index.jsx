@@ -5,7 +5,6 @@ import ContainerMolde from '@/components/utils/ContainerMolde';
 
 export default function Cartoes({listaCartoes}){
 
-
   return(
     <ContainerMolde>
       <div className={styles.cartoes}>

@@ -38,12 +38,14 @@ const useCartoes = () => {
     api.post("/cartao/paraUsuario", {...cartao, 
       codigoUsuario: codigo
     })
-    .then(() => {
-      esconderCardLoader();
-      listarCartoesDeUmUsuario();
+    .then((resp) => {
+      setCartoes((cartoesAtuais) => 
+        [...cartoesAtuais, resp.data]
+      );
       atualizarSaldo();
       exibirMessageBox("", true, "Cartão cadastrado com sucesso!", "Prosseguir");
       setCartao({});
+      esconderCardLoader();
     })
     .catch((error) => {
       tratarErro(error);

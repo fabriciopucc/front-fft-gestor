@@ -42,12 +42,21 @@
   min-width: 0;
 }
 
-.valor {
+.valor, .data{
+  margin: 0 0 8px 0;
   font-size: 11px;
-  font-weight: 500;
-  margin-bottom: 8px;
+  color: #888;
+  white-space: nowrap;
   text-align: center;
-  color: var(--text-color, #000);
+}
+
+.data{
+  margin: 8px 0 0 0;
+}
+
+.maiorValor{
+  color: #000;
+  font-weight: 500;
 }
 
 .areaTorre {
@@ -67,25 +76,13 @@
   min-height: 0;
   background: var(--primaria);
   transition: height 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ebebeb;
-  font-size: 10px;
 }
 
 .torre2{
   background-color: var(--itemNegativo);
 }
 
-.data {
-  margin-top: 8px;
-  font-size: 11px;
-  color: #888;
-  white-space: nowrap;
-  text-align: center;
-}
-
+/*Métricas*/
 .metricasGrafico{
   width: 100%;
   margin-top: 20px;
@@ -147,6 +144,7 @@
  transform: rotate(180deg);
 }
 
+/*Ações*/
 .acoes{
   width: 100%;
   padding: 10px 0;
